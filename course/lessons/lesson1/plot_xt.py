@@ -85,5 +85,10 @@ import matplotlib.pyplot as plt
 # and I have booked in her in for a Friends of Tracking video during the autumn,
 # so there will be a chance to hear more about her story soon)
 
+import numpy as np
+
+a=np.array([1])
+
 fig, ax = plt.subplots()
 plt.show()
+
