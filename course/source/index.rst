@@ -27,7 +27,9 @@ Contents
    :maxdepth: 1
    :caption: Lesson 1:
 
-   gallery/lesson1/plot_xt
+   gallery/lesson1/plot_PlottingShots
+   gallery/lesson1/plot_PlottingPasses
+   gallery/lesson1/plot_PassHeatMap
 
 .. toctree::
    :maxdepth: 1
@@ -35,3 +37,11 @@ Contents
 
    gallery/lesson2/plot_pitches
    gallery/lesson2/plot_radar
+
+
+.. toctree::
+   :maxdepth: 1
+   :caption: Lesson X:
+
+   gallery/lessonX/plot_xt
+

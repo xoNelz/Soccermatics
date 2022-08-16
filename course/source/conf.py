@@ -32,8 +32,10 @@ sphinx_gallery_conf = {
 	'image_scrapers': ('matplotlib'),
     'matplotlib_animations': True,
 	'within_subsection_order': ExampleTitleSortKey,
-    'subsection_order': ExplicitOrder(['../lessons/lesson1',
+    'subsection_order': ExplicitOrder(['../lessons/getting started',
+                                       '../lessons/lesson1',
                                        '../lessons/lesson2',
+                                       '../lessons/lessonX',
                                        ])}
 
 # -- Options for HTML output -------------------------------------------------
