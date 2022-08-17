@@ -24,3 +24,5 @@ dependencies:
       - kloppy
       - mplsoccer
       - sphinxcontrib-youtube
+      - myst-parser
+
