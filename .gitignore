@@ -133,3 +133,7 @@ course/build/
 course/source/_static/
 course/source/_templates/
 course/source/gallery/
+
+#data
+Statsbomb/
+Wyscout/

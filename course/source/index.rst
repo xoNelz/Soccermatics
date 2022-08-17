@@ -19,9 +19,9 @@ Contents
 
 .. toctree::
    :maxdepth: 1
-   :caption: Course intro:
+   :caption: Getting started:
 
-   course_overview
+   gettingstarted.md
 
 .. toctree::
    :maxdepth: 1

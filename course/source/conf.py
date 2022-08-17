@@ -20,7 +20,14 @@ author = 'Andrew Rowlinson'
 extensions = ['sphinx.ext.mathjax',
               'sphinx_gallery.gen_gallery',
               'sphinxcontrib.youtube',
+              'myst_parser'
               ]
+
+source_suffix = {
+    '.rst': 'restructuredtext',
+    '.txt': 'markdown',
+    '.md': 'markdown',
+}
 
 templates_path = ['_templates']
 exclude_patterns = []
@@ -32,7 +39,7 @@ sphinx_gallery_conf = {
 	'image_scrapers': ('matplotlib'),
     'matplotlib_animations': True,
 	'within_subsection_order': ExampleTitleSortKey,
-    'subsection_order': ExplicitOrder(['../lessons/getting started',
+    'subsection_order': ExplicitOrder(['../lessons/gettingstarted',
                                        '../lessons/lesson1',
                                        '../lessons/lesson2',
                                        '../lessons/lessonX',
