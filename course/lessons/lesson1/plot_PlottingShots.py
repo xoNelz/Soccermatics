@@ -1,8 +1,10 @@
-""""
-Hello
 """
-#Make a shot map and a pass map using Statsbomb data
-#Set match id in match_id_required.
+Plotting shots
+===========================
+
+Make a shot map and a pass map using Statsbomb data
+Set match id in match_id_required.
+"""
 
 #Function to draw the pitch
 import matplotlib.pyplot as plt
@@ -21,7 +23,7 @@ file_name=str(match_id_required)+'.json'
 
 #Load in all match events 
 import json
-with open('Statsbomb/data/events/'+file_name) as data_file:
+with open('../../../Statsbomb/data/events/'+file_name) as data_file:
     #print (mypath+'events/'+file)
     data = json.load(data_file)
 

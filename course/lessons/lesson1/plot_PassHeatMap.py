@@ -1,3 +1,11 @@
+"""
+Pass heat maps
+===========================
+
+Make a shot map and a pass map using Statsbomb data
+Set match id in match_id_required.
+"""
+
 #TO DO ALEKSANDER: MAKE CODE MPL SOCCER COMPATIBLE.
 #CORRECT FOR A SIMPLICATION I MADE FOR FIRST AND SECOND HALF.
 #ALSO LOOK FOR PROBLEMS IN GENERAL
@@ -27,7 +35,7 @@ team_required ="England Women's"
 #Get the list of matches
 competition_id=72
 #Load the list of matches for this competition
-with open('Statsbomb/data/matches/'+str(competition_id)+'/30.json') as f:
+with open('../../../Statsbomb/data/matches/'+str(competition_id)+'/30.json') as f:
     matches = json.load(f)
 
 #Find the matches they played
@@ -44,7 +52,7 @@ for ic,match_id in enumerate(match_id_required):
     #Load in all match events 
 
     file_name=str(match_id)+'.json'
-    with open('Statsbomb/data/events/'+file_name) as data_file:
+    with open('../../../Statsbomb/data/events/'+file_name) as data_file:
         data = json.load(data_file)
     df = json_normalize(data, sep = "_").assign(match_id = file_name[:-5])
     team_actions = (df['team_name']==team_required)
@@ -102,7 +110,6 @@ for i,thepass in passes.iterrows():
 
 ax.set_title('Danger passes by ' + team_required)
 fig.set_size_inches(10, 7)
-fig.savefig('Output/PassesBy' + team_required + '.pdf', dpi=100) 
 plt.show()
 
 #Make x,y positions
@@ -125,8 +132,6 @@ plt.ylim((83,-3))
 plt.tight_layout()
 plt.gca().set_aspect('equal', adjustable='box')
 plt.show()
-
-fig.savefig('Output/HeatmapOfPasses' + team_required + '.pdf', dpi=None, bbox_inches="tight") 
 
 
 #Make a diagram showing which player was involved in dangerous passes.
