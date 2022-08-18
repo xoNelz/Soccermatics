@@ -1,3 +1,10 @@
+"""
+Plotting passes
+==============
+
+Making a pass map using Statsbomb data
+"""
+
 import matplotlib.pyplot as plt
 import numpy as np
 from pandas.io.json import json_normalize

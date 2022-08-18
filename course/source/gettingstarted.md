@@ -15,9 +15,15 @@ the data you should get your hands on for the
 first part of the course. 
 
 ##############################################################################
-..  youtube:: FZ_XTfezCH4
-   :width: 375
-   :height: 210
+<iframe
+    width="640"
+    height="480"
+    src="https://www.youtube.com/embed/FZ_XTfezCH4"
+    frameborder="0"
+    allow="autoplay; encrypted-media"
+    allowfullscreen
+>
+</iframe>
 
 This uses a slightly older version of Spyder than I currently use. 
 
@@ -26,7 +32,7 @@ This uses a slightly older version of Spyder than I currently use.
 - Orientate yourself within Spyder for Python
 - A "hello world" example.
 - What to do if you are feeling stuck?
-- Learn the art of "copy and paste" programming (using https://fcpython.com/) 
+- Learn the art of "copy and paste" programming (using [FCPython](https://fcpython.com/))
 - Downloading [Statsbomb data](https://github.com/statsbomb/open-data).
 - Downloading [Wyscout data](Links to an external site.).
 

@@ -1,9 +1,11 @@
-# -*- coding: utf-8 -*-
 """
-Created on Wed Aug 17 15:52:04 2022
+Plotting pass network
+=====================
 
-@author: aleks
+Making a pass network
 """
+# -*- coding: utf-8 -*-
+
 import matplotlib.pyplot as plt
 import numpy as np
 from mplsoccer import Pitch, Sbopen

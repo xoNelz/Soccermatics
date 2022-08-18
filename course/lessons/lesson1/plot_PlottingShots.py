@@ -1,7 +1,10 @@
-""""
-Hello
 """
-#Make a shot map and a pass map using Statsbomb data
+Plotting shots
+==============
+
+Making a shot map ausing Statsbomb data
+"""
+#
 #Set match id in match_id_required.
 
 #Function to draw the pitch
