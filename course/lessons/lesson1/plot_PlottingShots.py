@@ -1,10 +1,8 @@
+""""
+Hello
 """
-Plotting shots
-===========================
-
-Make a shot map and a pass map using Statsbomb data
-Set match id in match_id_required.
-"""
+#Make a shot map and a pass map using Statsbomb data
+#Set match id in match_id_required.
 
 #Function to draw the pitch
 import matplotlib.pyplot as plt
@@ -22,15 +20,8 @@ away_team_required ="Sweden Women's"
 file_name=str(match_id_required)+'.json'
 
 #Load in all match events 
-import json
-with open('../../../Statsbomb/data/events/'+file_name) as data_file:
-    #print (mypath+'events/'+file)
-    data = json.load(data_file)
-
-#get the nested structure into a dataframe 
-#store the dataframe in a dictionary with the match id as key (remove '.json' from string)
-from pandas.io.json import json_normalize
-df = json_normalize(data, sep = "_").assign(match_id = file_name[:-5])
+parser = Sbopen()
+df, related, freeze, tactics = parser.event(69301)
 
 #A dataframe of shots
 shots = df.loc[df['type_name'] == 'Shot'].set_index('id')
@@ -51,10 +42,10 @@ fig, ax = pitch.draw(figsize=(10, 7))
 
 #Plot the shots by looping through them.
 for i,shot in shots.iterrows():
-    x=shot['location'][0]
-    y=shot['location'][1]
+    x=shot['x']
+    y=shot['y']
     
-    goal=shot['shot_outcome_name']=='Goal'
+    goal=shot['outcome_name']=='Goal'
     team_name=shot['team_name']
     
     circleSize=2
@@ -88,11 +79,9 @@ plt.show()
 # Useful links
 # https://mplsoccer.readthedocs.io/en/latest/gallery/pitch_setup/plot_pitches.html
 # https://mplsoccer.readthedocs.io/en/latest/gallery/pitch_setup/plot_compare_pitches.html
-parser = Sbopen()
-df, related, freeze, tactics = parser.event(69301)
 
 #create pitch - let's explore more options using mplsoccer than black and white pitch
-pitch = Pitch(pitch_color='grass', line_color='white', stripe=True)
+pitch = Pitch(line_color='black')
 fig, ax = pitch.grid(grid_height=0.9, title_height=0.06, axis=False,
                      endnote_height=0.04, title_space=0, endnote_space=0)
 
@@ -132,7 +121,7 @@ plt.show()
 
 #Note that using pitch.scatter we could have plotted all shots using one line, however, since name of a player and alpha differs if goal was scored, it was more convenient to loop through a small loop.
 #Showing it using VerticalPitch for England, half = True plots only one half of the pitch, nice option if you are plotting shots
-pitch = VerticalPitch(pitch_color='grass', line_color='white', stripe=True, half = True)
+pitch = VerticalPitch(line_color='black', half = True)
 fig, ax = pitch.grid(grid_height=0.9, title_height=0.06, axis=False,
                      endnote_height=0.04, title_space=0, endnote_space=0)
 #plotting all shots
