@@ -2,144 +2,137 @@
 Pass heat maps
 ===========================
 
-Make a shot map and a pass map using Statsbomb data
-Set match id in match_id_required.
+Make a heat map of all teams passes during a tournament.
+We set a window for danger passes to be those in 15 seconds leading up to a shot.
 """
 
-#TO DO ALEKSANDER: MAKE CODE MPL SOCCER COMPATIBLE.
-#CORRECT FOR A SIMPLICATION I MADE FOR FIRST AND SECOND HALF.
-#ALSO LOOK FOR PROBLEMS IN GENERAL
-#OPEN TO IMPROVING CODE.
-
-
-
-#Make a heat map of all teams passes during a tournament.
-# We set a window for danger passes to be those in 15 minutes leading up to a shot.
-
 import matplotlib.pyplot as plt
-import numpy as np
-from pandas.io.json import json_normalize
-from FCPython import createPitch
-import json
+from mplsoccer import Pitch, Sbopen, VerticalPitch
+import pandas as pd
 
-#Size of the pitch in yards (!!!)
-pitchLengthX=120
-pitchWidthY=80
+##############################################################################
+# Opening the dataset
+# ----------------------------
+# At first we have to open the data. To do this we use a parser SBopen available in mplsoccer. 
+# Using method *match* and putting the id of the season and competition
+# To get games by England Women's team we need to filter them in a dataframe - if they played as a home or away team.
+# We als calculate number of games to normalize the diagrams later on
 
-#The team we are interested in
-#team_required ="United States Women's"
-team_required ="England Women's"
-#team_required ="Sweden Women's"
-#team_required ="Germany Women's"
+#open the data
+parser = Sbopen()
+df_match = parser.match(competition_id=72, season_id=30)
+#our team
+team = "England Women's"
+#get list of games by our team, either home or away
+match_ids = df_match.loc[(df_match["home_team_name"] == team) | (df_match["away_team_name"] == team)]["match_id"].tolist()
+#calculater number of games
+no_games = len(match_ids)
 
-#Get the list of matches
-competition_id=72
-#Load the list of matches for this competition
-with open('../../../Statsbomb/data/matches/'+str(competition_id)+'/30.json') as f:
-    matches = json.load(f)
+##############################################################################
+# Finding danger passes
+# ----------------------------
+# First, for each game using mplsoccer parser we open the event data. Note that we use the [0] to store only event data. 
+# Then, for each period in the game we take out shots by England and accurate passes by England that were not set pieces.
+# We look for the passes 15 seconds before a shot. That is why we iterate for different periods. If a shot was made in 46th minute
+# and there were 3 additional minutes in the first half, we would include those passes. Having the danger passes we concatenate them 
+# with a pandas dataframe to store danger passes from all games 
 
-#Find the matches they played
-match_id_required=[]
-for match in matches:
-    home_team_name=match['home_team']['home_team_name']
-    away_team_name=match['away_team']['away_team_name']
-    if (home_team_name==team_required) or (away_team_name==team_required):
-        match_id_required.append(match['match_id'])
-    
-#Find the passes for each match
-for ic,match_id in enumerate(match_id_required):
-    
-    #Load in all match events 
+#declaere an empty dataframe
+danger_passes = pd.DataFrame()
+for idx in match_ids:
+    #open the event data from this game 
+    df = parser.event(idx)[0]
+    for period in [1, 2]:
+        #keep only accurate passes by England that were not set pieces in this period
+        mask_pass = (df.team_name == team) & (df.type_name == "Pass") & (df.outcome_name.isnull()) & (df.period == period) & (df.sub_type_name.isnull()) 
+        #keep only necessary columns
+        passes = df.loc[mask_pass, ["x", "y", "end_x", "end_y", "minute", "second", "player_name"]]
+        #keep only Shots by England in this period
+        mask_shot = (df.team_name == team) & (df.type_name == "Shot") & (df.period == period)
+        #keep only necessary columns
+        shots = df.loc[mask_shot, ["minute", "second"]]
+        #convert time to seconds
+        shot_times = shots['minute']*60+shots['second']
+        shot_window = 15  
+        #find starts of the window
+        shot_start = shot_times - shot_window
+        #condition to avoid negative shot starts
+        shot_start = shot_start.apply(lambda i: i if i>0 else (period-1)*45)
+        #convert to seconds
+        pass_times = passes['minute']*60+passes['second']
+        #check if pass is in any of the windows for this half
+        pass_to_shot = pass_times.apply(lambda x: True in ((shot_start < x) & (x < shot_times)).unique())
+        
+        #keep only danger passes
+        danger_passes_period = passes.loc[pass_to_shot]
+        #concatenate dataframe with a previous one to keep danger passes from the whole tournament
+        danger_passes = pd.concat([danger_passes, danger_passes_period])
 
-    file_name=str(match_id)+'.json'
-    with open('../../../Statsbomb/data/events/'+file_name) as data_file:
-        data = json.load(data_file)
-    df = json_normalize(data, sep = "_").assign(match_id = file_name[:-5])
-    team_actions = (df['team_name']==team_required)
-    df = df[team_actions]
-    
-    #A dataframe of passes
-    passes_match = df.loc[df['type_name'] == 'Pass'].set_index('id')
-    #A dataframe of shots
-    shots_match = df.loc[df['type_name'] == 'Shot'].set_index('id')
-    
-    #Find shot times in seconds
-    #This should be adjusted to account for overlapping halves of the match. ALEKSANDER
-    shot_times = shots_match['minute']*60+shots_match['second']
-    shot_window = 15  
-    shot_start = shot_times - shot_window
-    pass_times = passes_match['minute']*60+passes_match['second']
-    
-    #Check with passes are whitin [shot_window] seconds of a shot
-    #Idea from this code came from https://stackoverflow.com/questions/38201057/efficiently-check-if-value-is-present-in-any-of-given-ranges
-    def in_range(pass_time,start,finish):
-        return (True in ((start < pass_time) & (pass_time < finish)).unique())
+##############################################################################
+# Plotting location of danger passes
+# ----------------------------
+# First, we create a pitch using mplsoccer *Pitch* class. Then we scatter them using scatter method. 
+# If you want to investigate the direction of passes, uncomment a line below!
 
-    pass_to_shot = pass_times.apply(lambda x: in_range(x,shot_start,shot_times))
-    
-    #Exclude corners
-    iscorner = passes_match['pass_type_name']=='Corner'
-    
-    danger_passes=passes_match[np.logical_and(pass_to_shot,np.logical_not(iscorner))]
-    
-    if ic==0:
-        passes =  danger_passes
-    else:
-        passes = passes.append(danger_passes)
-
-    
-    
-    print('Match: ' + str(match_id) + '. Number of danger passes is: ' + str(len(danger_passes)))
-
-
-#Set number of matches
-number_of_matches=ic+1
-
-#Size of the pitch in yards (!!!)
-pitchLengthX=120
-pitchWidthY=80
-
-#Plot the passes
-(fig,ax) = createPitch(pitchLengthX,pitchWidthY,'yards','gray')
-for i,thepass in passes.iterrows():
-    x=thepass['location'][0]
-    y=pitchWidthY-thepass['location'][1]
-    passCircle=plt.Circle((x,y),1,color="blue")      
-    passCircle.set_alpha(.2)   
-    ax.add_patch(passCircle)
-
-ax.set_title('Danger passes by ' + team_required)
-fig.set_size_inches(10, 7)
+#plot pitch
+pitch = Pitch(line_color='black')
+fig, ax = pitch.grid(grid_height=0.9, title_height=0.06, axis=False,
+                     endnote_height=0.04, title_space=0, endnote_space=0)
+#scatter the location on the pitch
+pitch.scatter(danger_passes.x, danger_passes.y, s=100, color='blue', edgecolors='grey', linewidth=1, alpha=0.2, ax=ax["pitch"])
+#uncomment it to plot arrows
+#pitch.arrows(danger_passes.x, danger_passes.y, danger_passes.end_x, danger_passes.end_y, color = "blue", ax=ax['pitch'])
+#add title
+fig.suptitle('Location of danger passes by ' + team, fontsize = 30)
 plt.show()
 
-#Make x,y positions
-x=[]
-y=[]
-for i,apass in passes.iterrows():
-    x.append(apass['location'][0])
-    y.append(pitchWidthY-apass['location'][1])
+##############################################################################
+# Making a heat map
+# ----------------------------
+# To make a heat map, first, we draw a pitch. Then we calculate the number of passes in each bin using *bin_statistic* method.
+# Then, we normalize number of passes by number of games. We plot a heat map and then, we make a legend. As the last step we add 
+# the title. 
 
-#Make a histogram of passes
-H_Pass=np.histogram2d(y, x,bins=5,range=[[0, pitchWidthY],[0, pitchLengthX]])
-
-from FCPython import createPitch
-(fig,ax) = createPitch(pitchLengthX,pitchWidthY,'yards','gray')
-pos=ax.imshow(H_Pass[0]/number_of_matches, extent=[0,120,0,80], aspect='auto',cmap=plt.cm.Reds)
-fig.colorbar(pos, ax=ax)
-#ax.set_title('Danger passes per match by ' + team_required)
-plt.xlim((-1,121))
-plt.ylim((83,-3))
-plt.tight_layout()
-plt.gca().set_aspect('equal', adjustable='box')
+#plot vertical pitch
+pitch = VerticalPitch(line_zorder=2, line_color='black')
+fig, ax = pitch.grid(grid_height=0.9, title_height=0.06, axis=False,
+                     endnote_height=0.04, title_space=0, endnote_space=0)
+#get the 2D histogram 
+bin_statistic = pitch.bin_statistic(danger_passes.x, danger_passes.y, statistic='count', bins=(6, 5), normalize=False)
+#normalize by number of games
+bin_statistic["statistic"] = bin_statistic["statistic"]/no_games
+#make a heatmap
+pcm  = pitch.heatmap(bin_statistic, cmap='Reds', edgecolor='grey', ax=ax['pitch'])
+#legend to our plot
+ax_cbar = fig.add_axes((1, 0.093, 0.03, 0.786))
+cbar = plt.colorbar(pcm, cax=ax_cbar)
+fig.suptitle('Danger passes by ' + team + " per game", fontsize = 30)
 plt.show()
 
 
-#Make a diagram showing which player was involved in dangerous passes.
-#Extend this to count in how many of the attacks she is involved.
-passes.player_name.value_counts()
+##############################################################################
+# Making a diagram of most involved players
+# ----------------------------
+# To find out who was the most involved in dnager passes, we keep only surnames of players to make the vizualisation clearer.
+# Then, we group the passes by the player and count them. Also, we divide them by number of games to keep the diagram per game.
+# As the last step, we make the legend to our diagram 
 
-    
-#Challenge: improve so that only high xG (>0.07) are included.
+#keep only surnames
+danger_passes["player_name"] = danger_passes["player_name"].apply(lambda x: str(x).split()[-1])
+#count passes by player and normalize them
+pass_count = danger_passes.groupby(["player_name"]).x.count()/no_games
+#make a histogram
+ax = pass_count.plot.bar(pass_count, rot = 90)
+#make legend
+ax.set_xlabel("")
+ax.set_ylabel("Number of danger passes per game")
+plt.show()
+
+##############################################################################
+# Challenge
+# ----------------------------
+# 1) Improve so that only high xG (>0.07) are included!
+# 2) Make a heat map only for Sweden's player (Sweden Women's) who was the most involved in danger passes!
 
 
     
