@@ -120,7 +120,7 @@ my book
 We will often return to the book for
 inspiration, like the opening the paragraph of the book below,
 
-.. image:: SoccermaticsIntro.png
+.. image:: images/SoccermaticsIntro.png
 
 But we will also go further than the book. Indeed, the reason
 I have created these pages is **to teach the maths behind
@@ -151,17 +151,26 @@ Contents
    :maxdepth: 1
    :caption: Lesson 1:
 
+   lesson1/VisualisingFootball.md
    gallery/lesson1/plot_PlottingShots
    gallery/lesson1/plot_PlottingPasses
    gallery/lesson1/plot_PassNetworks
+   lesson1/passnetworksExample.md
    gallery/lesson1/plot_PassHeatMap
+   lesson1/heatmapsExample.md
+   lesson1/BallRecoveries.md
 
 .. toctree::
    :maxdepth: 1
    :caption: Lesson 2:
 
-   gallery/lesson2/plot_pitches
-   gallery/lesson2/plot_radar
+   lesson2/statisticalModelsIntro.md
+   gallery/lesson2/plot_LinearRegression
+   lesson2/Possession.md
+   lesson2/introducingExpectedGoals.md
+   gallery/lesson2/plot_xGModelFit
+   gallery/lesson2/plot_MeasuresOfFit
+   lesson2/theStatisticalApproach.md
 
 
 .. toctree::
