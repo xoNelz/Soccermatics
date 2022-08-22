@@ -56,7 +56,8 @@ with applications.**
 Formal Course
 =============
 
-**Students:** This is 5 credit course at Uppsala University and is taught
+**Students:** This is 5 credit course at `Uppsala University
+<https://www.uu.se/en/admissions/freestanding-courses/course/?kKod=1RT001&typ=1>`_  and is taught
 as an online course in late-August to end of October each year.
 It is free for all EU citizens and available as a
 paid course for everyone else. The university includes
@@ -65,11 +66,16 @@ individual hand-ins and group work.
 
 **Professionals:** If you are a part of a footballing
 organisation, then it is possible to take this course as part of
-further education. This course has lower formal requirements for entry, allowing
-your orgnasitaion to benefit from it. Each time the course is run a separate "professionals"
-tutorial session is run, with tutorials with David. We encourage participants
-to work with their own data. In 2022, we have a group of participants from the English FA
-on the course. Please email  if you are interested.
+further education. The professional course has less
+formal requirements for entry, allowing
+your organisitaion to benefit from it. Each time the course is run
+a separate "professionals"
+tutorial session is run, with tutorials with David.
+We encourage participants
+to work with their own data. In 2022, we have a group of
+participants from the English FA
+on the course. Please email David (david.sumpter@it.uu.se)
+if you are interested.
 
 Required Background
 ===================
@@ -82,7 +88,8 @@ There will be starter/refresher Intro to Python programming
 and statistics, but the learning curve will be
 relatively steep for those without this background.
 In short, to do this course
-you should have studied mathematics and programming at University level.
+you should have studied mathematics and programming at
+University level.
 You should also, of course, have an interest in football.
 
 It is possible to grasp the concepts without
@@ -93,8 +100,9 @@ you will learn to plot shot locations on a football pitch.
 History
 =======
 
-This course developed from the Friends of Tracking Youtube
-channel. It was first developed during the Covid-19
+This course developed from the `Friends of Tracking Youtube channel
+<https://www.youtube.com/channel/UCUBFJYcag8j2rm_9HkrrA7w>`_.
+It was recorded during the Covid-19
 lockdown in April/May 2020 by a group of club analysts
 and leading academics. These include lead data
 scientists:
@@ -143,7 +151,7 @@ I have worked with sporting directors, scouts, managers, TV presenters,
 and even players with data analysis. I will bring many of
 those experiences to the course.
 
-.. image:: Me.png
+.. image:: images/Me.png
 
 Buy the T-shirt!
 ================

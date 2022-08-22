@@ -1,10 +1,6 @@
-# course-template
-A template for creating a course with readthedocs.
+# Soccermatics 
 
-# Create the docs locally
-To create the docs run the following commands from the course directory:
+This is the course webpage for Soccermatics: mathematical modelling of football course.
 
-```python
-make clean
-make html
-```
+All code, including code in notebooks, but not including prose and written text, is covered
+under the license below. 
