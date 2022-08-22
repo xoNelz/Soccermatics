@@ -42,7 +42,7 @@ sphinx_gallery_conf = {
     'subsection_order': ExplicitOrder(['../lessons/gettingstarted',
                                        '../lessons/lesson1',
                                        '../lessons/lesson2',
-                                       '../lessons/lessonX',
+                                       '../lessons/lessonX'
                                        ])}
 
 # -- Options for HTML output -------------------------------------------------
