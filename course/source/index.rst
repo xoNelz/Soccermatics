@@ -1,16 +1,14 @@
-.. image:: logo-blue.png
-   :width: 157
+.. image:: images/SoccermaticsLogo.png
+   :width: 800
    :align: center
 
-..  youtube:: MIGQFcVO7-s
-   :width: 368
-   :height: 207
+INTRO VIDEO COMING SOON
 
-What You Will Learn
-===================
+Welcome to Soccermatics
+=======================
 
 This course is the most comprehensive education available
-on how to work with football data and understanding the
+on how to work with football data, and understanding the
 game using mathematics, statistics and machine learning. It is taught by
 Soccermatics author David Sumpter, with guest lectures from world-leading
 practitioners and researchers working with data in football. It
@@ -29,11 +27,8 @@ based on recent work presented at, for example,
 Sloan Sports Analytics and The Opta Forum.
 
 It is also a fun and interesting way to learn mathematical modelling techniques used in
-many areas.
-
-This course isn't the same as a normal maths, statistics or
-machine learning course, where you
-might learn specific techniques. The type of techniques we
+many areas. Indeed, this course isn't the same as a normal maths, statistics or
+machine learning course, where you might learn specific techniques. The type of techniques we
 will use vary alot. We will start with techniques from data
 visualisation, then move on to logistic regression, learn about various
 probability distributions, a bit of geometry and physics, self-propelled particles
@@ -69,10 +64,11 @@ individual hand-ins and group work.
 
 **Professionals:** If you are a part of a footballing
 organisation, then it is possible to take this course as part of
-further education. Each time the course is run a separate "professionals"
+further education. This course has lower formal requirments for entry, allowing
+your orgnasitaion to benefit from it. Each time the course is run a separate "professionals"
 tutorial session is run, with tutorials with David. We encourage participants
-to work with their own data. In 2022, we had a group of participants from the English FA
-on the course. Please email david.sumpter  at it.uu.se if you are interested.
+to work with their own data. In 2022, we have a group of participants from the English FA
+on the course. Please email  if you are interested.
 
 Required Background
 ===================
@@ -106,9 +102,19 @@ William Spearman (Liverpool), Laurie Shaw (Manchester United), Fran Peralta
 (formerly Hammarby, now Atletic Bilbao), Alex Thomas (The English FA), Pascal Bauer (German DFB)
 and many more. We initially made this work available at the `Friends of Tracking Youtube channel
 <https://www.youtube.com/channel/UCUBFJYcag8j2rm_9HkrrA7w>`_.
-This course uses some of those videos and adds further videos and
-course notes.
 
+
+This course uses some of those videos and adds further videos and
+course notes. It was made possible, through the kind help of Andy Rowlinson,
+who both allowed us to use `MPL Soccer
+<https://mplsoccer.readthedocs.io/en/latest/index.html>`_ (a library for plotting event data) and
+helped set-up this website. The code for this course was written by David Sumpter,
+together with Aleksander Andrzejewski (a former student of the course). We use several
+examples in this course from work with `twelve.football
+<https://twelve.football>`_ .
+
+
+.. image:: images/History.png
 
 Soccermatics
 ============
@@ -169,13 +175,7 @@ Contents
    lesson2/Possession.md
    lesson2/introducingExpectedGoals.md
    gallery/lesson2/plot_xGModelFit
-   gallery/lesson2/plot_MeasuresOfFit
    lesson2/theStatisticalApproach.md
 
 
-.. toctree::
-   :maxdepth: 1
-   :caption: Lesson X:
-
-   gallery/lessonX/plot_xt
 

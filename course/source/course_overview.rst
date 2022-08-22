@@ -1,5 +1,5 @@
-.. image:: logo-blue.png
-   :width: 157
+.. image:: images/SoccermaticsLogo.png
+   :width: 300
    :align: center
 
 -----------

@@ -10,9 +10,9 @@ from sphinx_gallery.sorting import ExampleTitleSortKey
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
-project = 'Course Template'
-copyright = '2022, Andrew Rowlinson'
-author = 'Andrew Rowlinson'
+project = 'Soccermatics'
+copyright = '2022, David Sumpter'
+author = 'David Sumpter'
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
@@ -52,6 +52,25 @@ html_theme = 'sphinx_rtd_theme'
 html_static_path = ['_static']
 
 # add logo
-html_logo = "logo.png"
+html_logo = "images/SoccermaticsLogo.png"
 html_theme_options = {'logo_only': True,
                       'display_version': False}
+
+# Options for Markdown  -------------------------------------------------
+# https://myst-parser.readthedocs.io/en/latest/syntax/optional.html
+
+myst_enable_extensions = [
+    "amsmath",
+    "colon_fence",
+    "deflist",
+    "dollarmath",
+    "fieldlist",
+    "html_admonition",
+    "html_image",
+    "replacements",
+    "linkify",
+    "smartquotes",
+    "strikethrough",
+    "substitution",
+    "tasklist"
+]
