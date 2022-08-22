@@ -29,13 +29,14 @@ VIDEO HERE
 ### Key Performance Indices (KPI)
 
 It is important for clubs to develop a culture around Key Performance Indices (KPIs). 
-These should be set by the coaching staff, working together with data scientists, to find 
-an aspects of the game that is measureable and can be communicated in a simple visulaisation. 
-
+These should be set by the coaching staff, working together with data scientists and the 
+clubs management, to find aspects of the team's style of play 
+that is measureable and can be communicated in a clear visualisation. 
 
 Below are a few examples of visualisations of KPIs for Liverpool's last ten games in the Premier League season 2021-22
 using the [twelve.football](https://twelve.football) platform. These are measured over 10 matches (the last 10 of the season). 
-Usually measurements between six and ten matches gives a reliable idea of form.
+Usually measurements between six and ten matches gives a reliable idea of form. We develop KPIs with clubs 
+to match their style of play. 
 
 #### Expected Goals
 

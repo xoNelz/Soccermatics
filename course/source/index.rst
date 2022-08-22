@@ -8,9 +8,10 @@ Welcome to Soccermatics
 =======================
 
 This course is the most comprehensive education available
-on how to work with football data, and understanding the
-game using mathematics, statistics and machine learning. It is taught by
-Soccermatics author David Sumpter, with guest lectures from world-leading
+on how to work with football data. We will learn how to understand the
+game using mathematics, statistics and machine learning.
+
+It is taught by Soccermatics author David Sumpter, with guest lectures from world-leading
 practitioners and researchers working with data in football. It
 offers the technical skills you need to get a job as a data scientist at a
 football club or in the football industry.
@@ -64,7 +65,7 @@ individual hand-ins and group work.
 
 **Professionals:** If you are a part of a footballing
 organisation, then it is possible to take this course as part of
-further education. This course has lower formal requirments for entry, allowing
+further education. This course has lower formal requirements for entry, allowing
 your orgnasitaion to benefit from it. Each time the course is run a separate "professionals"
 tutorial session is run, with tutorials with David. We encourage participants
 to work with their own data. In 2022, we have a group of participants from the English FA
@@ -142,7 +143,19 @@ I have worked with sporting directors, scouts, managers, TV presenters,
 and even players with data analysis. I will bring many of
 those experiences to the course.
 
-.. image:: MeHammarby.png
+.. image:: Me.png
+
+Buy the T-shirt!
+================
+
+If you are studying the course and reading the book, you might as well buy the t-shirt!
+Or get a mug, a water bottle or another Soccermatics themed item.
+
+.. image:: images/BuyMerch.png
+
+These are exclusively available from `Beautiful Equations <https://www.beautifulequation.com/pages/soccermatics>`_
+
+
 
 Contents
 ========
@@ -152,6 +165,7 @@ Contents
    :caption: Getting started:
 
    gettingstarted.md
+
 
 .. toctree::
    :maxdepth: 1
@@ -176,6 +190,7 @@ Contents
    lesson2/introducingExpectedGoals.md
    gallery/lesson2/plot_xGModelFit
    lesson2/theStatisticalApproach.md
+   gallery/lesson2/plot_PassCompare
 
 
 
