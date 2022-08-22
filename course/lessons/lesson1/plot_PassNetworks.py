@@ -124,7 +124,6 @@ for i, row in lines_df.iterrows():
                         alpha=1, lw=line_width, zorder=2, color="red", ax = ax["pitch"])
 
 fig.suptitle("England Passing Network against Sweden", fontsize = 30)
-plt.show()
 
 ##############################################################################
 # Centralisation
