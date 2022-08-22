@@ -36,7 +36,7 @@ df, related, freeze, tactics = parser.event(69301)
 #check for index of first sub
 sub = df.loc[df["type_name"] == "Substitution"].loc[df["team_name"] == "England Women's"].iloc[0]["index"]
 #make df with successfull passes by England until the first substitution
-mask_england = (df.type_name == 'Pass') & (df.team_name == "England Women's") & (df.index < sub) & (df.outcome_name.isnull())
+mask_england = (df.type_name == 'Pass') & (df.team_name == "England Women's") & (df.index < sub) & (df.outcome_name.isnull()) & (df.sub_type_name != "Throw-in")
 #taking necessary columns
 df_pass = df.loc[mask_england, ['x', 'y', 'end_x', 'end_y', "player_name", "pass_recipient_name"]]
 #adjusting that only the surname of a player is presented.
@@ -90,7 +90,6 @@ lines_df = lines_df[lines_df['pass_count']>2]
 # Then, we scatter the vertices using the *scatter_df* we created previously
 # As the next step, we annotate player's surname         
         
-
 #Drawing pitch
 pitch = Pitch(line_color='grey')
 fig, ax = pitch.grid(grid_height=0.9, title_height=0.06, axis=False,
@@ -108,6 +107,7 @@ for i, row in scatter_df.iterrows():
 # Then we adjust the line width so that the more passes between players, the wider the line.
 # As the next step, we plot the lines on the pitch. It is recommended that zorder of edges is lower than zorder of vertices.
 # In the end, we make the title.
+
 for i, row in lines_df.iterrows():
         player1 = row["player_name"]
         player2 = row['pass_recipient_name']
@@ -125,6 +125,31 @@ for i, row in lines_df.iterrows():
 
 fig.suptitle("England Passing Network against Sweden", fontsize = 30)
 plt.show()
+
+##############################################################################
+# Centralisation
+# ----------------------------
+# To calculate the centralisation index we need to calculate number of passes made by each player. 
+# Then, we calculate the denominator - the sum of all passes multiplied by (number of players - 1) -> 10
+# To calculate the nominator we sum the difference between maximal number of successful passes by 1 player
+# and number of successful passes by each player. We calculate the index dividng the nominator by denominator. 
+# For more information see: 
+    
+# * https://soccermatics.medium.com/decentralised-football-is-more-effective-than-focusing-on-one-or-two-players-c197216ac2b8
+
+# * https://www.sciencedirect.com/science/article/pii/S0378873312000500
+
+#calculate number of successful passes by player
+no_passes = df_pass.groupby(['player_name']).x.count().reset_index()
+no_passes.rename({'x':'pass_count'}, axis='columns', inplace=True)
+#find one who made most passes
+max_no = no_passes["pass_count"].max() 
+#calculate the denominator - 10*the total sum of passes
+denominator = 10*no_passes["pass_count"].sum() 
+#calculate the nominator
+nominator = (max_no - no_passes["pass_count"]).sum()
+#calculate the centralisation index
+centralisation_index = nominator/denominator
 
 ##############################################################################
 # Challenge
