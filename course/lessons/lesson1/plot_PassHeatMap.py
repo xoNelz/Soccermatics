@@ -94,7 +94,7 @@ plt.show()
 # the title. 
 
 #plot vertical pitch
-pitch = VerticalPitch(line_zorder=2, line_color='black')
+pitch = Pitch(line_zorder=2, line_color='black')
 fig, ax = pitch.grid(grid_height=0.9, title_height=0.06, axis=False,
                      endnote_height=0.04, title_space=0, endnote_space=0)
 #get the 2D histogram 
