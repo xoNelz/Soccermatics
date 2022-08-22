@@ -100,6 +100,8 @@ pitch.scatter(scatter_df.x, scatter_df.y, s=scatter_df.marker_size, color='red',
 for i, row in scatter_df.iterrows():
     pitch.annotate(row.player_name, xy=(row.x, row.y), c='black', va='center', ha='center', weight = "bold", size=16, ax=ax["pitch"], zorder = 4)
 
+fig.suptitle("Nodes location - England", fontsize = 30)
+
 ##############################################################################
 # Plotting edges
 # ----------------------------
@@ -108,6 +110,14 @@ for i, row in scatter_df.iterrows():
 # As the next step, we plot the lines on the pitch. It is recommended that zorder of edges is lower than zorder of vertices.
 # In the end, we make the title.
 
+#plot once again pitch and vertices
+pitch = Pitch(line_color='grey')
+fig, ax = pitch.grid(grid_height=0.9, title_height=0.06, axis=False,
+                     endnote_height=0.04, title_space=0, endnote_space=0)
+pitch.scatter(scatter_df.x, scatter_df.y, s=scatter_df.marker_size, color='red', edgecolors='grey', linewidth=1, alpha=1, ax=ax["pitch"], zorder = 3)
+for i, row in scatter_df.iterrows():
+    pitch.annotate(row.player_name, xy=(row.x, row.y), c='black', va='center', ha='center', weight = "bold", size=16, ax=ax["pitch"], zorder = 4)
+    
 for i, row in lines_df.iterrows():
         player1 = row["player_name"]
         player2 = row['pass_recipient_name']
@@ -124,6 +134,7 @@ for i, row in lines_df.iterrows():
                         alpha=1, lw=line_width, zorder=2, color="red", ax = ax["pitch"])
 
 fig.suptitle("England Passing Network against Sweden", fontsize = 30)
+plt.show()
 
 ##############################################################################
 # Centralisation
