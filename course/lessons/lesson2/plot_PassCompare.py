@@ -14,10 +14,10 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 from pandas.io.json import json_normalize
-from FCPython import createPitch
 import json
 import pathlib
 import os
+import shutil 
 
 #Function for finding passes before shot
 shot_window = 15    
@@ -42,6 +42,13 @@ path2 = os.path.join(str(pathlib.Path().resolve().parents[0]), 'data', 'Statsbom
 with open(path2) as f:
     matches = json.load(f)
 
+
+for match in matches:
+    match_id=match['match_id']
+    file_name=str(match_id)+'.json'
+    destpath = os.path.join(str(pathlib.Path().resolve().parents[0]), 'data', 'Statsbomb', 'events')
+    srcpath = os.path.join(str(pathlib.Path().resolve().parents[3]), 'Statsbomb', 'data', 'events', file_name)
+    shutil.copy2(srcpath, destpath)
 #Get all the teams and match_ids
 teams=[]
 match_ids=[]
@@ -61,6 +68,7 @@ number_of_matches=dict()
 for match in matches:
     match_id=match['match_id']
     file_name=str(match_id)+'.json'
+    path = os.path.join(str(pathlib.Path().resolve().parents[0]), 'data', 'Statsbomb', 'events', file_name)
     with open('../../../Statsbomb/data/events/'+file_name) as data_file:
         data = json.load(data_file)
     dfall = json_normalize(data, sep = "_").assign(match_id = file_name[:-5])
