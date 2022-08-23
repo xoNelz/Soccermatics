@@ -69,7 +69,7 @@ for match in matches:
     match_id=match['match_id']
     file_name=str(match_id)+'.json'
     path = os.path.join(str(pathlib.Path().resolve().parents[0]), 'data', 'Statsbomb', 'events', file_name)
-    with open('../../../Statsbomb/data/events/'+file_name) as data_file:
+    with open(path) as data_file:
         data = json.load(data_file)
     dfall = json_normalize(data, sep = "_").assign(match_id = file_name[:-5])
     
