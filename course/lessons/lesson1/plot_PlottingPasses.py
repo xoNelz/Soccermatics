@@ -57,9 +57,6 @@ ax.set_title("Lucy Bronze passes against Sweden", fontsize = 24)
 fig.set_size_inches(10, 7)
 plt.show()
 
-
-###
-
 ##############################################################################
 # Making the pass map using mplsoccer functions
 # ----------------------------

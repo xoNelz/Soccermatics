@@ -18,10 +18,14 @@ import FCPython
 # Statistical fitting of models
 import statsmodels.api as sm
 import statsmodels.formula.api as smf
+import os
+import pathlib
 
 # Decide which league to load
 # Wyscout data from https://figshare.com/collections/Soccer_match_event_dataset/4415000/2
-with open('../../../Wyscout/events/events_England.json') as f:
+path = os.path.join(str(pathlib.Path().resolve().parents[0]), 'data', 'Wyscout', 'events_England.json')
+
+with open(path) as f:
     data = json.load(f)
 
 # Create a data set of shots.

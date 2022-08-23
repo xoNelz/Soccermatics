@@ -16,6 +16,8 @@ import pandas as pd
 from pandas.io.json import json_normalize
 from FCPython import createPitch
 import json
+import pathlib
+import os
 
 #Function for finding passes before shot
 shot_window = 15    
@@ -28,14 +30,16 @@ pitchWidthY=80
 
 #Load the competition file
 #Got this by searching 'how do I open json in Python'
-with open('../../../Statsbomb/data/competitions.json') as f:
+path = os.path.join(str(pathlib.Path().resolve().parents[0]), 'data', 'Statsbomb', 'competitions.json')
+with open(path) as f:
     competitions = json.load(f)
     
 #Womens World Cup 2019 has competition ID 72
 competition_id=72
 
 #Load the list of matches for this competition
-with open('../../../Statsbomb/data/matches/'+str(competition_id)+'/30.json') as f:
+path2 = os.path.join(str(pathlib.Path().resolve().parents[0]), 'data', 'Statsbomb', 'matches', str(competition_id), '30.json')
+with open(path2) as f:
     matches = json.load(f)
 
 #Get all the teams and match_ids
