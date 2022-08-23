@@ -187,6 +187,7 @@ Contents
    gallery/lesson1/plot_PassHeatMap
    lesson1/heatmapsExample.md
    lesson1/BallRecoveries.md
+   lesson1/GoodVisualisation.md
 
 .. toctree::
    :maxdepth: 1

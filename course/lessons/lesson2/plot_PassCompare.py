@@ -135,7 +135,7 @@ plt.show()
 
 
 
-#For goals (and strictly speaking even for shots) it is better to do a Poisson regression
+#For goals (because they are infrequent) it is better to do a Poisson regression
 poisson_model = smf.glm(formula="Goals ~ Passes + Team", data=passshot_df,
                     family=sm.families.Poisson()).fit()
 poisson_model.summary()
