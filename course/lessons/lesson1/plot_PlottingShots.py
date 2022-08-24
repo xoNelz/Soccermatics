@@ -29,9 +29,10 @@ shots = df.loc[df['type_name'] == 'Shot'].set_index('id')
 # Making the shot map using iterative solution
 # ----------------------------
 # Draw the pitch, record that Statsbomb is the default value of Pitch class. Each provider uses different coordinate system.
-# Useful links:    
+# (useful links:    
 # `More mplsoccer Pitch options <https://mplsoccer.readthedocs.io/en/latest/gallery/pitch_setup/plot_pitches.html>`_
-# `Different coordinate systems <https://mplsoccer.readthedocs.io/en/latest/gallery/pitch_setup/plot_compare_pitches.html>`_
+# , 
+# `Different coordinate systems <https://mplsoccer.readthedocs.io/en/latest/gallery/pitch_setup/plot_compare_pitches.html>`_)
 # We set variables for pitch length and width adequate to Stratsbomb coordinate system.
 # Then, we iterate through the entire dataset. We take *x* and *y* coordinates, the team name and information
 # if goal was scored. If It was scored, we plot a circle with a name of the player, if not, we plot a transculent circle (parameter alpha).
