@@ -23,13 +23,7 @@ passes = df.loc[df['type_name'] == 'Pass'].loc[df['sub_type_name'] != 'Throw-in'
 ##############################################################################
 # Making the pass map using iterative solution
 # ----------------------------
-# Draw the pitch, record that Statsbomb is the default value of Pitch class. Each provider uses different coordinate system.
-# Useful links:
-    
-# * https://mplsoccer.readthedocs.io/en/latest/gallery/pitch_setup/plot_pitches.html
-
-# * https://mplsoccer.readthedocs.io/en/latest/gallery/pitch_setup/plot_compare_pitches.html
-
+# Draw the pitch, record that Statsbomb is the default value of Pitch class.
 # We iterate through the entire dataset. We check if a pass was made by Lucy Bronze
 # If so, we take the starting coordinates of a pass and plot a circle. Then we subtract the coordinates beginning of the pass 
 # from the end of passes to draw arrows. In the end, we set the title
