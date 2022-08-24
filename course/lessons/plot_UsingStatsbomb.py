@@ -1,15 +1,15 @@
 """
 Using Statsbomb
 =====================
-
 Getting familiar with Statsbomb data
 """
 
 #CODE WAITING FOR FILE CONFIRMATION - until then it's a total mess
 #importing necessary libraries
+
 import pandas as pd
 from mplsoccer import Sbopen
-from tabulate import tabulate
+#from tabulate import tabulate
 #declaring the parser to open the data
 parser = Sbopen()
 #first open and explore competitions to find the competition we are interested in exploring - we open it using competition method
