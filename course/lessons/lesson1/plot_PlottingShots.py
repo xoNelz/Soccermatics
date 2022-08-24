@@ -6,7 +6,7 @@ Start by watching the video, then learn how to plot shot positions.
 
 ..  youtube:: GWsK_KWKCas
    :width: 600
-   :height: 480
+   :height: 360
 
 """
 
