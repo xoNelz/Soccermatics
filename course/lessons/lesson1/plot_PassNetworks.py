@@ -101,7 +101,7 @@ for i, row in scatter_df.iterrows():
     pitch.annotate(row.player_name, xy=(row.x, row.y), c='black', va='center', ha='center', weight = "bold", size=16, ax=ax["pitch"], zorder = 4)
 
 fig.suptitle("Nodes location - England", fontsize = 30)
-
+plt.show()
 ##############################################################################
 # Plotting edges
 # ----------------------------
