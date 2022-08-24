@@ -33,6 +33,7 @@ templates_path = ['_templates']
 exclude_patterns = []
 
 # sphinx gallery
+
 sphinx_gallery_conf = {
     'examples_dirs': ['../lessons'],
     'gallery_dirs': ['gallery'],

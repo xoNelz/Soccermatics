@@ -79,15 +79,17 @@ fig.set_size_inches(10, 7)
 plt.show()
 
 ##############################################################################
-# Exploring mplsoccer Pitch class
+# Using mplsoccer's Pitch class
 # ----------------------------
-# Once again we create pitch using mplsoccer Pitch() class. Then, for each team
-# we make a query to return only shots by this team. We need only columns with cooridnates, outcome (showing if goal was scored),
-# and player name. If a goal was scored, we use scatter method to plot a circle and annotate method to mark scorer's name. 
+# This time we make a direct query to return only shots by each team.
+# We only need the columns with cooridnates, outcome (showing if goal was scored),
+# and player name. If a goal was scored, we use scatter method
+# to plot a circle and annotate method to mark scorer's name.
 # If not, we use scatter method to draw a translucent circle. 
-# Note that once again, to plot the shots on different halves we needed to reverd coordinates for Sweden. 
+# Note that, once again, to plot the shots on different halves we needed to reverse the coordinates for Sweden.
 # Using pitch.scatter we could have plotted all shots using one line. 
-# However, since name of a player and alpha differs if goal was scored, it was more convenient to loop through smaller dataset.
+# However, since name of a player and alpha differs if goal was scored,
+# it was more convenient to loop through smaller dataset.
 
 #create pitch
 pitch = Pitch(line_color='black')
@@ -125,10 +127,10 @@ plt.show()
 ##############################################################################
 # Plotting shots on one half
 # ----------------------------
-# To plot shots of only one team on one half we explore VerticalPitch() class
-# If you set *half* to *True*, you will plot only one half of the pitch
+# To plot shots of only one team on one half we use VerticalPitch() class
+# If you set *half* to *True*, you will plot only one half of the pitch.
 # It is a nice way of plotting shots since they rarely occur on the defensive half.
-# We plot all the shots at once this time, without looping through a dataframe. 
+# We plot all the shots at once this time, without looping through the dataframe this time.
 
 pitch = VerticalPitch(line_color='black', half = True)
 fig, ax = pitch.grid(grid_height=0.9, title_height=0.06, axis=False,
@@ -144,5 +146,5 @@ plt.show()
 # 1) Create a dataframe of passes which contains all the passes in the match
 # 2) Plot the start point of every Sweden pass. Attacking left to right.
 # 3) Plot only passes made by Caroline Seger (she is Sara Caroline Seger in the database)
-# 4) Plot arrows to show where the passes we
+# 4) Plot arrows to show where the passes went to.
 

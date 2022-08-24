@@ -3,7 +3,8 @@ Pass heat maps
 ===========================
 
 Make a heat map of all teams passes during a tournament.
-We set a window for danger passes to be those in 15 seconds leading up to a shot.
+In order to add context, we set a window for danger
+passes to be those in 15 seconds leading up to a shot.
 """
 
 import matplotlib.pyplot as plt
@@ -13,10 +14,9 @@ import pandas as pd
 ##############################################################################
 # Opening the dataset
 # ----------------------------
-# At first we have to open the data. To do this we use a parser SBopen available in mplsoccer. 
-# Using method *match* and putting the id of the season and competition
+#
 # To get games by England Women's team we need to filter them in a dataframe - if they played as a home or away team.
-# We als calculate number of games to normalize the diagrams later on
+# We also calculate number of games to normalize the diagrams later on
 
 #open the data
 parser = Sbopen()

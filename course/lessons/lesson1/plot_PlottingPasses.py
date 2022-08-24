@@ -12,9 +12,8 @@ from mplsoccer import Pitch, Sbopen
 ##############################################################################
 # Opening the dataset
 # ----------------------------
-# At first we have to open the data. To do this we use a parser SBopen available in mplsoccer. 
-# Using method *event* and putting the id of the game as a parameter we load the data.
-# Then, we filter the dataframe so that only passes  are left
+# We open the data, using SBopen, then we filter the dataframe so that only passes are left
+# This includes remioing throw-ins.
 
 parser = Sbopen()
 df, related, freeze, tactics = parser.event(69301)
@@ -23,10 +22,10 @@ passes = df.loc[df['type_name'] == 'Pass'].loc[df['sub_type_name'] != 'Throw-in'
 ##############################################################################
 # Making the pass map using iterative solution
 # ----------------------------
-# Draw the pitch, record that Statsbomb is the default value of Pitch class.
-# We iterate through the entire dataset. We check if a pass was made by Lucy Bronze
-# If so, we take the starting coordinates of a pass and plot a circle. Then we subtract the coordinates beginning of the pass 
-# from the end of passes to draw arrows. In the end, we set the title
+# Draw the pitch and iterate through the passes. We check if a pass was made by Lucy Bronze.
+# If so, we take the starting coordinates of a pass and plot a circle.
+# Then we subtract the coordinates beginning of the pass
+# from the end of passes in order to draw pass arrows.
 
 #drawing pitch
 pitch = Pitch(line_color = "black")
@@ -54,11 +53,12 @@ plt.show()
 ##############################################################################
 # Making the pass map using mplsoccer functions
 # ----------------------------
-# First, we filter out passes made by Lucy Bronze.
+# Again, we filter out passes made by Lucy Bronze.
 # Then, we take only the columns needed to plot passes  - coordinates of start and end of a pass.
-# We draw a pitch and using arrows method we plot arrows.
+# We draw a pitch and using arrows method we plot the passes.
 # Using scatter method we draw circles where the pass started
-# filter the dataset to completed passes for Lucy Bronze
+# filter the dataset to completed passes for Lucy Bronze.
+
 mask_bronze = (df.type_name == 'Pass') & (df.player_name == "Lucy Bronze")
 df_pass = df.loc[mask_bronze, ['x', 'y', 'end_x', 'end_y']]
 
@@ -74,10 +74,11 @@ plt.show()
 ##############################################################################
 # Plotting multiple pass maps on one figure
 # ----------------------------
-# mplsoccer allows to draw multiple plots on one plot. Let's demonstrate how to do that by plotting passes by player from 
-# England's team. To do so we first filter out players from England. We plot 16 pitches in 4 rows and columns. Then, for each
-# player, on a separate axis, their pass map is plotted. As the last step we remove unnecessary pitches (during 2019 World Cup
-# only 3, not 5, changes were allowed) and set the title.
+# mplsoccer allows to draw multiple plots on one plot. Let's demonstrate how to do that by
+# by player all of England's players.
+# To do so we first filter out players from England. We plot 16 pitches in 4 rows and columns. Then, for each
+# player, on a separate axis, their pass map is plotted. As the last step we remove unnecessary pitches
+# (during 2019 World Cup only 3, not 5, changes were allowed) and set the title.
 
 #prepare the dataframe of passes by England that were no-throw ins
 mask_england = (df.type_name == 'Pass') & (df.team_name == "England Women's") & (df.sub_type_name != "Throw-in")

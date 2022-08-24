@@ -11,14 +11,10 @@ import numpy as np
 from mplsoccer import Pitch, Sbopen
 import pandas as pd 
 
-
-
 ##############################################################################
 # Opening the dataset
 # ----------------------------
-# At first we have to open the data. To do this we use a parser SBopen available in mplsoccer. 
-# Using method *event* and putting the id of the game as a parameter we load the data.
-# Event data is stored in a dataframe *df*
+# The event data is stored in a dataframe *df* as usual.
 
 parser = Sbopen()
 df, related, freeze, tactics = parser.event(69301)
@@ -26,12 +22,13 @@ df, related, freeze, tactics = parser.event(69301)
 ##############################################################################
 # Preparing the data
 # ----------------------------
-# For passing networks we use only accurate successfull passes made by a team until the first substitution.
+# For passing networks we use only accurate/successful passes made by a team until the first substitution.
+# This is mainly just to get going and there are several possible variations of this.
 # We need information about pass start and end location as well as player who made and received the pass. 
-# To make the vizualisation clearer, we will annotate the players using their surname. 
-# Note that it works for English women side, since players' surnames  are single-barrelled. 
-# If you decide to work with, for example Spanish names, some modifications will be needed. For example, Leo Messi's name in Statsbomb is Lionel Andrés Messi Cuccittini.
-# The following code would result in Cuccittini causing some confusion.
+# To make the vizualisation clearer, we annotate the players using their surname.
+# (This works for English women side, since players' surnames  are single-barrelled. But
+# can cause problems.For example, Leo Messi's name in Statsbomb is Lionel Andrés Messi Cuccittini. So the
+# name Cuccittini will come up if you run this code on his matches!).
 
 #check for index of first sub
 sub = df.loc[df["type_name"] == "Substitution"].loc[df["team_name"] == "England Women's"].iloc[0]["index"]
@@ -46,11 +43,10 @@ df_pass["pass_recipient_name"] = df_pass["pass_recipient_name"].apply(lambda x: 
 ##############################################################################
 # Calculating vertices size and location
 # ----------------------------
-# To calculate vertices size and location, at first, we will create an empty dataframe.
-# For each player we calculate average location of passes their made and their receptions.
+# To calculate vertices size and location, first we create an empty dataframe.
+# For each player we calculate average location of passes made and receptions.
 # Then, we calculate number of passes made by each player.
-# As the last step, we calculate the marker size used to scatter different sized points.
-#creating a dataframe of average location of pass and pass reception by each player 
+# As the last step, we calculate set he marker size to be proportional to number of passes.
 
 scatter_df = pd.DataFrame()
 for i, name in enumerate(df_pass["player_name"].unique()):
@@ -71,11 +67,11 @@ scatter_df['marker_size'] = (scatter_df['no'] / scatter_df['no'].max() * 1500)
 ##############################################################################
 # Calculating edges width
 # ----------------------------
-# To calculate edge width we have to calculate number of passes between players
+# To calculate edge width we again look at the number of passes between players
 # We need to group the dataframe of passes by the combination of passer and recipient and count passes between them.
-# As the last step, we set the treshold that on our diagram we want to include only combination of players that made more than 2 passes.
-# You can try different tresholds and investigate how the passing network changes when you change it. 
-# It is recommended that you use higher threshold for more ball dominant teams and lower for less ball dominant ones.
+# As the last step, we set the threshold ignoring players that made fewer than 2 passes.
+# You can try different thresholds and investigate how the passing network changes when you change it.
+# It is recommended that you tune this depedning on the message behind your visualisation.
 
 #counting passes between players
 lines_df = df_pass.groupby(['player_name', 'pass_recipient_name']).x.count().reset_index()
@@ -86,8 +82,7 @@ lines_df = lines_df[lines_df['pass_count']>2]
 ##############################################################################
 # Plotting vertices
 # ----------------------------
-# At first we plot the pitch using mplsoccer module Pitch
-# Then, we scatter the vertices using the *scatter_df* we created previously
+# Lets first plot the vertices (players) using the *scatter_df* we created previously
 # As the next step, we annotate player's surname         
         
 #Drawing pitch
@@ -141,8 +136,8 @@ plt.show()
 # ----------------------------
 # To calculate the centralisation index we need to calculate number of passes made by each player. 
 # Then, we calculate the denominator - the sum of all passes multiplied by (number of players - 1) -> 10
-# To calculate the nominator we sum the difference between maximal number of successful passes by 1 player
-# and number of successful passes by each player. We calculate the index dividng the nominator by denominator. 
+# To calculate the numerator we sum the difference between maximal number of successful passes by 1 player
+# and number of successful passes by each player. We calculate the index dividing the numerator by denominator.
 
 #calculate number of successful passes by player
 no_passes = df_pass.groupby(['player_name']).x.count().reset_index()
@@ -156,6 +151,7 @@ nominator = (max_no - no_passes["pass_count"]).sum()
 #calculate the centralisation index
 centralisation_index = nominator/denominator
 print("Centralisation index is ", centralisation_index)
+
 ##############################################################################
 # Challenge
 # ----------------------------
