@@ -13,10 +13,11 @@ from mplsoccer import Pitch, Sbopen, VerticalPitch
 ##############################################################################
 # Opening the dataset
 # ----------------------------
-# At first we have to open the data. To do this we use a parser SBopen available in mplsoccer. 
+# The first thing we have to do is open the data. We use a parser SBopen available in mplsoccer.
 # Using method *event* and putting the id of the game as a parameter we load the data.
-# Event data is stored in a dataframe *df*. From this dataframe we take out the names of teams.
-# Then, we filter the dataframe so that only shots are left
+# The event data, which we will mostly focus on,
+# is stored in a dataframe *df*. From this dataframe we take out the names of the two teams.
+# Then, we filter the dataframe so that only shots are left.
 
 parser = Sbopen()
 df, related, freeze, tactics = parser.event(69301)
@@ -28,15 +29,18 @@ shots = df.loc[df['type_name'] == 'Shot'].set_index('id')
 ##############################################################################
 # Making the shot map using iterative solution
 # ----------------------------
-# Draw the pitch, record that Statsbomb is the default value of Pitch class. Each provider uses different coordinate system.
-# (useful links:    
-# `More mplsoccer Pitch options <https://mplsoccer.readthedocs.io/en/latest/gallery/pitch_setup/plot_pitches.html>`_,
-# `Different coordinate systems <https://mplsoccer.readthedocs.io/en/latest/gallery/pitch_setup/plot_compare_pitches.html>`_)
-# 
-# We set variables for pitch length and width adequate to Statsbomb coordinate system.
-# Then, we iterate through the entire dataset. We take *x* and *y* coordinates, the team name and information
-# if goal was scored. If It was scored, we plot a circle with a name of the player, if not, we plot a transculent circle (parameter alpha).
-# To have England's shots on one half and Sweden shots on the other halv, we subtract *x* and *y* from previously set variables
+# First let's draw the pitch using the `MPL Soccer class <https://mplsoccer.readthedocs.io/en/latest/gallery/pitch_setup/plot_pitches.html>`_,
+#
+# In this example, we set variables for pitch length and width to the Statsbomb coordinate system (they use yards).
+# You can read more about `different coordinate systems here <https://mplsoccer.readthedocs.io/en/latest/gallery/pitch_setup/plot_compare_pitches.html>`_)
+#
+# Now, we iterate through all the shots in the match. We take *x* and *y* coordinates, the team name and information
+# if goal was scored. If It was scored, we plot a solid circle with a name of the player, if not, we plot a
+# transculent circle (parameter alpha tunes the transcluency).
+# To have England's shots on one half and Sweden shots on the other half,
+# we subtract *x* and *y* from the pitch length and height.
+#
+# Football data tends to be attacking left to right, and we will use this as default in the course.
 
 pitch = Pitch(line_color = "black")
 fig, ax = pitch.draw(figsize=(10, 7))
@@ -64,7 +68,7 @@ for i,shot in shots.iterrows():
     else:
         if goal:
             shotCircle=plt.Circle((pitchLengthX-x,pitchWidthY - y),circleSize,color="blue") 
-            plt.text(pitchLengthX-x+1,pitchWidthY - y -2 ,shot['player_name']) 
+            plt.text(pitchLengthX-x+1,pitchWidthY - y - 2 ,shot['player_name'])
         else:
             shotCircle=plt.Circle((pitchLengthX-x,pitchWidthY - y),circleSize,color="blue")      
             shotCircle.set_alpha(.2)
