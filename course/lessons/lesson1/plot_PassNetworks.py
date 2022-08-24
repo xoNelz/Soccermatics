@@ -143,11 +143,6 @@ plt.show()
 # Then, we calculate the denominator - the sum of all passes multiplied by (number of players - 1) -> 10
 # To calculate the nominator we sum the difference between maximal number of successful passes by 1 player
 # and number of successful passes by each player. We calculate the index dividng the nominator by denominator. 
-# For more information see: 
-    
-# * https://soccermatics.medium.com/decentralised-football-is-more-effective-than-focusing-on-one-or-two-players-c197216ac2b8
-
-# * https://www.sciencedirect.com/science/article/pii/S0378873312000500
 
 #calculate number of successful passes by player
 no_passes = df_pass.groupby(['player_name']).x.count().reset_index()
