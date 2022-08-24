@@ -23,13 +23,15 @@ import pathlib
 
 # Decide which league to load
 # Wyscout data from https://figshare.com/collections/Soccer_match_event_dataset/4415000/2
-path = os.path.join(str(pathlib.Path().resolve().parents[0]), 'data', 'Wyscout', 'events_England.json')
-
-with open(path) as f:
-    data = json.load(f)
-
+train = pd.DataFrame()
+for i in range(13):
+    file_name = 'events_England_' + str(i+1) + '.json'
+    path = os.path.join(str(pathlib.Path().resolve().parents[0]), 'data', 'Wyscout', file_name)
+    with open(path) as f:
+        data = json.load(f)
+    train = pd.concat([train, pd.DataFrame(data)])
 # Create a data set of shots.
-train = pd.DataFrame(data)
+
 pd.unique(train['subEventName'])
 shots = train[train['subEventName'] == 'Shot']
 shots_model = pd.DataFrame(columns=['Goal', 'X', 'Y'])
