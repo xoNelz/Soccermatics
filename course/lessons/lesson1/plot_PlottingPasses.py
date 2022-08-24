@@ -115,3 +115,4 @@ for ax in axs['pitch'][-1, 16 - len(names):]:
     
 #Another way to set title using mplsoccer 
 axs['title'].text(0.5, 0.5, 'England passes against Sweden', ha='center', va='center', fontsize=30)
+plt.show()

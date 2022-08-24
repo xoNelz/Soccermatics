@@ -160,7 +160,7 @@ denominator = 10*no_passes["pass_count"].sum()
 nominator = (max_no - no_passes["pass_count"]).sum()
 #calculate the centralisation index
 centralisation_index = nominator/denominator
-
+print("Centralisation index is ", centralisation_index)
 ##############################################################################
 # Challenge
 # ----------------------------
