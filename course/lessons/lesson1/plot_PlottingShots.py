@@ -2,7 +2,7 @@
 Plotting shots
 ==============
 
-Start by watching the video, then learn how to plot shot positions.
+Start by watching the video below, then learn how to plot shot positions.
 
 ..  youtube:: GWsK_KWKCas
    :width: 600
