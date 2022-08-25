@@ -5,7 +5,17 @@ Pass heat maps
 Make a heat map of all teams passes during a tournament.
 In order to add context, we set a window for danger
 passes to be those in 15 seconds leading up to a shot.
+
+..  youtube:: cgn4fvWo5l0
+   :width: 640
+   :height: 349
+
+
 """
+
+
+##############################################################################
+# We will need these libraries
 
 import matplotlib.pyplot as plt
 from mplsoccer import Pitch, Sbopen, VerticalPitch
@@ -122,7 +132,7 @@ danger_passes["player_name"] = danger_passes["player_name"].apply(lambda x: str(
 #count passes by player and normalize them
 pass_count = danger_passes.groupby(["player_name"]).x.count()/no_games
 #make a histogram
-ax = pass_count.plot.bar(pass_count, rot = 90)
+ax = pass_count.plot.bar(pass_count)
 #make legend
 ax.set_xlabel("")
 ax.set_ylabel("Number of danger passes per game")
@@ -132,7 +142,7 @@ plt.show()
 # Challenge
 # ----------------------------
 # 1) Improve so that only high xG (>0.07) are included!
-# 2) Make a heat map only for Sweden's player (Sweden Women's) who was the most involved in danger passes!
+# 2) Make a heat map only for Sweden's players who was the most involved in danger passes!
 
 
     

@@ -2,9 +2,17 @@
 Passing networks
 =====================
 
-Making a pass network
+Here we look at how to create a passing network and measure
+centralisation. Is one player hogging the ball?
+
+..  youtube:: dwJAZY1oJzA
+   :width: 640
+   :height: 349
+
 """
 
+##############################################################################
+# Start with the necessary imports.
 
 import matplotlib.pyplot as plt
 import numpy as np
