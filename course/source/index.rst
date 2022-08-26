@@ -190,7 +190,17 @@ Contents
    lesson1/BallRecoveries.md
    lesson1/GoodVisualisation.md
 
+.. toctree::
+   :maxdepth: 1
+   :caption: Lesson 2:
 
+   lesson2/statisticalModelsIntro.md
+   gallery/lesson2/plot_LinearRegression
+   lesson2/Possession.md
+   lesson2/introducingExpectedGoals.md
+   gallery/lesson2/plot_xGModelFit
+   lesson2/theStatisticalApproach.md
+   gallery/lesson2/plot_PassCompare
 
 
 
