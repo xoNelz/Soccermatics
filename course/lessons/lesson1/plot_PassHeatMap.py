@@ -100,7 +100,7 @@ plt.show()
 # Making a heat map
 # ----------------------------
 # To make a heat map, first, we draw a pitch. Then we calculate the number of passes in each bin using *bin_statistic* method.
-# Then, we normalize number of passes by number of games. We plot a heat map and then, we make a legend. As the last step we add 
+# Then, we normalize number of passes by number of games. We plot a heat map and then, we make a legend. As the last step, we add 
 # the title. 
 
 #plot vertical pitch
@@ -125,7 +125,7 @@ plt.show()
 # ----------------------------
 # To find out who was the most involved in dnager passes, we keep only surnames of players to make the vizualisation clearer.
 # Then, we group the passes by the player and count them. Also, we divide them by number of games to keep the diagram per game.
-# As the last step, we make the legend to our diagram 
+# As the last step, we make the legend to our diagram.
 
 #keep only surnames
 danger_passes["player_name"] = danger_passes["player_name"].apply(lambda x: str(x).split()[-1])

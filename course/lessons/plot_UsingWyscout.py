@@ -31,8 +31,7 @@ with open(path) as f:
 df_competitions = pd.DataFrame(data)
 #structure of data
 df_competitions.info()
-#explore structure - print out 3 first records and column names
-df_competitions.head(3)
+
 
 ##############################################################################
 # Match data
@@ -49,8 +48,7 @@ with open(path) as f:
 df_matches = pd.DataFrame(data)
 #structure of data
 df_matches.info()
-#explore structure - print out 3 first records and column names
-df_matches.head(3)
+
 
 ##############################################################################
 # Player data
@@ -69,8 +67,7 @@ with open(path) as f:
 df_players = pd.DataFrame(data)
 #structure of data
 df_players.info()
-#explore structure - print out 3 first records and column names
-df_players.head(3)
+
 
 ##############################################################################
 # Event data
@@ -107,8 +104,7 @@ for i in range(13): # put # in front if used locally
 
 #structure of data
 df_events.info()
-#explore structure - print out 3 first records and column names
-df_players.head(3)
+
 
 ##############################################################################
 # Before you start

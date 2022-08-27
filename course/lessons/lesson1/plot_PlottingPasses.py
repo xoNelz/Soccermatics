@@ -4,7 +4,7 @@ Plotting passes
 
 Making a pass map using Statsbomb data
 """
-
+#importing necessary libraries
 import matplotlib.pyplot as plt
 import numpy as np
 from mplsoccer import Pitch, Sbopen
@@ -12,7 +12,7 @@ from mplsoccer import Pitch, Sbopen
 ##############################################################################
 # Opening the dataset
 # ----------------------------
-# We open the data, using SBopen, then we filter the dataframe so that only passes are left
+# We open the data, using SBopen, then we filter the dataframe so that only passes are left,
 # This includes remioing throw-ins.
 
 parser = Sbopen()
@@ -75,9 +75,9 @@ plt.show()
 # Plotting multiple pass maps on one figure
 # ----------------------------
 # mplsoccer allows to draw multiple plots on one plot. Let's demonstrate how to do that by
-# by player all of England's players.
+# plotting passes made by all of England's players.
 # To do so we first filter out players from England. We plot 16 pitches in 4 rows and columns. Then, for each
-# player, on a separate axis, their pass map is plotted. As the last step we remove unnecessary pitches
+# player, on a separate axis, their pass map is plotted. As the last step, we remove unnecessary pitches
 # (during 2019 World Cup only 3, not 5, changes were allowed) and set the title.
 
 #prepare the dataframe of passes by England that were no-throw ins

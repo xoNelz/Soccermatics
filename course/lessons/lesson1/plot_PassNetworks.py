@@ -91,7 +91,7 @@ lines_df = lines_df[lines_df['pass_count']>2]
 # Plotting vertices
 # ----------------------------
 # Lets first plot the vertices (players) using the *scatter_df* we created previously
-# As the next step, we annotate player's surname         
+# As the next step, we annotate player's surname   .      
         
 #Drawing pitch
 pitch = Pitch(line_color='grey')

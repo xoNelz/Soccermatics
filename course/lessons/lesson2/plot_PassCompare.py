@@ -5,6 +5,9 @@ Statistical modelling
 Examples of using regressions
 """
 
+##############################################################################
+# We will need these libraries
+
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
@@ -13,27 +16,43 @@ import statsmodels.api as sm
 import statsmodels.formula.api as smf
 from matplotlib import colors
 
+#open data from WWC 2019
 parser = Sbopen()
 df_match = parser.match(competition_id=72, season_id=30)
 
 
-#Get all the teams and match_ids
+##############################################################################
+# Preparing data
+# ----------------------------
+# For our task we need 2 different dataframes. The first one called *passshot_df*. In this dataframe we would like to keep information
+# about team performance in every game they played - index of a game, name of a team, number of shots, number of goals and number
+# of danger passes by this team (see `Danger passes <https://soccermatics.readthedocs.io/en/latest/gallery/lesson1/plot_PassHeatMap.html`_).
+# Moreover, we need the dataframe of all danger passes during the tournament - *danger_passes_df*. 
+
+#get names of all teams 
 teams = df_match["home_team_name"].unique()
+#get indicies of all games 
 match_ids = df_match["match_id"]
 
-#Collect passes and shots for all players.
-
+#empty dataframes 
 passshot_df = pd.DataFrame()
 danger_passes_df = pd.DataFrame()
+#for every game in the tournament
 for idx in match_ids:
+    #open event data
     df = parser.event(idx)[0]
+    #get home and away team 
     home_team = df_match.loc[df_match["match_id"] == idx]["home_team_name"].iloc[0]
     away_team = df_match.loc[df_match["match_id"] == idx]["away_team_name"].iloc[0]   
+    #for both teams
     for team in [home_team, away_team]:
+        #declare variables to sum shots, passes and danger passes from both halves
         shots = 0
         passes = 0
         danger_passes = 0
+        #for both periods - see previous lessons
         for period in [1, 2]:
+            #passes
             mask_pass = (df.team_name == team) & (df.type_name == "Pass") & (df.outcome_name.isnull()) & (df.period == period) & (df.sub_type_name.isnull())
             pass_df = df.loc[mask_pass]
             #A dataframe of shots
@@ -56,15 +75,16 @@ for idx in match_ids:
             #will need later all danger passes
             danger_passes_df = pd.concat([danger_passes_df, danger_passes_period])
             
-            
+            #adding number of passes, shots and danger passes from a game 
             passes += len(pass_df)
             shots += len(shot_df)
             danger_passes += len(danger_passes_period)
+        #getting number of goals by the team from the game 
         if team == home_team:
             goals = df_match.loc[df_match["match_id"] == idx]["home_score"].iloc[0]
         else:
             goals = df_match.loc[df_match["match_id"] == idx]["away_score"].iloc[0]
-            
+        #appending passshot dataframe  
         match_info_df = pd.DataFrame({
                     "Team": [team],
                     "Passes": [passes],
@@ -74,9 +94,13 @@ for idx in match_ids:
                     })
         passshot_df = pd.concat([passshot_df, match_info_df])
 
-###SCATTER POINTS
-#Plot passes vs. shots. 
-fig,ax=plt.subplots()
+##############################################################################
+# Plotting data
+# ----------------------------
+# We would like to investigate if there is any relation between number of passes and number of shots by a team in a game.
+# First we scatter the data. We also want to highlight England Women's team performance in these 2 areas.
+
+fig, ax = plt.subplots()
 #plot all games
 ax.plot('Passes','Shots', data=passshot_df, linestyle='none', markersize=4, marker='o', color='grey')
 #choose only England games and plot them red
@@ -89,9 +113,14 @@ ax.set_xlabel('Passes (x)')
 ax.set_ylabel('Shots (y)')
 plt.show()
 
-#LINEAR REGRESSION - REPEAT POINTS
-#Fit a straight line regression model for how number of passes predict number of shots from number of passes
+##############################################################################
+# Fitting linear regression
+# ----------------------------
+# We want to investigate the linear relationship between number of passes and number of shots. To do so, we fit the 
+# linear regression using statsmodels library. We print out the summary of our model to make conclusions and plot the line
+# on the previously plotted observations
 
+#repeat plotting points for 
 fig,ax=plt.subplots()
 #plot all games
 ax.plot('Passes','Shots', data=passshot_df, linestyle='none', markersize=4, marker='o', color='grey')
@@ -109,26 +138,34 @@ passshot_df['Shots']= pd.to_numeric(passshot_df['Shots'])
 passshot_df['Passes']= pd.to_numeric(passshot_df['Passes']) 
 passshot_df['Goals']= pd.to_numeric(passshot_df['Goals']) 
 
-#Fit the model
+#fit the model
 model_fit=smf.ols(formula='Shots ~ Passes', data=passshot_df[['Shots','Passes']]).fit()
 #print summary
 print(model_fit.summary())        
 #get coefficients
-b=model_fit.params
+b = model_fit.params
 #plot line 
 x = np.arange(0, 1000, step=0.5)
 y = b[0] + b[1]*x
 ax.plot(x, y, linestyle='-', color='black')
+#make legend
 ax.set_ylim(0,40)
 ax.set_xlim(0,800) 
-
 ax.spines['top'].set_visible(False)
 ax.spines['right'].set_visible(False)
 plt.show()
 
 
+##############################################################################
+# Fitting Poisson regression
+# ----------------------------
+# We want to investigate the  relationship between number of passes and number of goals. To do so, we fit the 
+# Poisson regression using statsmodels library. It is better to use Poisson regression since goals are infrequent.
+# We print out the summary of our model to make conclusions and plot the line
+# on the previously plotted observations
 
-#For goals (because they are infrequent) it is better to do a Poisson regression
+
+
 fig,ax=plt.subplots()
 #plot all games
 ax.plot('Passes','Goals', data=passshot_df, linestyle='none', markersize=4, marker='o', color='grey')
@@ -141,13 +178,18 @@ ax.set_yticks(np.arange(0,13,step=2))
 ax.set_xlabel('Passes (x)')
 ax.set_ylabel('Goals (y)')
 
+#fit the model
 poisson_model = smf.glm(formula="Goals ~ Passes", data=passshot_df,
                     family=sm.families.Poisson()).fit()
+#print summary
 poisson_model.summary()
+#get coefficients
 b = poisson_model.params
+#plot line
 x = np.arange(0, 1000, step=0.5)
 y = np.exp(b[0] + b[1]*x)
 ax.plot(x, y, linestyle='-', color='black')
+#make legend
 ax.set_ylim(0,15)
 ax.set_xlim(0,550) 
 ax.spines['top'].set_visible(False)
@@ -155,19 +197,35 @@ ax.spines['right'].set_visible(False)
 plt.show()
 
 
-##########COMPARATIVE PASS HEAT MAPS
+##############################################################################
+# Comparative heatmaps
+# ----------------------------
+# We would like to find out which team outperformed and underperformed when it comes to the number of passes from different zones
+# First we draw 24 pitches, one for each team that played in WWC 2019. Then, for each team, we calculate the number of passes in 
+# each bin and normalize it by number of games by this team. As the next step we calculate average number of danger passes per zone
+# throughout the tournament. We substract it from the number of danger passes in each zone for every team. As the last step, we plot 
+# the heat map for each team.
+
+#plot pitch
 pitch = Pitch(line_zorder=2, line_color='black')
 fig, axs = pitch.grid(ncols = 6, nrows = 4, figheight=20,
                       grid_width=0.88, left=0.025,
                       endnote_height=0.03, endnote_space=0,
                       axis=False,
                       title_space=0.02, title_height=0.06, grid_height=0.8)
+
+#for each team store  bins in a dictionary
 hist_dict = {}
 for team in teams:
+    #get number of games by team 
     no_games = len(df_match.loc[(df_match["home_team_name"] == team) | (df_match["away_team_name"] == team)])
+    #get danger passes only by this team 
     team_danger_passes = danger_passes_df.loc[danger_passes_df["team_name"] == team]
+    #number of danger passes in each zone
     bin_statistic = pitch.bin_statistic(team_danger_passes.x, team_danger_passes.y, statistic='count', bins=(6, 5), normalize=False)
+    #normalize by number of games 
     bin_statistic["statistic"] = bin_statistic["statistic"]/no_games
+    #store in dictionary
     hist_dict[team] = bin_statistic
 
 #calculating average per game per team per zone
@@ -177,7 +235,7 @@ avg_hist = np.mean(np.array([v["statistic"] for k,v in hist_dict.items()]), axis
 for team in teams:
     hist_dict[team]["statistic"] = hist_dict[team]["statistic"] - avg_hist
 
-
+#preparing colormap
 vmax = max([np.amax(v["statistic"]) for k,v in hist_dict.items()])
 vmin = min([np.amin(v["statistic"]) for k,v in hist_dict.items()])
 divnorm = colors.TwoSlopeNorm(vmin=vmin, vcenter=0, vmax=vmax)
@@ -186,59 +244,18 @@ for team, ax in zip(teams, axs['pitch'].flat):
     #put team name over the plot
     ax.text(60, -5, team,
             ha='center', va='center', fontsize=24)
-    
+    #plot colormap
     pcm  = pitch.heatmap(hist_dict[team], ax=ax, cmap='coolwarm', norm = divnorm, edgecolor='grey')
     
-
+#make legend 
 ax_cbar = fig.add_axes((0.94, 0.093, 0.02, 0.77))
 cbar = plt.colorbar(pcm, cax=ax_cbar, ticks=[-1.5, -1, -0.5, 0, 1, 2, 3])
 cbar.ax.tick_params(labelsize=30)    
 ax_cbar.yaxis.set_ticks_position('left')
-    
+#add title
 axs['title'].text(0.5, 0.5, 'Danger passes per game - performance above zone average', ha='center', va='center', fontsize=60)    
 plt.show() 
     
-#Make comparative pass maps
-#x_all=[]
-#y_all=[]
-#H_Pass=dict()
-#for team in teams:
- #   dp=danger_passes_by[team]
- #   print(team + str(len(dp)))
-    
- #   x=[]
- #   y=[]
- #   for i,apass in dp.iterrows():
- #       x.append(apass['location'][0])
-  #      y.append(pitchWidthY-apass['location'][1])
-
-    #Make a histogram of passes
- #   H_Pass[team]=np.histogram2d(y, x,bins=5,range=[[0, pitchWidthY],[0, pitchLengthX]])
- #   
- #   x_all = x_all+x
- #   y_all = y_all+y
-
-#H_Pass_All=np.histogram2d(y_all, x_all,bins=5,range=[[0, pitchWidthY],[0, pitchLengthX]])
-
-#Compare to mean
-#for team in teams:
- #   (fig,ax) = createPitch(pitchLengthX,pitchWidthY,'yards','gray')
- #   pos=ax.imshow(H_Pass[team][0]/number_of_matches[team], aspect='auto',cmap=plt.cm.seismic,vmin=-3, vmax=3)
- #   pos=ax.imshow(H_Pass[team][0]/number_of_matches[team] - H_Pass_All[0]/(len(matches)*2), extent=[0,120,0,80], aspect='auto',cmap=plt.cm.seismic,vmin=-3, vmax=3)
-    #pos=ax.imshow(H_Pass[team][0]/number_of_matches[team] / (H_Pass_All[0]/(len(matches)*2)), extent=[0,120,0,80], aspect='auto',cmap=plt.cm.seismic,vmin=0.5, vmax=2)
-    
-  #  ax.set_title('Number of passes per match by ' +team)
-  #  plt.xlim((-1,121))
-  #  plt.ylim((83,-3))
-  #  plt.tight_layout()
-  #  plt.gca().set_aspect('equal', adjustable='box')
-  #  fig.colorbar(pos, ax=ax)
- #   plt.show()
-    
-
-
-#
-
    
 
 

@@ -21,8 +21,7 @@ parser = Sbopen()
 df_competition = parser.competition()
 #structure of data
 df_competition.info()
-#explore structure - print out 3 first records and column names
-df_competition.head(3)
+
 
 
 ##############################################################################
@@ -38,8 +37,7 @@ df_competition.head(3)
 df_match = parser.match(competition_id=72, season_id=30)
 #structure of data
 df_match.info()
-#explore structure - print out 3 first records and column names
-df_match.head(3)
+
 
 
 ##############################################################################
@@ -53,8 +51,6 @@ df_match.head(3)
 df_lineup = parser.lineup(69301)
 #structure of data
 df_lineup.info()
-#explore structure - print out 3 first records and column names
-df_lineup.head(3)
 
 ##############################################################################
 # Match data
@@ -73,8 +69,6 @@ df_event, df_related, df_freeze, df_tactics = parser.event(69301)
 #df_event = parser.event(69301)[0]
 #structure of data
 df_event.info()
-#explore structure - print out 3 first records and column names
-df_event.head(3)
 
 ##############################################################################
 # 360 data
@@ -87,7 +81,7 @@ df_frame, df_visible = parser.frame(3788741)
 
 # exploring the data
 df_frame.info()
-df_frame.head(3)
+
 
 ##############################################################################
 # Before you start
