@@ -36,7 +36,7 @@ shots = df.loc[df['type_name'] == 'Shot'].set_index('id')
 # First let's draw the pitch using the `MPL Soccer class <https://mplsoccer.readthedocs.io/en/latest/gallery/pitch_setup/plot_pitches.html>`_,
 #
 # In this example, we set variables for pitch length and width to the Statsbomb coordinate system (they use yards).
-# You can read more about `different coordinate systems here <https://mplsoccer.readthedocs.io/en/latest/gallery/pitch_setup/plot_compare_pitches.html>`_)
+# You can read more about `different coordinate systems here <https://mplsoccer.readthedocs.io/en/latest/gallery/pitch_setup/plot_compare_pitches.html>`_
 #
 # Now, we iterate through all the shots in the match. We take *x* and *y* coordinates, the team name and information
 # if goal was scored. If It was scored, we plot a solid circle with a name of the player, if not, we plot a
