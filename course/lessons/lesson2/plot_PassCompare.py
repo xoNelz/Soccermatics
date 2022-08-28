@@ -5,9 +5,7 @@ Statistical modelling
 Examples of using regressions
 """
 
-##############################################################################
-# We will need these libraries
-
+#importing necessary libraries
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
@@ -26,7 +24,7 @@ df_match = parser.match(competition_id=72, season_id=30)
 # ----------------------------
 # For our task we need 2 different dataframes. The first one called *passshot_df*. In this dataframe we would like to keep information
 # about team performance in every game they played - index of a game, name of a team, number of shots, number of goals and number
-# of danger passes by this team (see `Danger passes <https://soccermatics.readthedocs.io/en/latest/gallery/lesson1/plot_PassHeatMap.html`_).
+# of danger passes by this team (see `Danger passes <https://soccermatics.readthedocs.io/en/latest/gallery/lesson1/plot_PassHeatMap.html>`_).
 # Moreover, we need the dataframe of all danger passes during the tournament - *danger_passes_df*. 
 
 #get names of all teams 
