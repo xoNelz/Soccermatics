@@ -198,10 +198,10 @@ plt.show()
 ##############################################################################
 # Comparative heatmaps
 # ----------------------------
-# We would like to find out which team outperformed and underperformed when it comes to the number of passes from different zones
+# We would like to find out which team outperformed and underperformed when it comes to the number of danger passes from different zones.
 # First we draw 24 pitches, one for each team that played in WWC 2019. Then, for each team, we calculate the number of passes in 
 # each bin and normalize it by number of games by this team. As the next step we calculate average number of danger passes per zone
-# throughout the tournament. We substract it from the number of danger passes in each zone for every team. As the last step, we plot 
+# throughout the tournament. For every team, we subtract it from the number of danger passes in each zone. As the last step, we plot 
 # the heat map for each team.
 
 #plot pitch
