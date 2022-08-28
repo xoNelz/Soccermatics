@@ -5,11 +5,10 @@ Linear regression
 An example of linear regression
 """
 
-
+#importing necessary 
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-import statsmodels.api as sm
 import statsmodels.formula.api as smf
 
 #Some made up data
