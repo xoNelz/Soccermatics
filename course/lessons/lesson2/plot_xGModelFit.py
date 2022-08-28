@@ -445,6 +445,6 @@ ax.spines['right'].set_visible(False)
 ##############################################################################
 # Challenge
 # ----------------------------
-# 1) Create different models for headers and non-headers (as suggested in `Measuring the Effectiveness of Playing Strategies at Soccer, Pollard (1997) <https://www.jstor.org/stable/2988603>`_!
+# 1) Create different models for headers and non-headers (as suggested in `Measuring the Effectiveness of Playing Strategies at Soccer, Pollard (1997) <https://www.jstor.org/stable/2988603>`_)!
 # 2) Assign to penalties xG = 0.8!
 # 3) Find out which player had the highest xG in 2017/18 Premier League season!
