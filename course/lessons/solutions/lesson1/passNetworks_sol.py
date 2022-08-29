@@ -7,10 +7,10 @@ parser = Sbopen()
 df, related, freeze, tactics = parser.event(69301)
 
 #check for index of first sub
-sub = df.loc[df["type_name"] == "Substitution"].loc[df["team_name"] == "Sweden Women's"].iloc[0]["index"]
+sub = df.loc[df["type_name"] == "Substitution"].loc[df["team_name"] == "England Women's"].iloc[0]["index"]
 #make df with successfull passes by England until the first substitution
-mask_england = (df.type_name == 'Pass') & (df.team_name == "Sweden Women's") & (df.index < sub) & (df.outcome_name.isnull()) & (df.sub_type_name != "Throw-in")
-#not many passes are left - effect of quick first sub by Sweden
+mask_england = (df.type_name == 'Pass') & (df.team_name == "England Women's") & (df.index < sub) & (df.outcome_name.isnull()) & (df.sub_type_name != "Throw-in")
+#not many passes are left - effect of quick first sub by England
 #taking necessary columns
 df_pass = df.loc[mask_england, ['x', 'y', 'end_x', 'end_y', "player_name", "pass_recipient_name"]]
 #adjusting that only the surname of a player is presented.
@@ -36,10 +36,11 @@ for i, name in enumerate(df_pass["player_name"].unique()):
     scatter_df.at[i, "no"] = df_pass.loc[df_pass["player_name"] == name].count().iloc[0]
 
 #adjust the size of a circle so that the player who made more passes 
-scatter_df['marker_size'] = (scatter_df['no'] / scatter_df['no'].max() * 3000)
+scatter_df['marker_size'] = (scatter_df['no'] / scatter_df['no'].max() * 1500)
 
 lines_df = df_pass.groupby(['player_name', 'pass_recipient_name']).x.count().reset_index()
 lines_df.rename({'x':'pass_count'}, axis='columns', inplace=True)
+lines_df = lines_df[lines_df['pass_count']>2]
 
 #plotting everything
 pitch = Pitch(line_color='grey')
@@ -76,7 +77,7 @@ for i, row in lines_df.iterrows():
         pitch.lines(player1_x, player1_y, player2_x, player2_y,
                         alpha=1, lw=line_width, zorder=2, color="red", ax = ax["pitch"])
 
-fig.suptitle("England Passing Network against Sweden", fontsize = 30)
+fig.suptitle("England Passing Network (passes forward) against Sweden", fontsize = 30)
 plt.show()
 
 
