@@ -60,12 +60,12 @@ print(nonheaders_model.summary())
 #assigning xG
 #headers
 b_head = headers_model.params
-xG = 1/(1+np.exp(b_head[0]+b_head[1]*headers['Distance'] + b_head[1]*headers['Angle'])) 
+xG = 1/(1+np.exp(b_head[0]+b_head[1]*headers['Distance'] + b_head[2]*headers['Angle'])) 
 headers = headers.assign(xG = xG)
 
 #non-headers 
 b_nhead = nonheaders_model.params
-xG = 1/(1+np.exp(b_nhead[0]+b_nhead[1]*non_headers['Distance'] + b_nhead[1]*non_headers['Angle'])) 
+xG = 1/(1+np.exp(b_nhead[0]+b_nhead[1]*non_headers['Distance'] + b_nhead[2]*non_headers['Angle'])) 
 non_headers = non_headers.assign(xG = xG)
 
 #2
