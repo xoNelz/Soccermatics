@@ -52,6 +52,12 @@ name = pass_count.idxmax()
 #keeping only their danger passes
 player_df = danger_passes.loc[danger_passes["player_name"] == name]
 
+#number of games 
+no_games = 0
+for idx in match_ids:
+    if name in parser.event(idx)[0]["player_name"].unique():
+        no_games += 1
+        
 #plotting heatmap
 #plot vertical pitch
 pitch = Pitch(line_zorder=2, line_color='black')
@@ -59,8 +65,6 @@ fig, ax = pitch.grid(grid_height=0.9, title_height=0.06, axis=False,
                      endnote_height=0.04, title_space=0, endnote_space=0)
 #get the 2D histogram 
 bin_statistic = pitch.bin_statistic(player_df.x, player_df.y, statistic='count', bins=(6, 5), normalize=False)
-#get number of games that this player played
-no_games = len(player_df["match_id"].unique())
 #normalize by number of games
 bin_statistic["statistic"] = bin_statistic["statistic"]/no_games
 #make a heatmap
