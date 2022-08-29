@@ -18,7 +18,11 @@ import statsmodels.formula.api as smf
 #opening data
 import os
 import pathlib
+import warnings 
+
 pd.options.mode.chained_assignment = None
+warnings.filterwarnings('ignore')
+
 ##############################################################################
 # Opening data
 # ----------------------------
