@@ -11,7 +11,8 @@ events: tackles, passes, shots, interceptions etc.
 What we will learn now is how to create useful 
 visualistions of this data. **Start by watching the video!**
 
-VIDEO HERE
+<iframe width="640" height="360" src="https://www.youtube.com/embed/ApNWc5Ihjyo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 
 It is the job of the mathematician to take a lot of complex data and boil it down to 
 a simple but powerful idea. In football, the message needs to be even more direct. 
