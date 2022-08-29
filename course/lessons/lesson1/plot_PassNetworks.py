@@ -163,4 +163,4 @@ print("Centralisation index is ", centralisation_index)
 ##############################################################################
 # Challenge
 # ----------------------------
-# Make a passing network from England - Sweden game only with passes forward for Sweden!
+# Make a passing network from England - Sweden game only with passes forward for England!
