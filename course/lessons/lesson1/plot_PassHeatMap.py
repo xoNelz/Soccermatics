@@ -35,7 +35,7 @@ df_match = parser.match(competition_id=72, season_id=30)
 team = "England Women's"
 #get list of games by our team, either home or away
 match_ids = df_match.loc[(df_match["home_team_name"] == team) | (df_match["away_team_name"] == team)]["match_id"].tolist()
-#calculater number of games
+#calculate number of games
 no_games = len(match_ids)
 
 ##############################################################################
@@ -47,7 +47,7 @@ no_games = len(match_ids)
 # and there were 3 additional minutes in the first half, we would include those passes. Having the danger passes we concatenate them 
 # with a pandas dataframe to store danger passes from all games 
 
-#declaere an empty dataframe
+#declare an empty dataframe
 danger_passes = pd.DataFrame()
 for idx in match_ids:
     #open the event data from this game 
@@ -142,7 +142,7 @@ plt.show()
 # Challenge
 # ----------------------------
 # 1) Improve so that only high xG (>0.07) are included!
-# 2) Make a heat map only for Sweden's players who was the most involved in danger passes!
+# 2) Make a heat map only for Sweden's player who was the most involved in danger passes!
 
 
     
