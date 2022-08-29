@@ -2,7 +2,8 @@
 Fitting the xG model
 ====================
 
-Examples of using regressions
+In this example we go through all the steps of
+statistically fitting an expected goals model.
 """
 
 # importing necessary libraries
