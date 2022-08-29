@@ -9,20 +9,20 @@ df_match = parser.match(competition_id=72, season_id=30)
 team = "Sweden Women's"
 #get list of games by our team, either home or away
 match_ids = df_match.loc[(df_match["home_team_name"] == team) | (df_match["away_team_name"] == team)]["match_id"].tolist()
-#calculater number of games
-no_games = len(match_ids)
+
 
 #declare an empty dataframe
 danger_passes = pd.DataFrame()
+names = []
 for idx in match_ids:
     #open the event data from this game 
     df = parser.event(idx)[0]
     for period in [1, 2]:
-        #keep only accurate passes by England that were not set pieces in this period
-        mask_pass = (df.team_name == team) & (df.type_name == "Pass") & (df.outcome_name.isnull()) & (df.period == period) & (df.sub_type_name.isnull()) 
+        #keep only accurate passes by Sweden that were not set pieces in this period
+        mask_pass = (df.type_name == "Pass") & (df.outcome_name.isnull()) & (df.period == period) & (df.sub_type_name.isnull()) 
         #keep only necessary columns
-        passes = df.loc[mask_pass, ["x", "y", "end_x", "end_y", "minute", "second", "player_name"]]
-        #keep only Shots by England in this period
+        passes = df.loc[mask_pass, ["x", "y", "end_x", "end_y", "minute", "second", "player_name", "match_id"]]
+        #keep only Shots by Sweden in this period
         mask_shot = (df.team_name == team) & (df.type_name == "Shot") & (df.period == period)
         #keep only necessary columns - now also keep xG
         shots = df.loc[mask_shot, ["minute", "second"]]
@@ -44,7 +44,7 @@ for idx in match_ids:
         
         
 #count passes by player and normalize them
-pass_count = danger_passes.groupby(["player_name"]).x.count()/no_games
+pass_count = danger_passes.groupby(["player_name"]).x.count()
 #finding the player who had the highest number of danger passes
 name = pass_count.idxmax()
 
@@ -59,6 +59,8 @@ fig, ax = pitch.grid(grid_height=0.9, title_height=0.06, axis=False,
                      endnote_height=0.04, title_space=0, endnote_space=0)
 #get the 2D histogram 
 bin_statistic = pitch.bin_statistic(player_df.x, player_df.y, statistic='count', bins=(6, 5), normalize=False)
+#get number of games that this player played
+no_games = len(player_df["match_id"].unique())
 #normalize by number of games
 bin_statistic["statistic"] = bin_statistic["statistic"]/no_games
 #make a heatmap
