@@ -17,8 +17,7 @@ import statsmodels.formula.api as smf
 ##############################################################################
 # Opening data
 # ----------------------------
-# In this example we use data downloaded from FBREF on players in La Liga.
-# https://fbref.com/en/comps/12/2021-2022/stats/2021-2022-La-Liga-Stats
+# In this example we use data downloaded from `FBref <https://fbref.com/en/comps/12/2021-2022/stats/2021-2022-La-Liga-Stats>`_ on players in La Liga.
 # We just use the age and minutes played columns.
 # And we only take the first 20 observations, to help visualise the process.
 
