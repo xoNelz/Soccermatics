@@ -41,7 +41,7 @@ df_match.info()
 
 
 ##############################################################################
-# Match data
+# Lienup data
 # ----------------------------
 # To check the lineups we use the *lineup* method. We do it for England Sweden WWC 2019 game - *game_id* is 69301 
 # - you can check that in the df_match. In this dataframe you will find all players who played in this game, their teams 
@@ -53,7 +53,7 @@ df_lineup = parser.lineup(69301)
 df_lineup.info()
 
 ##############################################################################
-# Match data
+# Event data
 # ----------------------------
 # The Statsbomb data that we will use the most during the course is event data. 
 # Knowing *game_id* you can open all the events that occured on the pitch
