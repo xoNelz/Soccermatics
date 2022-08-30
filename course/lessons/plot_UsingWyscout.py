@@ -4,9 +4,6 @@ Using Wyscout
 
 Getting familiar with Wyscout data
 """
-#CODE WAITING FOR FILE CONFIRMATION - until then it's a total mess
-
-
 #importing necessary libraries
 import pathlib
 import os
