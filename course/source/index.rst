@@ -75,7 +75,25 @@ We encourage participants
 to work with their own data. In 2022, we have a group of
 participants from the English FA
 on the course. Please email David (david.sumpter@it.uu.se)
-if you are interested.
+for information about fees.
+
+**Non-enrolled students:** Several students
+(some of whom are now working for football clubs)
+have completed this course through online study groups.
+To do this, you need to find a group, since all final projects
+are in groups. If you would like to do this, please go in to the
+[Slack channel]
+(https://mathematicalm-fhj6138.slack.com/archives/C0183122E81)
+and find some like-minded people to work with.
+
+If you complete all three assignments for the course message
+David Sumpter in the Slack channel, send him your assignments,
+and if they are complete then he can send you a certificate
+saying you have completed the course.
+
+Unfortunately, I am not able to provide feedback for non-enrolled
+students along the way. But often by working together in the Slack group,
+students find a way of learning together.
 
 Required Background
 ===================
@@ -199,7 +217,8 @@ Contents
    lesson2/Possession.md
    lesson2/introducingExpectedGoals.md
    gallery/lesson2/plot_xGModelFit
-   lesson2/theStatisticalApproach.md
+   lesson2/GeometryOfShooting.md
+   lesson2/MoreonxG.md
    gallery/lesson2/plot_PassCompare
 
 

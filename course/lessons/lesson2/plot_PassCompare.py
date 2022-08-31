@@ -2,7 +2,9 @@
 Statistical modelling
 =====================
 
-Examples of using regressions
+In this section we look at a variety of methods for both evaluating
+the degree to which passing/possession lead to more goals being scroed and
+how we can identify the strongest areas on the pitch for a team.
 """
 
 #importing necessary libraries

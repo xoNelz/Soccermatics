@@ -28,7 +28,7 @@ rcParams['figure.figsize'] = 14/2.54, 10/2.54
 # And we only take the first 20 observations, to help visualise the process.
 
 num_obs=20
-laliga_df=pd.read_csv("playerstats.csv",delimiter=',')
+laliga_df=pd.read_csv("../lessons/lesson2/playerstats.csv", delimiter=',')
 minutes_model = pd.DataFrame()
 minutes_model = minutes_model.assign(minutes=laliga_df['Min'][0:num_obs])
 minutes_model = minutes_model.assign(age=laliga_df['Age'][0:num_obs])

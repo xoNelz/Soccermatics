@@ -164,10 +164,14 @@ art as a science.
 ### Poisson regression
 
 When the predicted variable occurs infrequently it is best to use Poisson regression. 
-We will come back to the Poisson distribution in lesson 5, but for now I'll just give the 
-example we look use
+We will come back to the Poisson distribution in lesson 5, 
+but for now the plot below shows how the rate of a team scoring increases
+as a function of the number of passes they make.
 
+<img src="../images/lesson2/PoissonScore.png" alt="fishy" width="600px" class="bg-primary">
 
+In [statistical modelling](../gallery/lesson2/plot_PassCompare) we show how
+to do Poisson regression.
 
 ### Other machine learning methods
 
