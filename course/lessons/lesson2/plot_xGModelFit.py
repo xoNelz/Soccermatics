@@ -216,7 +216,7 @@ fig, ax = plt.subplots()
 #plot data
 ax.plot(shots_40['Angle']*180/np.pi, shots_40['Goal'], linestyle='none', marker= '.', markersize= 12, color='black', zorder = 3)
 #plot curves
-ax.plot(x, y, linestyle='solid', color='black', zorder = 2)
+ax.plot(x, y, linestyle=':', color='black', zorder = 2)
 ax.plot(x, 1-y, linestyle='solid', color='black', zorder = 2)
 #calculate loglikelihood
 loglikelihood=0
@@ -224,7 +224,7 @@ for item,shot in shots_40.iterrows():
     ang = shot['Angle'] * 180/np.pi
     if shot['Goal'] == 1:
         loglikelihood = loglikelihood + np.log(shot['xG'])
-        ax.plot([ang,ang],[shot['Goal'],shot['xG']], color='red', zorder = 1)
+        ax.plot([ang,ang],[shot['Goal'],1-shot['xG']], color='red', zorder = 1)
     else:
         loglikelihood = loglikelihood + np.log(1 - shot['xG'])
         ax.plot([ang,ang], [shot['Goal'], 1-shot['xG']], color='blue', zorder = 1) 
