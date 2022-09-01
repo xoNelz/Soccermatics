@@ -2,9 +2,28 @@
 Fitting the xG model
 ====================
 
-In this example we go through all the steps of
-statistically fitting an expected goals model.
+In this page we go through all the steps of statistically fitting
+an expected goals model.
+
+Before starting watch the following two videos from Friends of Tracking.
+
+..  youtube:: bpjLyFyLlXs
+   :width: 640
+   :height: 349
+
+You will be sad to learn that Tobias (the dog featuring in
+this video) died suddenly during summer 2022 :-(
+
+..  youtube:: wHOgINJ5g54
+   :width: 640
+   :height: 349
+
+These use an older version of the code, which is available
+`here <https://github.com/Friends-of-Tracking-Data-FoTD/SoccermaticsForPython>`_.
+But the steps are the same.
+
 """
+
 
 # importing necessary libraries
 import pandas as pd

@@ -2,13 +2,17 @@
 Linear regression
 ==============
 
-An example of linear regression
-
 We are going to look at the relationship between age and
-minutes played.
+minutes played. Start by watching the video a
+
+..  youtube:: TnOqoeVPnXE
+   :width: 640
+   :height: 349
+
+Either work through the code at the same time as watching or afterwards.
 """
 
-#importing necessary 
+#importing necessary libraries
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -20,6 +24,8 @@ import statsmodels.formula.api as smf
 # In this example we use data downloaded from `FBref <https://fbref.com/en/comps/12/2021-2022/stats/2021-2022-La-Liga-Stats>`_ on players in La Liga.
 # We just use the age and minutes played columns.
 # And we only take the first 20 observations, to help visualise the process.
+# Download `playerstats.csv <https://github.com/soccermatics/Soccermatics/blob/main/course/lessons/lesson2/playerstats.csv>`_
+# your working directory.
 
 num_obs=20
 laliga_df=pd.read_csv("playerstats.csv",delimiter=',')
@@ -129,6 +135,8 @@ plt.show()
 # Now try with all data points
 # ----------------------------
 # 1) Refit the model with all data points
+#
 # 2) Try adding a cubic term
+#
 # 3) Think about how well the model works. What are the limitations?
 
