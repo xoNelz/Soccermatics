@@ -27,7 +27,7 @@ df_competition.info()
 ##############################################################################
 # Match data
 # ----------------------------
-# Using method *method* of the parser we can explore matches of a competition to find the match we are interested in.
+# Using method *match* of the parser we can explore matches of a competition to find the match we are interested in.
 # To open it we need to know the *competition_id* (id of competition) and *season_id*.
 # We know that for Women World Cup *competition_id* is 72 and *season_id* is 30
 # From this dataframe for us the most important imformation is provided in *match_id*, 
