@@ -125,7 +125,7 @@ lockdown in April/May 2020 by a group of club analysts
 and leading academics. These include lead data
 scientists:
 Javier Fernandez (Barcelona), Sudarshan Gopaladesikan (formerly Benfica, now Atalanta)
-William Spearman (Liverpool), Laurie Shaw (Manchester United), Fran Peralta
+William Spearman (Liverpool), Laurie Shaw (Manchester City), Fran Peralta
 (formerly Hammarby, now Atletic Bilbao), Alex Thomas (The English FA), Pascal Bauer (German DFB)
 and many more. We initially made this work available at the `Friends of Tracking Youtube channel
 <https://www.youtube.com/channel/UCUBFJYcag8j2rm_9HkrrA7w>`_.
