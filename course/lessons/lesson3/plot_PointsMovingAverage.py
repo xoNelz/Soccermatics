@@ -13,7 +13,8 @@ import matplotlib.pyplot as plt
 #downloading data and saving it in pandas dataframe for all seasons
 dflist=[]
 seasonst = []
-for year in range(5,23,1):
+#taking to last year because United hasn't played yet for the day of code develop
+for year in range(5,22,1):
     if year<9:
         yeartext='0'+str(year)+'0'+str(year+1)
         yeartext2='0'+str(year)+'-0'+str(year+1)
@@ -69,30 +70,25 @@ for team in teams:
     team_dfs[team] = team_df
 
 
-fig,ax=plt.subplots()
-big_6 = ['Man City', 'Liverpool', 'Arsenal', ]
-comparison1='Man City'
-comp_color1='lightblue'
-comparison3='Liverpool'
-comp_color3='red'
-comparison2='Man United'
-comp_color2='darkred'
+fig,ax=plt.subplots(figsize=(20, 15))
+fig.set_facecolor("darkgrey")
+big_6 = ['Man City', 'Liverpool', 'Arsenal']#, 'Chelsea', 'Tottenham', 'Man United']
+#arsenal got yellow because of those 2004 jerseys 
+colors = ['lightblue', 'red', 'yellow']#, 'darkblue', 'grey', 'darkred']
 
-
-ax.plot(team_dfs[comparison1]['Game'],  team_dfs[comparison1]['PointsRA'], linewidth=2, linestyle='-',color=comp_color1)
-ax.plot(team_dfs[comparison2]['Game'],  team_dfs[comparison2]['PointsRA'], linewidth=2 , linestyle='-',color=comp_color2)
-ax.plot(team_dfs[comparison3]['Game'],  team_dfs[comparison3]['PointsRA'], linewidth=2 , linestyle='-',color=comp_color3)
+for club, color in zip(big_6, colors):
+    ax.plot(team_dfs[club]['Game'],  team_dfs[club]['PointsRA'], linewidth=1, linestyle='-',color=color)
 
 ax.set_title(str(10) + ' game moving average')
 plt.gcf().autofmt_xdate()
 
-ax.legend([comparison1,comparison2,comparison3])
+ax.legend(big_6)
 
-ax.set_ylim(1,3.2)
 
-ax.set_xticks(np.arange(0,max(team_dfs[comparison2]['Game']),38))
+
+ax.set_xticks(np.arange(0, max(team_dfs["Liverpool"]['Game']) ,38))
 ax.set_xticklabels(seasonst)
-ax.set_xlim(0,max(team_dfs[comparison2]['Game'])+40)
+ax.set_xlim(0,max(team_dfs["Liverpool"]['Game'])+40)
 ax.set_ylim(0,3.2)
 
 
