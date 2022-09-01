@@ -227,4 +227,4 @@ Contents
 
    lesson3/ScoutingPlayers.md
    gallery/lesson3/plot_RadarPlot
-
+   gallery/lesson3/plot_PointsMovingAverage
