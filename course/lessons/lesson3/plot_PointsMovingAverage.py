@@ -66,18 +66,19 @@ for team in teams:
         team_df.at[i, "Date"] = date
         team_df.at[i, "Game"] = game
         
-    team_df['PointsRA'] = team_df['Points'].rolling(window=10, win_type='triang').mean()
+    team_df['PointsRA'] = team_df['Points'].rolling(window=30, win_type='triang').mean()
     team_dfs[team] = team_df
 
 
 fig,ax=plt.subplots(figsize=(20, 15))
 fig.set_facecolor("darkgrey")
-big_6 = ['Man City', 'Liverpool', 'Arsenal']#, 'Chelsea', 'Tottenham', 'Man United']
+ax
+big_6 = ['Man City', 'Liverpool', 'Arsenal', 'Chelsea', 'Tottenham', 'Man United']
 #arsenal got yellow because of those 2004 jerseys 
-colors = ['lightblue', 'red', 'yellow']#, 'darkblue', 'grey', 'darkred']
+colors = ['lightblue', 'red', 'yellow', 'darkblue', 'lightgrey', 'darkred']
 
 for club, color in zip(big_6, colors):
-    ax.plot(team_dfs[club]['Game'],  team_dfs[club]['PointsRA'], linewidth=1, linestyle='-',color=color)
+    ax.plot(team_dfs[club]['Game'],  team_dfs[club]['PointsRA'], linewidth=3, linestyle='-',color=color, alpha = 0.4)
 
 ax.set_title(str(10) + ' game moving average')
 plt.gcf().autofmt_xdate()
