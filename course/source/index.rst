@@ -221,5 +221,10 @@ Contents
    lesson2/MoreonxG.md
    gallery/lesson2/plot_PassCompare
 
+.. toctree::
+   :maxdepth: 1
+   :caption: Lesson 3:
 
+   lesson3/ScoutingPlayers.md
+   gallery/lesson3/plot_RadarPlot
 
