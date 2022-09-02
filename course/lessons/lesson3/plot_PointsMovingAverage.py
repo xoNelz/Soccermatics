@@ -141,8 +141,7 @@ plt.legend(bbox_to_anchor=(1.0, 0.5), loc="center left",fontsize=16, edgecolor='
 plt.show()
 
 ##############################################################################
-# Making plot
+# Challenge
 # ----------------------------
-
 # 1. Improve so that the rolling average is calculated for each season independently!
 # 2. Make this plot for Norwich and account for their relegations!
