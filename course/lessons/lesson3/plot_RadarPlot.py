@@ -331,8 +331,6 @@ gakp.head(3)
 # `here <https://github.com/soccermatics/Soccermatics/tree/main/course/lessons/minutes_played>`_. After downloading data and saving
 # it in out directory, we open it and store in a dataframe. Then we calculate the sum of miutes played in a season for each player.
 
-
-###GETTING MINUTES PLAYED  ---- update path
 path = os.path.join(str(pathlib.Path().resolve().parents[0]),"minutes_played", 'minutes_played_per_game_England.json')
 with open(path) as f:
     minutes_per_game = json.load(f)
@@ -355,6 +353,23 @@ summary = minutes.merge(summary, how = "left", on = ["playerId"])
 summary = summary.fillna(0)
 summary = summary.loc[summary["minutesPlayed"] > 400]
 
+
+##############################################################################
+# Filtering positions
+# ----------------------------
+# Since we would like to create a plot with attacking values, it is important to keep only forwards (also the player that we will
+# make the plot for is a forward). Therefore, we open the players dataset, we filter out forwards and inner join it with our summary
+# dataframe to keep only Premier League forwards who played more than 400 minutes.
+
+path = os.path.join(str(pathlib.Path().resolve().parents[0]),"data", 'Wyscout', 'players.json')
+with open(path) as f:
+    players = json.load(f)
+player_df = pd.DataFrame(players)
+forwards = player_df.loc[player_df.apply(lambda x: x.role["name"] == "Forward", axis = 1)]
+forwards.rename(columns = {'wyId':'playerId'}, inplace=True)
+to_merge = forwards[['playerId', 'shortName']]
+summary = summary.merge(to_merge, how = "inner", on = ["playerId"])
+
 ##############################################################################
 # Calculating statistics per 90
 # ----------------------------
@@ -363,31 +378,27 @@ summary = summary.loc[summary["minutesPlayed"] > 400]
 # the total number of minutes played by player.
 
 summary_per_90 = pd.DataFrame()
-summary_per_90["playerId"] = summary["playerId"]
-for column in summary.columns[2:]:
+summary_per_90["shortName"] = summary["shortName"]
+for column in summary.columns[2:-1]:
     summary_per_90[column + "_per90"] = summary.apply(lambda x: x[column]*90/x["minutesPlayed"], axis = 1)
     
 ##############################################################################
 # Finding values for player
 # ----------------------------
 # For this tutorial we decided to use Mohammed Salah as our player. First, we have to find his 
-# *playerId* in the player database. Then, we filter in the dataframe with data per 90 his statistics.
+# *shortName* in the summary database. Then, we filter in the dataframe with data per 90 his statistics.
 # As the next step we store these statistics in a list and calculate in which percentile is the value.
 # Since the
 # distribution of statistics may not be uniform on the interval [minimum value - maximum value], we claim
 # that is better to use them as the size of piece on our radar. 
 
-path = os.path.join(str(pathlib.Path().resolve().parents[0]),"data", 'Wyscout', 'players.json')
-with open(path) as f:
-    players = json.load(f)
-player_df = pd.DataFrame(players)
-
 #player to investigate - Mohammed Salah
-salah_id = player_df.loc[player_df["lastName"] == "Salah Ghaly"]['wyId'].iloc[0]
 #only his statistics
-salah = summary_per_90.loc[summary_per_90["playerId"] == salah_id]
+salah = summary_per_90.loc[summary_per_90["shortName"] == "Mohamed Salah"]
+#columns similar together
+salah = salah[['npxG_per90', "goals_per90", "assists_per90", "key_passes_per90", "smart_passes_per90", "final_third_passes_per90", "final_third_receptions_per90", "ground_duels_won_per90", "air_duels_won_per90"]]
 #take only necessary columns - exclude playerId
-per_90_columns = salah.columns[1:]
+per_90_columns = salah.columns[:]
 #values to mark on the plot
 values = [round(salah[column].iloc[0],2) for column in per_90_columns]
 #percentiles
@@ -404,8 +415,9 @@ percentiles = [int(stats.percentileofscore(summary_per_90[column], salah[column]
 # we put the statistic on it. Then, we add title and subtitle to our plot. 
 
 #list of names on plots
-names = ["non-penalty Expected Goals", "Passes Ending in Final Third", "Receptions in Final Third", "Ground Attacking Duels Won", "Air Duels Won", "Smart Passes", "non-penalty Goals", "Assists", "Key Passes"]
-
+names = ["non-penalty Expected Goals", "non-penalty Goals", "Assists", "Key Passes", "Smart Passes", "Passes Ending in Final Third", "Passes Received in Final Third", "Offensive Ground Duels Won", "Air Duels Won"]
+slice_colors = ["blue"] * 2 + ["green"] * 5 + ["red"] * 2
+text_colors = ["white"]*9
 font_normal = FontManager(("https://github.com/google/fonts/blob/main/apache/roboto/"
                            "Roboto%5Bwdth,wght%5D.ttf?raw=true"))
 font_bold = FontManager(("https://github.com/google/fonts/blob/main/apache/robotoslab/"
@@ -425,7 +437,10 @@ baker = PyPizza(
 fig, ax = baker.make_pizza(
     percentiles,              # list of values
     figsize=(10, 10),      # adjust figsize according to your need
-    param_location=110,  # where the parameters will be added
+    param_location=110,
+    slice_colors=slice_colors,
+    value_colors = text_colors,
+    value_bck_colors=slice_colors, # where the parameters will be added
     kwargs_slices=dict(
         facecolor="cornflowerblue", edgecolor="#000000",
         zorder=2, linewidth=1
@@ -525,7 +540,7 @@ summary = summary.merge(percentage_df, how = "left", on = ["playerId"])
 
 #create a new dataframe only for it
 summary_adjusted = pd.DataFrame()
-summary_adjusted["playerId"] = summary["playerId"]
+summary_adjusted["shortName"] = summary["shortName"]
 #calculate value adjusted
 for column in summary.columns[2:11]:
     summary_adjusted[column + "_adjusted_per90"] = summary.apply(lambda x: (x[column]/x["possesion"])*90/x["minutesPlayed"], axis = 1)
@@ -536,14 +551,16 @@ for column in summary.columns[2:11]:
 # After calculating the values, we repeat the steps by calculating percentiles and plotting radars from 
 # making the plot per 90. Note that this time we show the percentile rank on the plot.
 
-salah_adjusted = summary_adjusted.loc[summary_adjusted["playerId"] == salah_id]
+salah_adjusted = summary_adjusted.loc[summary_adjusted["shortName"] == "Mohamed Salah"]
+salah_adjusted = salah_adjusted[['npxG_adjusted_per90', "goals_adjusted_per90", "assists_adjusted_per90", "key_passes_adjusted_per90", "smart_passes_adjusted_per90", "final_third_passes_adjusted_per90", "final_third_receptions_adjusted_per90", "ground_duels_won_adjusted_per90", "air_duels_won_adjusted_per90"]]
 #take only necessary columns
-adjusted_columns = salah_adjusted.columns[1:]
+adjusted_columns = salah_adjusted.columns[:]
 #values
 values = [salah_adjusted[column].iloc[0] for column in adjusted_columns]
 #percentiles
 percentiles = [int(stats.percentileofscore(summary_adjusted[column], salah_adjusted[column].iloc[0])) for column in adjusted_columns]
-names = ["non-penalty Expected Goals", "Passes Ending in Final Third", "Receptions in Final Third", "Ground Attacking Duels Won", "Air Duels Won", "Smart Passes", "non-penalty Goals", "Assists", "Key Passes"]
+names = names = ["non-penalty Expected Goals", "non-penalty Goals", "Assists", "Key Passes", "Smart Passes", "Passes Ending in Final Third", "Passes Received in Final Third", "Offensive Ground Duels Won", "Air Duels Won"]
+
 
 font_normal = FontManager(("https://github.com/google/fonts/blob/main/apache/roboto/"
                            "Roboto%5Bwdth,wght%5D.ttf?raw=true"))
@@ -564,7 +581,8 @@ baker = PyPizza(
 fig, ax = baker.make_pizza(
     percentiles,              # list of values
     figsize=(10, 10),      # adjust figsize according to your need
-    param_location=110,  # where the parameters will be added
+    param_location=110,
+    # where the parameters will be added
     kwargs_slices=dict(
         facecolor="cornflowerblue", edgecolor="#000000",
         zorder=2, linewidth=1
@@ -592,7 +610,7 @@ fig.text(
 # add subtitle
 fig.text(
     0.515, 0.942,
-    "Percentile Rank vs Premier League Players | Season 2017-18",
+    "Percentile Rank vs Premier League Forwards | Season 2017-18",
     size=15,
     ha="center", fontproperties=font_bold.prop, color="#000000"
 )
