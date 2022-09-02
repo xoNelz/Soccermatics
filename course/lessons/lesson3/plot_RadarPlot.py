@@ -582,6 +582,9 @@ fig, ax = baker.make_pizza(
     percentiles,              # list of values
     figsize=(10, 10),      # adjust figsize according to your need
     param_location=110,
+    slice_colors=slice_colors,
+    value_colors = text_colors,
+    value_bck_colors=slice_colors,
     # where the parameters will be added
     kwargs_slices=dict(
         facecolor="cornflowerblue", edgecolor="#000000",
