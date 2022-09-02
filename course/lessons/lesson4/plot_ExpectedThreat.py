@@ -1,26 +1,20 @@
 """
 Expected Threat
 =====================
-Making Radar Plots
+Calculating Expected Threat
 """
 
-#moving actions - 'Simple pass', 'High pass', 'Head pass', 'Smart pass'
 import pandas as pd
 import numpy as np
 import json
 # plotting
 import matplotlib.pyplot as plt
-# statistical fitting of models
-import statsmodels.api as sm
-import statsmodels.formula.api as smf
 #opening data
 import os
 import pathlib
 import warnings 
 #used for plots
-from scipy import stats
 from mplsoccer import Pitch
-
 from scipy.stats import binned_statistic_2d
 
 
