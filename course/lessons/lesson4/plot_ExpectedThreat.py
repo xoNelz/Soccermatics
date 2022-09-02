@@ -129,12 +129,6 @@ cbar = plt.colorbar(pcm, cax=ax_cbar)
 fig.suptitle('Goal probability 2D histogram', fontsize = 30)
 plt.show()
 
-
-#OK FRIENDSHIP WITH MPL SOCCER ENDED NOW PANDAS IS MY BEST FRIEND - transition matrix
-
-x_distance = [i*105/16 for i in range(17)]
-y_distance = [i*105/12 for i in range(13)]
-
 #move start index - using the same function as mplsoccer, it should work
 
 move_df["start_sector"] = move_df.apply(lambda row: tuple([i[0] for i in binned_statistic_2d(np.ravel(row.x), np.ravel(row.y), 
