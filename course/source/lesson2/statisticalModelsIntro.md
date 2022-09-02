@@ -55,9 +55,42 @@ The fit of the model is shown below:
 
 <img src="../images/lesson2/LinearFit.png" alt="fishy" width="600px" class="bg-primary">
 
-And we find that we can improve the fit (reflecting how older players play less) by including a quadratic term 
 
-$$\mbox{Minutes Played} = \beta_0 + \beta_1 \mbox{Age} + \beta_1 \mbox{Age}^2$$
+The parameter fit is made by solving the least squares problem, that is,
+minimising
+
+$$\sum_{i=1}^n (\beta_0 + \beta_1 x_i - y_i)^2$$
+
+For only one variable, as in the example above,
+this estimate is obtained by:
+
+$$\hat{\beta_1} = \frac{\sum_{i=1}^n (x_i - \bar{x})(y_i - \bar{y})}{\sum_{i=1}^n (x_i - \bar{x})^2}$$
+
+where $\bar{x}$ is the mean of the input variable and
+$\bar{y}$ is the mean of the output variable.
+
+The R-squared of the fit (for a single variable model) is then
+
+$$ R^2 =1 - \frac{\sum_{i=1}^n (\beta_0 + \beta_1 x_i - y_i)^2}{\sum_{i=1}^n (y_i - \bar{y})^2}$$
+
+The higher the value of R-squared, the more of the data is explained by the model
+
+
+In the general case, where ${\bf X}$ is a matrix then we minimise
+
+$$\widehat{\beta} = \underset{\beta}{\text{argmin}} \|{\bf X} \beta-{\bf y}\|_2^2$$
+
+where $\beta$ is a vector of parameters. This is achieved with
+
+$$\widehat{\beta} = \left({\bf X}^T{\bf X}\right)^{-1} {\bf X}^T {\bf y}$$
+
+In this case, ${\bf X}^T{\bf X}$ is like sum of squares (similar to co-variances of input variables) 
+and ${\bf X}^T {\bf y}$ is similar to co-variance between input and output. 
+
+
+For example, we find that we can improve the fit (reflecting how older players play less) by including a quadratic term 
+
+$$\mbox{Minutes Played} = \beta_0 + \beta_1 \mbox{Age} + \beta_2 \mbox{Age}^2$$
 
 Giving the following fit:
 
@@ -84,7 +117,7 @@ It is for 'yes' or 'no' answers: 'goal' or 'not a goal','successful pass' or 'fa
 
 A logistic regression model has the form
 
-$$p(Y=1 \mid x_1, ... , x_n ) = \frac{1}{1 + \exp(\beta_0+\beta_1x_1 + .. + \beta_n x_n)} $$
+$$p(Y=1 \mid x_1, ... , x_n ) = \frac{1}{1 + \exp(-(\beta_0+\beta_1x_1 + .. + \beta_n x_n))} $$
 
 where $x_1, ... ,x_n$ is a list of features and $Y$ is the event to be predicted 
 ($1$ means it happens,
@@ -109,7 +142,7 @@ data from one season we see the following relationship.
 
 Taking this angle as the feature the model we want to fit is:
 
-$$p(\mbox{Goal}) = \frac{1}{1 + \exp(\beta_0+\beta_1 \mbox{Angle})} $$
+$$p(\mbox{Goal}) = \frac{1}{1 + \exp(-(\beta_0 + \beta_1 \mbox{Angle}))} $$
 
 The aim in fitting this model is to find the values of $\beta_0$ and $\beta_1$,
 which maximises the likelihood of the data given the model. The way the likelihood is calculated
@@ -140,7 +173,6 @@ probability of scoring. The best shape is a little bit more squashed out at the 
 model I fitted when I wrote Soccermatics (the book).
 
 <img src="../images/lesson2/squashxG.png" alt="fishy" width="600px" class="bg-primary">
-
 
 The fitted model in this case is:
 
@@ -194,6 +226,9 @@ got the hang of it) to interpret form. We can use them to discuss our results
 with coaches! 
 
 All of this said, we will come back to more complex methods in lesson 4.
+
+
+
 
 ### Further reading
 

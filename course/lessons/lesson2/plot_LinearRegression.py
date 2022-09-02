@@ -91,12 +91,12 @@ plt.ylim((0,3000))
 
 #Now create the line through the data
 x=np.arange(40,step=1)
-y= b[0] + b[1]*x 
+y= np.mean(minutes_model['minutes'])*np.ones(40)
 ax.plot(x, y, color='black')
 
 #Show distances to line for each point
 for i,a in enumerate(minutes_model['age']):
-    ax.plot([a,a],[minutes_model['minutes'][i], b[0] + b[1]*a ], color='red')
+    ax.plot([a,a],[minutes_model['minutes'][i], np.mean(minutes_model['minutes']) ], color='red')
 plt.show()
 
 ##############################################################################
