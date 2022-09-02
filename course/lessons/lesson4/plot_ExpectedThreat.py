@@ -58,7 +58,7 @@ pcm  = pitch.heatmap(move, cmap='Blues', edgecolor='grey', ax=ax['pitch'])
 #legend to our plot
 ax_cbar = fig.add_axes((1, 0.093, 0.03, 0.786))
 cbar = plt.colorbar(pcm, cax=ax_cbar)
-ax["title"].set_title('Moving actions 2D histogram', fontsize = 30)
+fig.suptitle('Moving actions 2D histogram', fontsize = 30)
 plt.show()
 #get the array
 move_count = move["statistic"]
@@ -77,7 +77,7 @@ pcm  = pitch.heatmap(shot, cmap='Greens', edgecolor='grey', ax=ax['pitch'])
 #legend to our plot
 ax_cbar = fig.add_axes((1, 0.093, 0.03, 0.786))
 cbar = plt.colorbar(pcm, cax=ax_cbar)
-ax["title"].set_title('Shots 2D histogram', fontsize = 30)
+fig.suptitle('Shots 2D histogram', fontsize = 30)
 plt.show()
 
 shot_count = shot["statistic"]
@@ -106,7 +106,7 @@ pcm  = pitch.heatmap(move, cmap='Blues', edgecolor='grey', ax=ax['pitch'])
 #legend to our plot
 ax_cbar = fig.add_axes((1, 0.093, 0.03, 0.786))
 cbar = plt.colorbar(pcm, cax=ax_cbar)
-ax["title"].set_title('Move probability 2D histogram', fontsize = 30)
+fig.suptitle('Move probability 2D histogram', fontsize = 30)
 plt.show()
 
 #shot probability
@@ -119,10 +119,10 @@ pcm  = pitch.heatmap(shot, cmap='Greens', edgecolor='grey', ax=ax['pitch'])
 #legend to our plot
 ax_cbar = fig.add_axes((1, 0.093, 0.03, 0.786))
 cbar = plt.colorbar(pcm, cax=ax_cbar)
-ax["title"].set_title('Shot probability 2D histogram', fontsize = 30)
+fig.suptitle('Shot probability 2D histogram', fontsize = 30)
 plt.show()
 
-goal_probability = goal_count/(goal_count+shot_count)
+goal_probability = goal_count/shot_count
 goal_probability[np.isnan(goal_probability)] = 0
 #plotting it
 fig, ax = pitch.grid(grid_height=0.9, title_height=0.06, axis=False,
@@ -132,7 +132,7 @@ pcm  = pitch.heatmap(goal, cmap='Reds', edgecolor='grey', ax=ax['pitch'])
 #legend to our plot
 ax_cbar = fig.add_axes((1, 0.093, 0.03, 0.786))
 cbar = plt.colorbar(pcm, cax=ax_cbar)
-ax["title"].set_title('Goal probability 2D histogram', fontsize = 30)
+fig.suptitle('Goal probability 2D histogram', fontsize = 30)
 plt.show()
 
 
@@ -175,6 +175,87 @@ for i, row in df_count_starts.iterrows():
     transition_matrices.append(T_matrix)
 
 #let's plot it for the zone [1,1] - left down corner
+fig, ax = pitch.grid(grid_height=0.9, title_height=0.06, axis=False,
+                     endnote_height=0.04, title_space=0, endnote_space=0)
+goal["statistic"] = transition_matrices[0]
+pcm  = pitch.heatmap(goal, cmap='Reds', edgecolor='grey', ax=ax['pitch'])
+#legend to our plot
+ax_cbar = fig.add_axes((1, 0.093, 0.03, 0.786))
+cbar = plt.colorbar(pcm, cax=ax_cbar)
+fig.suptitle('Transition probability for the most left down zone', fontsize = 30)
+plt.show()
+
+
+transition_matrices_array = np.array(transition_matrices)
+xT = np.zeros((12, 16))
+for i in range(6):
+    shoot_expected_payoff = goal_probability*shot_probability
+    move_expected_payoff = move_probability*(np.sum(np.sum(transition_matrices_array*xT, axis = 2), axis = 1).reshape(16,12).T)
+    xT = shoot_expected_payoff + move_expected_payoff                                         
+
+
+#let's plot it!
+fig, ax = pitch.grid(grid_height=0.9, title_height=0.06, axis=False,
+                     endnote_height=0.01, title_space=0, endnote_space=0)
+goal["statistic"] = xT
+pcm  = pitch.heatmap(goal, cmap='Oranges', edgecolor='grey', ax=ax['pitch'])
+labels = pitch.label_heatmap(goal, color='blue', fontsize=9,
+                             ax=ax['pitch'], ha='center', va='center', str_format="{0:,.2f}", zorder = 3)
+#legend to our plot
+ax_cbar = fig.add_axes((1, 0.093, 0.03, 0.786))
+cbar = plt.colorbar(pcm, cax=ax_cbar)
+fig.suptitle('Expected Threat matrix', fontsize = 30)
+plt.show()
+
+
+successful_moves = move_df.loc[move_df.apply(lambda x:{'id':1801} in x.tags, axis = 1)]
+successful_moves["xT_added"] = successful_moves.apply(lambda row: xT[row.end_sector[1] - 1][row.end_sector[0] - 1] 
+                                                      - xT[row.start_sector[1] - 1][row.start_sector[0] - 1], axis = 1)
+
+value_adding_actions = successful_moves.loc[successful_moves["xT_added"] > 0]
+
+xT_by_player = value_adding_actions.groupby(["playerId"])["xT_added"].sum().reset_index()
+
+#merging player name
+path = os.path.join(str(pathlib.Path().resolve().parents[0]),"data", 'Wyscout', 'players.json')
+with open(path) as f:
+    players = json.load(f)
+player_df = pd.DataFrame(players)
+player_df.rename(columns = {'wyId':'playerId'}, inplace=True)
+player_df["role"] = player_df.apply(lambda x: x.role["name"], axis = 1)
+to_merge = player_df[['playerId', 'shortName', 'role']]
+
+summary = xT_by_player.merge(to_merge, how = "left", on = ["playerId"])
+
+path = os.path.join(str(pathlib.Path().resolve().parents[0]),"minutes_played", 'minutes_played_per_game_England.json')
+with open(path) as f:
+    minutes_per_game = json.load(f)
+minutes_per_game = pd.DataFrame(minutes_per_game)
+minutes = minutes_per_game.groupby(["playerId"]).minutesPlayed.sum().reset_index()
+summary = minutes.merge(summary, how = "left", on = ["playerId"])
+summary = summary.fillna(0)
+summary = summary.loc[summary["minutesPlayed"] > 400]
+
+summary["xT_per_90"] = summary["xT_added"]*90/summary["minutesPlayed"]
+
+
+path = os.path.join(str(pathlib.Path().resolve().parents[0]),"minutes_played", 'player_possesion_England.json')
+with open(path) as f:
+    percentage_df = json.load(f)
+percentage_df = pd.DataFrame(percentage_df)
+#merge it
+summary = summary.merge(percentage_df, how = "left", on = ["playerId"])
+
+summary["xT_adjusted_per_90"] = (summary["xT_added"]/summary["possesion"])*90/summary["minutesPlayed"]
+
+
+
+
+
+
+
+
+
 
 
 
