@@ -230,9 +230,3 @@ Contents
    lesson3/TeamKPIs.md
    gallery/lesson3/plot_PointsMovingAverage
    lesson3/Philosophy.md
-
-.. toctree::
-   :maxdepth: 1
-   :caption: Lesson X:
-
-   gallery/lessonX/plot_radar

@@ -1,7 +1,24 @@
 """
 Radar Plots
 =====================
-Making Radar Plots
+
+In this lesson, we go step-by-step through the process of making player radars
+for a striker. We calculate the following metrics directly from
+a count of actions in the Wyscout event data,
+
+- Non-penalty goals
+- Assists
+- Key passes
+- Smart passes
+- Ariel duels won
+- Ground attacking duels won
+
+We add tho these our own calculations of,
+
+- non-penalty expected goals.
+- passes ending in final third
+- receptions in final third.
+
 """
 
 import pandas as pd
@@ -26,7 +43,8 @@ warnings.filterwarnings('ignore')
 ##############################################################################
 # Opening data
 # ----------------------------
-# For this task we will use Wyscout data. We open it, save in the dataframe *train* and to potentially avoid some errors with our code, we keep
+# For this task we will use Wyscout data. We open it, save in the dataframe
+# *train*. To avoid potential errors, we keep
 # only the data for which the beginning and end of an action was registered. 
 
 train = pd.DataFrame()
@@ -43,9 +61,13 @@ train = train.loc[train.apply (lambda x: len(x.positions) == 2, axis = 1)]
 # Calculating xG value
 # ----------------------------
 # As one of the pieces of our radar plot we want to use the Expected Goals statistic. We build 2 different models 
-# for headers and shots with leg. Then, the statistic is calculated. If we want to use non-penalty xG,
-# we can set the npxG value of function to True. We calculate the cummulative xG for all players and return the dataframe
+# for headers and shots with leg. Then, the statistic is calculated.
+# If we want to use non-penalty xG,
+# we can set the npxG value of function to True.
+# We calculate the cummulative xG for all players and return the dataframe
 # only with *playerId* and this value.
+#
+# This uses the same method as in lesson 2 to caluclate xG
 
 def calulatexG(df, npxG):
     """
@@ -117,12 +139,16 @@ npxg.head(3)
 ##############################################################################
 # Calculating passes ending in final third and receptions in final third
 # ----------------------------
-# These 2 statistics are another ones that we want to include on our chart. First, we need to shift 
-# players to get information, which player received the ball - a basic idea that the player who made 
-# the next action was the receiver. Then, we change Wyscout coordinates to match standard pitch dimensions.
-# Of our interest are only accurate passes. We filter passes that ended in the final third and get the passes 
-# as well as the receiver. As the last step, we sum them by player and merge these dataframes to return one. Note that we use 
-# outer join not to forget a player who may have made no receptions in the final third, bud did make some passes.
+# These 2 statistics capture how good a player is in receiving and passing th
+# ball in the final third. These statistics add context to passes. It isn't enough
+# for a striker to be a good passer of the ball he or she should be able to perform well in the final third.
+#
+# To get the information about receptions, the basic idea is that the player who made
+# the next action was the receiver.  We filter successful passes that ended in the final third and get the passes
+# as well as the receiver. As in the last step, we sum them by player and merge these dataframes
+# to return one. Note that we use
+# outer join not to forget a player who made no
+# receptions in the final third, bud did make some passes.
 
 def FinalThird(df):
     """
@@ -346,7 +372,8 @@ for column in summary.columns[2:]:
 # ----------------------------
 # For this tutorial we decided to use Mohammed Salah as our player. First, we have to find his 
 # *playerId* in the player database. Then, we filter in the dataframe with data per 90 his statistics.
-# As the next step we store these statistics in a list and calculate in which percentile is the value. Since the
+# As the next step we store these statistics in a list and calculate in which percentile is the value.
+# Since the
 # distribution of statistics may not be uniform on the interval [minimum value - maximum value], we claim
 # that is better to use them as the size of piece on our radar. 
 
@@ -437,12 +464,13 @@ fig.text(
 plt.show()
 
 ##############################################################################
-# Calculating possesion 
+# Calculating possession
 # ----------------------------
 # As the next step we would like to adjust our plot by the player's team ball possesion while they 
 # were on the pitch. To do it, for each row of our dataframe with minutes per player per each game 
-# we take all the events that were made in this game while the player was on the pitch. We will also use duels, but 
-# not including lost air duels and lost ground defending duels. Why? Possesion is calculated as number of touches by team divided 
+# we take all the events that were made in this game while the player was on the pitch.
+# We will also use duels, but
+# don't include lost air duels and lost ground defending duels. Why? Possesion is calculated as number of touches by team divided
 # by the number all touches. If a player lost ground defending duel, that means that he could have been dribbled by, so he did not
 # touch the ball. If they lost the air duel, they lost a header. Therefore, we claim that those were mostly events where player may have not
 # touched the ball (or if he did the team did not take control over it). We sum 
@@ -489,9 +517,9 @@ percentage_df["playerId"] = percentage_df["playerId"].astype(int)
 summary = summary.merge(percentage_df, how = "left", on = ["playerId"])
 
 ##############################################################################
-# Adjusting data for possesion
+# Adjusting data for possession
 # ----------------------------
-# Since we would like to adjust our values by possesion, we divide the total statistics by the 
+# Since we would like to adjust our values by possession, we divide the total statistics by the
 # possesion while player was on the pitch during the entire season. To normalize the values per 
 # 90 minutes player we repeat the multiplication by 90 and division by minutes played.
 
@@ -506,8 +534,7 @@ for column in summary.columns[2:11]:
 # Making the plot with adjusted data for Mohammed Salah
 # ----------------------------
 # After calculating the values, we repeat the steps by calculating percentiles and plotting radars from 
-# making the plot per 90. Note that this time we show the percentile rank on the plot. Possesion adjusted non-penalty xG 
-# per 90 is such a sophisticated number that we claim that percentile rank would tell more to, for example, a scout.
+# making the plot per 90. Note that this time we show the percentile rank on the plot.
 
 salah_adjusted = summary_adjusted.loc[summary_adjusted["playerId"] == salah_id]
 #take only necessary columns
