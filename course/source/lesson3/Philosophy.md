@@ -1,5 +1,5 @@
-Numbers versus intuition 
-========================
+Numbers versus intutition
+=========================
 
 Football is not baseball. Football is not basketball. 
 Football is not American football. And football certainly isn’t cricket. 
@@ -19,11 +19,23 @@ companies and specialists telling you that they can solve football.
 That their product – which measures expected goals or passing networks or 
 fitness data or something else – can give you the insight you need.
 
-And you will often feel uncomfortable, because you will wonder whether it really can be as simple as they say? When you think of football, you feel it deep inside your body. You can feel the movements. You can visualize what good football looks like, what it feels like to see or hit the perfect pass. Football is intuitive for you, deep inside the way you think and move. You can see a story in the game. It is this feeling that is football.  
+And you will often feel uncomfortable, because you will wonder whether it really can be as simple as they say?
+When you think of football, you feel it deep inside your body. You can feel the movements. 
+You can visualize what good football looks like, what it feels like to see or hit the perfect pass. 
+Football is intuitive for you, deep inside the way you think and move. You can see a story in the game. 
+It is this feeling that is football.  
 
-And surely this feeling can’t be captured by a statistical measure, by an App, by a visualization, by Key Performance Indices or by a mathematical equation?
+And surely this feeling can’t be captured by a statistical measure, by an App, by a visualization, 
+by Key Performance Indices or by a mathematical equation?
 
-There is a modern notion that your feelings are wrong and the numbers are right. During my time working in football, I have often heard pitches and presentations which start with quotes from Daniel Kahneman’s book Thinking Slow and Fast. Kahneman’s research is outstanding – he and others have identified and documented human biases – but… the way his research is presented by others often suggests that it is statistics and logic (type 2 thinking) which you should trust (in particular, the statistics used by the person citing Kahneman…) and your intuition and ‘gut feeling’ (type 1 thinking) which you should see as biased or incomplete. 
+There is a modern notion that your feelings are wrong and the numbers are right. 
+During my time working in football, I have often heard pitches and presentations 
+which start with quotes from Daniel Kahneman’s book Thinking Slow and Fast. K
+ahneman’s research is outstanding – he and others have identified and documented 
+human biases – but… the way his research is presented by others often suggests that it 
+is statistics and logic (type 2 thinking) which you should trust (in particular, the s
+tatistics used by the person citing Kahneman…) and your intuition and ‘gut feeling’ (type 1 thinking) 
+which you should see as biased or incomplete. 
 
 In fact, this is not really what Kahneman claims, nor is it anything near to the truth. In reality, sometimes type 2 thinking works best, and other times type 1 thinking is better. Take for example, what has come to be known as the ‘hot hand fallacy’ in basketball. This is the idea that a player who has just scored is more likely to score again. Initial research suggested that this intuition – shared by fans, coaches and players – was a fallacy:  that there was little or no correlation between success in one shot to the next. But research by psychologist, Markus Raab, suggests a subtler picture: larger studies do show a hot hand in sports and defences might adjust for the hot-hand of their opponent, thus making it harder for the ‘hot’ player to score. The hot hand fallacy is itself a fallacy! A fallacy arising from too much faith in analytics and type 2 thinking.
 

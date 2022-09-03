@@ -1,7 +1,9 @@
 Scouting players
 ================
 
-VIDEO HERE
+THIS PART OF THE COURSE IS IN PREPERATION
+
+IT WILL BE READY SEPTEMBER 12TH
 
 
 ### Percentile rankings

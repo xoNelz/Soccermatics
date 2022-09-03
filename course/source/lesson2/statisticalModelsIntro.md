@@ -1,7 +1,8 @@
 Statistical models
 ==================
 
-VIDEO HERE
+<iframe width="640" height="360" src="https://www.youtube.com/embed/YNB87k9p4tA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 
 ### Choosing the right model
 
