@@ -7,7 +7,7 @@ Created on Mon Sep  5 14:12:00 2022
 #TODO
 #1) Logistic regression for shot in the end probability
 #2) Implement xG
-#3) OLS xG~coordinates
+#3) OLS xG~coordinates.
 
 #chain - either one team two contacts or ball out of play 
 #importing necessary libraries 
@@ -35,4 +35,4 @@ for i in range(13):
         data = json.load(f)
     df = pd.concat([df, pd.DataFrame(data)])
 
-see = df.iloc[1000]
+see = df.iloc[:1000]
