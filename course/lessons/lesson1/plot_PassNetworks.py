@@ -82,7 +82,8 @@ scatter_df['marker_size'] = (scatter_df['no'] / scatter_df['no'].max() * 1500)
 # It is recommended that you tune this depedning on the message behind your visualisation.
 
 #counting passes between players
-lines_df = df_pass.groupby(['player_name', 'pass_recipient_name']).x.count().reset_index()
+df_pass["pair_key"] = df_pass.apply(lambda x: "_".join(sorted([x["player_name"], x["pass_recipient_name"]])), axis=1)
+lines_df = df_pass.groupby(["pair_key"]).x.count().reset_index()
 lines_df.rename({'x':'pass_count'}, axis='columns', inplace=True)
 #setting a treshold. You can try to investigate how it changes when you change it.
 lines_df = lines_df[lines_df['pass_count']>2]
@@ -122,8 +123,8 @@ for i, row in scatter_df.iterrows():
     pitch.annotate(row.player_name, xy=(row.x, row.y), c='black', va='center', ha='center', weight = "bold", size=16, ax=ax["pitch"], zorder = 4)
     
 for i, row in lines_df.iterrows():
-        player1 = row["player_name"]
-        player2 = row['pass_recipient_name']
+        player1 = row["pair_key"].split("_")[0]
+        player2 = row['pair_key'].split("_")[1]
         #take the average location of players to plot a line between them 
         player1_x = scatter_df.loc[scatter_df["player_name"] == player1]['x'].iloc[0]
         player1_y = scatter_df.loc[scatter_df["player_name"] == player1]['y'].iloc[0]
