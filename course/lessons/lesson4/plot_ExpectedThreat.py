@@ -224,7 +224,7 @@ for i, row in df_count_starts.iterrows():
 #let's plot it for the zone [1,1] - left down corner
 fig, ax = pitch.grid(grid_height=0.9, title_height=0.06, axis=False,
                      endnote_height=0.04, title_space=0, endnote_space=0)
-goal["statistic"] = transition_matrices[0]
+goal["statistic"] = np.fliplr(np.flip(transition_matrices[0], axis = 1))
 pcm  = pitch.heatmap(goal, cmap='Reds', edgecolor='grey', ax=ax['pitch'])
 #legend to our plot
 ax_cbar = fig.add_axes((1, 0.093, 0.03, 0.786))
@@ -238,6 +238,7 @@ plt.show()
 # As the next step we implement the Expected Threat. We do it calculating 
 #.. math::
 #    \\texttt{xT}_{x,y} = (s_{x,y} \\times g_{x,y}) + (m_{x,y} \\times \\sum_{z=1}^{16} \\sum_{w=1}^{12} T_{(x,y)\\rightarrow(z,w)}\\texttt{xT}_{z,w})
+# 
 # In other words, the xT value of zone (x, y) is the shot expected payoff - goal probability times shot probability in this zone plus
 # the move probability - the move probability times summed over all zones transition probability from (x, y) to a zone times xT value in this zone
 # Then, we make a plot of those values.   

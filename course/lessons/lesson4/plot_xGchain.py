@@ -36,3 +36,28 @@ for i in range(13):
     df = pd.concat([df, pd.DataFrame(data)])
 
 see = df.iloc[:1000]
+
+#probably need to drop "others on the ball event" - nope
+
+
+
+#potential +0s
+# foul by another team
+# won duel by the same team
+# pass by the same team
+# lost duel by the other team
+
+#potential +1s
+# other team wins duel/neutral duel
+# inaccurate pass
+# pass by the other team 
+
+# potential +2s
+# ball out of the field - unsuccessful pass with one of the coordinates 
+# shot 
+# faul by the same team as over possesion chain
+
+#if inaccurate pass + pass by other team -> start counting possesion by the pass by other team. 
+#chain = 0, sprawdzamy wszystkie warunki eventu - ify, jeli którys spelnia to dodajemy k=k+1
+# najpierw dochodzi do dwóch, dodajemy +1 do chaina, df.at[i, chain] = chain
+next_actions = see.shift(-1, fill_value=0)
