@@ -227,6 +227,19 @@ Contents
 
    lesson3/ScoutingPlayers.md
    gallery/lesson3/plot_RadarPlot
-   lesson3/TeamKPIs.md
+   lesson3/PlusMinus.md
+
+.. toctree::
+   :maxdepth: 1
+   :caption: Lesson 4:
+
+   gallery/lesson4/plot_ExpectedThreat
+   gallery/lesson4/plot_xGchain
+
+.. toctree::
+   :maxdepth: 1
+   :caption: Lesson 5:
+
+   lesson5/TeamKPIs.md
    gallery/lesson3/plot_PointsMovingAverage
-   lesson3/Philosophy.md
+   lesson5/Philosophy.md

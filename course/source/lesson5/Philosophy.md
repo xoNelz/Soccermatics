@@ -1,4 +1,4 @@
-Numbers versus intutition
+Numbers versus intuition?
 =========================
 
 Football is not baseball. Football is not basketball. 
