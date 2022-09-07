@@ -47,12 +47,15 @@ for i in range(13):
 # the v2 version that we are using in the course and not all ground attacking duels are dribblings.
 # In the end we store number of actions in each bin in a *move_count* array to calculate later
 # move probability.
+next_event = df.shift(-1, fill_value=0)
+df["nextEvent"] = df["subEventName"]
 
+df["kickedOut"] = df.apply(lambda x: 1 if x.nextEvent == "Ball out of the field" else 0, axis = 1)
 #get move_df
 move_df = df.loc[df['subEventName'].isin(['Simple pass', 'High pass', 'Head pass', 'Smart pass', 'Cross'])]
-#filtering ou dodgy passes - end at 100x100 (common thing for problems with data collection Wyscout)
-dodgy_passes = move_df.loc[move_df.apply (lambda x: {"x": 100, "y": 100} in x.positions or {"x": 0, "y": 0} in x.positions, axis = 1)]
-delete_passes = dodgy_passes.loc[dodgy_passes.apply(lambda x:{'id':1802} in x.tags, axis = 1)]
+#filtering out of the field
+delete_passes = move_df.loc[move_df["kickedOut"] == 1]
+#delete_passes = dodgy_passes.loc[dodgy_passes.apply(lambda x:{'id':1802} in x.tags, axis = 1)]
 move_df = move_df.drop(delete_passes.index)
 
 #extract coordinates
