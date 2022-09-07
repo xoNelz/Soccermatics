@@ -64,14 +64,16 @@ period = see.iloc[0]["matchPeriod"]
 stop_criterion = 0
 chain = 0
 see["possesion_chain"] = 0
+
+
+#napisać waruneczek na zmienianie się chain teamu i będzie banglało 
 for i, row in see.iterrows():
-    see.at[i, "possesion_chain"] = chain
-    if row["eventName"] == "Duel":
-        if row["teamId"] != chain_team:
-            stop_criterion += 1
-    if row["eventName"] in ["Pass", 'Others on the ball']:
-        if {"id": 1802} in row.tags:
-            stop_criterion += 1
+    
+    if row["eventName"] == "Pass" or row["eventName"] == "Duel" :
+        if row["teamId"] == chain_team and {"id": 1802} in row["tags"]:
+                stop_criterion += 1
+        if row["teamId"] != chain_team and {"id": 1801} in row["tags"]:
+                stop_criterion += 1    
     if row["eventName"] in ["Shot", "Foul", "Offside"]:
             stop_criterion += 2
     if row["kickedOut"] == 1:
@@ -86,9 +88,10 @@ for i, row in see.iterrows():
         chain += 1
         stop_criterion = 0
         chain_team = row['nextTeamId']
+    see.at[i, "possesion_chain"] = chain
     print(chain)
 
-see2 = see[["subEventName", "tags", "teamId", "possesion_chain", "matchPeriod"]]
+see2 = see[["subEventName", "tags", "teamId", "possesion_chain", "matchPeriod", 'nextTeamId']]
 # won duel by the same team
 # pass by the same team
 # lost duel by the other team
@@ -99,6 +102,8 @@ see2 = see[["subEventName", "tags", "teamId", "possesion_chain", "matchPeriod"]]
 # jesli niecelne podanie +1, jesli rywal zrobi cokolwiek potem +1
 # jesli rywal wygra pojedynek +1, jesli zrobi cokolwiek po tym +1
 #  lepiej ustawić zapisywanie chaina
+#no trzeba na tych next teamach podziałać
+# wez kartke, jeszcze raz see2 sobie ogarnij i jedź case gdzie chainy nie działają przez +1ki 
 
 
 
