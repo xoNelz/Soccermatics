@@ -25,9 +25,9 @@ others in the same league.
 ### Context: what to measure
 
 The footballing quote that best illustrates the problem of context in football 
-is Paolo Maldini's
+is by Paolo Maldini,
 
-"If I have to make a tackle then I have already made a mistake"
+> "If I have to make a tackle then I have already made a mistake"
 
 A good defender should be well positioned in order to prevent the opposition
 getting the ball, to discourage a pass being made or ready to intercept a pass 

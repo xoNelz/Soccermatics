@@ -2,8 +2,6 @@
    :width: 800
    :align: center
 
-INTRO VIDEO COMING SOON
-
 Welcome to Soccermatics
 =======================
 
@@ -57,8 +55,8 @@ Formal Course
 =============
 
 **Students:** This is 5 credit course at `Uppsala University
-<https://www.uu.se/en/admissions/freestanding-courses/course/?kKod=1RT001&typ=1>`_  and is taught
-as an online course in late-August to end of October each year.
+<https://www.uu.se/en/admissions/freestanding-courses/course/?kKod=1RT001&typ=1>`_
+and is taught as an online course in late-August to end of October each year.
 It is free for all EU citizens and available as a
 paid course for everyone else. The university includes
 tutorials with me and a teaching assistant,
@@ -227,19 +225,27 @@ Contents
 
    lesson3/ScoutingPlayers.md
    gallery/lesson3/plot_RadarPlot
+   lesson3/SpreadsheetScout.md
    lesson3/PlusMinus.md
 
 .. toctree::
    :maxdepth: 1
    :caption: Lesson 4:
 
+   lesson4/EvaluatingActions.md
+   lesson4/xtPos.md
    gallery/lesson4/plot_ExpectedThreat
+   lesson4/xtAction.md
    gallery/lesson4/plot_xGchain
 
 .. toctree::
    :maxdepth: 1
    :caption: Lesson 5:
 
+   gallery/lesson5/plot_simulatematch
+   lesson5/DealingRandomness.md
+   gallery/lesson5/plot_SimulateMatches
    lesson5/TeamKPIs.md
-   gallery/lesson3/plot_PointsMovingAverage
+   gallery/lesson5/plot_PointsMovingAverage
+   lesson5/CaseHammarby.md
    lesson5/Philosophy.md

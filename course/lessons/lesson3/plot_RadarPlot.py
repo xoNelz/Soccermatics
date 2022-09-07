@@ -1,5 +1,5 @@
 """
-Radar Plots
+Radar plots
 =====================
 
 In this lesson, we go step-by-step through the process of making player radars
