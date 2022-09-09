@@ -85,7 +85,7 @@ def calulatexG(df, npxG):
 
     """
     #very basic xG model based on 
-    shots = df.loc[train["eventName"] == "Shot"].copy()
+    shots = df.loc[df["eventName"] == "Shot"].copy()
     shots["X"] = shots.positions.apply(lambda cell: (100 - cell[0]['x']) * 105/100)
     shots["Y"] = shots.positions.apply(lambda cell: cell[0]['y'] * 68/100)
     shots["C"] = shots.positions.apply(lambda cell: abs(cell[0]['y'] - 50) * 68/100)
@@ -116,7 +116,7 @@ def calulatexG(df, npxG):
     
     if npxG == False:
         #find pens
-        penalties = df.loc[train["subEventName"] == "Penalty"]
+        penalties = df.loc[df["subEventName"] == "Penalty"]
         #assign 0.8
         penalties = penalties.assign(xG = 0.8)
         #concat, group and sum
