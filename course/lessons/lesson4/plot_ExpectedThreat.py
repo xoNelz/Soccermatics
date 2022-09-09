@@ -227,7 +227,7 @@ for i, row in df_count_starts.iterrows():
 #let's plot it for the zone [1,1] - left down corner
 fig, ax = pitch.grid(grid_height=0.9, title_height=0.06, axis=False,
                      endnote_height=0.04, title_space=0, endnote_space=0)
-goal["statistic"] = np.fliplr(np.flip(transition_matrices[0], axis = 1))
+goal["statistic"] = transition_matrices[0]
 pcm  = pitch.heatmap(goal, cmap='Reds', edgecolor='grey', ax=ax['pitch'])
 #legend to our plot
 ax_cbar = fig.add_axes((1, 0.093, 0.03, 0.786))
