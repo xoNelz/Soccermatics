@@ -24,7 +24,7 @@ from scipy.stats import poisson,skellam
 # -----------
 # Here we use football-data.co.uk
 
-epl = pd.read_csv("http://www.football-data.co.uk/mmz4281/1920/E0.csv")
+epl = pd.read_csv("https://www.football-data.co.uk/mmz4281/2122/E0.csv")
 ep = epl[['HomeTeam','AwayTeam','FTHG','FTAG']]
 epl = epl.rename(columns={'FTHG': 'HomeGoals', 'FTAG': 'AwayGoals'})
 epl.head()
@@ -65,7 +65,6 @@ away_score_rate=poisson_model.predict(pd.DataFrame(data={'team': away_team, 'opp
 print(home_team + ' against ' + away_team + ' expect to score: ' + str(home_score_rate))
 print(away_team + ' against ' + home_team + ' expect to score: ' + str(away_score_rate))
 
-
 #Lets just get a result
 home_goals=np.random.poisson(home_score_rate)
 away_goals=np.random.poisson(away_score_rate)
@@ -73,22 +72,6 @@ print(home_team + ': ' + str(home_goals[0]))
 print(away_team + ': '  + str(away_goals[0]))
 
 
-#Code to caluclate the goals for the match.
-def simulate_match(foot_model, homeTeam, awayTeam, max_goals=10):
-    
-    home_goals_avg = foot_model.predict(pd.DataFrame(data={'team': homeTeam, 
-                                                            'opponent': awayTeam,'home':1},
-                                                      index=[1])).values[0]
-    away_goals_avg = foot_model.predict(pd.DataFrame(data={'team': awayTeam, 
-                                                            'opponent': homeTeam,'home':0},
-                                                      index=[1])).values[0]
-    team_pred = [[poisson.pmf(i, team_avg) for i in range(0, max_goals+1)] for team_avg in [home_goals_avg, away_goals_avg]]
-    return(np.outer(np.array(team_pred[0]), np.array(team_pred[1])))
-    
-max_goals=5
-score_matrix=simulate_match(poisson_model, home_team, away_team,max_goals)
-
-fig=plt.figure()
 
 ###################################################
 # Two-dimensional histogram of scores
@@ -96,10 +79,24 @@ fig=plt.figure()
 # This gives the probability of different score lines.
 
 
-from pylab import rcParams
-rcParams['figure.figsize'] = 12/2.54, 8/2.54
-ax=fig.add_subplot(1,1,1)
+# Code to caluclate the goals for the match.
+def simulate_match(foot_model, homeTeam, awayTeam, max_goals=10):
+    home_goals_avg = foot_model.predict(pd.DataFrame(data={'team': homeTeam,
+                                                           'opponent': awayTeam, 'home': 1},
+                                                     index=[1])).values[0]
+    away_goals_avg = foot_model.predict(pd.DataFrame(data={'team': awayTeam,
+                                                           'opponent': homeTeam, 'home': 0},
+                                                     index=[1])).values[0]
+    team_pred = [[poisson.pmf(i, team_avg) for i in range(0, max_goals + 1)] for team_avg in
+                 [home_goals_avg, away_goals_avg]]
+    return (np.outer(np.array(team_pred[0]), np.array(team_pred[1])))
 
+#Fill in the matrix
+max_goals=5
+score_matrix=simulate_match(poisson_model, home_team, away_team,max_goals)
+
+fig=plt.figure()
+ax=fig.add_subplot(1,1,1)
 pos=ax.imshow(score_matrix, extent=[-0.5,max_goals+0.5,-0.5,max_goals+0.5], aspect='auto',cmap=plt.cm.Reds)
 fig.colorbar(pos, ax=ax)
 ax.set_title('Probability of outcome')
@@ -109,7 +106,6 @@ plt.tight_layout()
 ax.set_xlabel('Goals scored by ' + away_team)
 ax.set_ylabel('Goals scored by ' + home_team)
 plt.show()
-fig.savefig('output/2DOutcomes.pdf' , dpi=None, bbox_inches="tight")
 
 #Home, draw, away probabilities
 homewin=np.sum(np.tril(score_matrix, -1))
