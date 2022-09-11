@@ -31,7 +31,8 @@ before the ball goes out of play, given that a team has possession
 at a particular segment of the pitch in the Premier League 2019-20. Right in front of goal, this is 37.7%. 
 At the centre circle it is 0.6%. Interestingly, it is higher in a teams own six-yard box (2.5%) than 
 further out on the wings in a teams own half (0.0 to 0.4%), which is the least valuable place 
-to have the ball.
+to have the ball.<br>
+
 
 ### Different names for the same thing
 
@@ -67,7 +68,8 @@ The two major variations in implementation, which we will look at in more detail
 various qualifiers describing that action</dd>
 </dl>
 Within these categories a variety of machine learning methods can be applied. Moreover, while in this section
-we use event data to fit our model, it can be extended to include tracking and fitness data (in lesson 7).
+we use event data to fit our model, it can be extended to include tracking and fitness data (in lesson 7).<br>
+
 
 ### History: Sarah Rudd' Markov model
 

@@ -1,7 +1,9 @@
 Statistical scouting
 ====================
 
-VIDEO COMING SEPTEMBER 12th
+Start with the video...
+
+<iframe width="640" height="360" src="https://www.youtube.com/embed/MKHj2aZp8ms" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ### Counts of actions
 

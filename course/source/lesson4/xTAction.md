@@ -31,19 +31,3 @@ xG chain
 
 ### Evaluating actions in a chain
 
-Here we see how the model picks up the value Trent Alexander Arnold adds with cross balls. 
-He was ranked 3rd in the Premier League per 90 during the last third of the season. 
-Mount’s threat (ranked 5th) comes from shorter passes in to the box. 
-If you are wondering, Thiago was ranked first in the last part of the season.
-We include much more than just the start and end co-ordinates when fitting the model. 
-Here are the top xT producers through passing and dribbling per 90 for the whole of last season .
-
-The method we use exploits the power of possession chains. Every sequence 
-of play is grouped together based on who had the ball. A chain is broken if the team scores, the ball goes out of play or the opposition touch it two times or more. The video below explains how we use that to measure the value of a pass.
-
-This method, for which Twelve have made player rankings publicly available for over four years now. Although we now keep our online ratings site a bit hidden (because we would like you to download the lovely, colourful app) you can look at them here.
-I never really used the term Expected Threat that much, preferring Pass Impact or Pass Value or even Markov Model. But I think its important we use the same terminology, so that we understand each other. So, I am going to follow Tom Worville from the Athletic on this one: from now on I will call this statistic — which (attempts to) measure the probability that an action will lead to a goal, which was invented by Sarah Rudd and can be implemented in a variety of ways (of which some are better than others) — Expected Threat.
-And just to prove my commitment here is a Twelve xT for Brentford against Arsenal.
-
-Maybe slightly nicer than, as highlighted by Tom, Oracle systems attempt.
-In my next Medium post I will present our professional scouting version of expected threat, which includes tracking data (player positions). Stay tuned!

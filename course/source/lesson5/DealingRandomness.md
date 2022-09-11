@@ -79,13 +79,13 @@ are important and we would want to change our model assumptions. But for many
 applications, it is enough to be aware of them.
 
 
-### The Poisson Distribution
+### The Binomial Distributions
 
 Before we look at the Poisson distribution (which we will find is a good way of describing the 
 occurance of goals), lets look at a few probability calculations.
 
 Let's call the probability per minute of scoring $p$ and the number of minutes in a match $n$. 
-For our football simulation, $p=0.028$ and $n=90$ minutes. Let's now imagine we miss the first 
+For our football simulation, $p=2.7/95=0.028$ and $n=95$ minutes. Let's now imagine we miss the first 
 5 minutes of a match. What is the probability there is no goal in that time? Well, 
 the probability there is no goal in the first minute is $1-p$, e.g. $1-0.028=0.972$ for football. 
 The probability there is no goals in the first two minutes is then, following the logic above,
@@ -101,11 +101,12 @@ missed any goals if you switch on the TV five minutes after a match has begun is
 
 
 In order to find the probability there are no goals in the whole match, we just have to keep on multiplying... 
-90 times for the 90 minutes. That is, 
+95 times for the 95 minutes. That is, 
 
-$$\underbrace{(1-p) \cdot (1-p)\cdot ... \cdot (1-p) \cdot(1-p)}_{90   \text{ times}} = (1-p)^{90}$$
+$$\underbrace{(1-p) \cdot (1-p)\cdot ... \cdot (1-p) \cdot(1-p)}_{95   \text{ times}} = (1-p)^{95}$$
 
-which for football is $0.972^{90} \approx 0.078$. There is 7.8% probability that there is no goal for either team during the match.
+which is $0.972^{95} \approx 0.067$. There is 6.7% probability that there is no goal for 
+either team during the match.
 
 What is the probability of exactly one goal in the first 5 minutes? Using the notation 'o' for no goal 
 during a minute of play and 'X' for a goal then there are 5 different ways in which a single goal can occur:
@@ -134,11 +135,84 @@ $$ n \cdot p \cdot (1-p)^{n-1} $$
 
 Applying this to the Premier League example,
 
-$$90 \cdot 0.028 \cdot (1-0.028)^{89} \approx 0.201$$
+$$95 \cdot 0.028 \cdot (1-0.028)^{94} \approx 0.184$$
 
-Twenty percent of matches end with only one goal.
+$18.4$ percent of matches end with only one goal.
 
-POISSON DERIVATION HERE
+The next question is how many ways we can have $k$ goals during $95$ minutes? 
+To get a handle of this, first imagine first 
+that you were given a folder with a 95 minute match split up in to 1 minute segments. 
+How many different ways would 
+there be to order these files in the folder? In the video I explain that there are 
+
+$$ 95 \cdot 94 \cdot 93 \cdot 92 \cdot \cdot \cdot 3 \cdot 2 \cdot 1 $$
+
+ways to arrange these files. Now imagine that $k=4$ goals have occurred in the match in four different minutes 
+of the match. How many ways could these $4$ goals be arranged within the folder? This is
+
+$$ 4 \cdot 3 \cdot 2 \cdot 1 $$
+
+For a general value of $k$ this is 
+
+$$ k \cdot (k-1) \cdot \cdot \cdot 2 \cdot 1 $$
+
+And finally, what about the $86$ the minutes that wern't goals. How many ways are there to organise these? Well, this is
+
+$$ (95-k) \cdot (95-k-1) \cdot (95-k-2) \cdot (95-k-3) \cdot \cdot \cdot 3 \cdot 2 \cdot 1 $$
+
+In order to find all the ways in which 4 goals can occur in a 95 minute match we divide the ways to arrange
+all of the minutes by the ways to arrange the goals times the way to arrange the non-goals. That is,
+
+$$ \frac{95 \cdot 89 \cdot 88 \cdot 87 \cdot \cdot \cdot 3 \cdot 2 \cdot 1}{4 \cdot 3 \cdot 2 \cdot 1 \cdot 91 \cdot 90 \cdot 89 \cdot 88 \cdot \cdot \cdot 3 \cdot 2 \cdot 1} $$
+
+The short hand for writing this (for the case of $k$ goals) is:
+
+$$ \frac{95!}{(95-k)! k!} $$
+
+where $!$ is know as a factorial. This can be used to find the probability of $k$ goals in a 90 minute match of
+
+$$ \frac{95!}{(95-k)! k!} \cdot (2.7/95)^k \cdot (1-2.7/95)^{95-k} $$
+
+This is the binomial distribution. And gives the probability that there are $k$ goals assuming that only one goal
+can happen per minute and that goals occur at random times during the match.
+
+### The Poisson Distributions
+
+Dividing the match in to 90 minute blocks is somewhat arbitrary. Imagine instead that we broke it down in to $n$ 
+discrete time slots, withing each of which a goal can occur. Now the probability of $k$ goals in these $n$ slots
+is 
+
+$$ \frac{n!}{(n-k)! k!} \cdot (2.7/n)^k \cdot (1-2.7/n)^{n-k} $$
+
+The Poisson distribution is obtained by first rearranging this equation to get
+
+$$ \frac{n \cdot (n-1)  \cdot  \cdot \cdot (k+1)}{k!} \cdot (2.7/n)^k \cdot (1-2.7/n)^{n-k}$$
+
+then 
+
+$$ \frac{\frac{n}{n} \cdot \frac{n-1}{n}  \cdot  \cdot \cdot \frac{k+1}{n}}{k!} \cdot (2.7)^k \cdot (1-2.7/n)^{n-k}$$
+
+which is
+
+$$ \frac{(1-\frac{1}{n}) \cdot (1-\frac{2}{n}) \cdot \cdot (1-\frac{k-1}{n})}{k!} \cdot (2.7)^k \cdot (1-2.7/n)^{n} \cdot (1-2.7/n)^{-k}$$
+
+When we take the limit $n \rightarrow \infnty$ we get
+
+$$ \frac{1}{k!} \cdot (2.7)^k \cdot \exp(-2.7) \cdot 1$$
+
+which is gives a probability of $k$ goals in a match of
+
+$$ \frac{(2.7)^k \exp(-2.7)}{k!} $$
+
+This is the line which I compared against the goal distribution for the Premier League.
+
+![](../images/lesson5/GoalDistComp.png)
+
+This single equation, which has only one parameter (the mean number of goals per match of 2.7)  captures the **whole 
+distribution curve** for goals per match. This is a very powerful observation, because it not only allows us to
+assign probabilities to match outcomes, but it also allows us to (through Poisson regression) to evaluate both teams
+and how various actions contribute to effective football.
+
 
 ## Other examples of Poisson distribution
 

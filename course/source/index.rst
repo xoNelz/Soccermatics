@@ -194,7 +194,7 @@ Contents
 
 .. toctree::
    :maxdepth: 1
-   :caption: Lesson 1:
+   :caption: 1, Event Data:
 
    lesson1/VisualisingFootball.md
    gallery/lesson1/plot_PlottingShots
@@ -208,7 +208,7 @@ Contents
 
 .. toctree::
    :maxdepth: 1
-   :caption: Lesson 2:
+   :caption: 2, Models:
 
    lesson2/statisticalModelsIntro.md
    gallery/lesson2/plot_LinearRegression
@@ -221,7 +221,7 @@ Contents
 
 .. toctree::
    :maxdepth: 1
-   :caption: Lesson 3:
+   :caption: 3, Scouting:
 
    lesson3/ScoutingPlayers.md
    gallery/lesson3/plot_RadarPlot
@@ -230,17 +230,16 @@ Contents
 
 .. toctree::
    :maxdepth: 1
-   :caption: Lesson 4:
+   :caption: 4, Valuing actions:
 
    lesson4/EvaluatingActions.md
-   lesson4/xtPos.md
+   lesson4/xTPos.md
    gallery/lesson4/plot_ExpectedThreat
-   lesson4/xtAction.md
-   gallery/lesson4/plot_xGchain
+   lesson4/xTAction.md
 
 .. toctree::
    :maxdepth: 1
-   :caption: Lesson 5:
+   :caption: 5, Randomness and prediction:
 
    gallery/lesson5/plot_simulatematch
    lesson5/DealingRandomness.md
@@ -249,3 +248,15 @@ Contents
    gallery/lesson5/plot_PointsMovingAverage
    lesson5/CaseHammarby.md
    lesson5/Philosophy.md
+
+.. toctree::
+   :maxdepth: 1
+   :caption: 6, Measuring Space:
+
+   lesson6/PitchControl.md
+
+.. toctree::
+   :maxdepth: 1
+   :caption: 7, Valuing Movement:
+
+   lesson7/ValuingOffBall.md

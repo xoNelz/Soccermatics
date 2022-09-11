@@ -1,6 +1,6 @@
 """
-Expected Threat
-=====================
+Calculating xT
+==============
 Calculating Expected Threat
 """
 
@@ -24,9 +24,10 @@ warnings.filterwarnings('ignore')
 ##############################################################################
 # Opening data 
 # ----------------------------
-# In this section of the course we will implement the Expected Threat model it the same way
-# as `Karun Singh did on his blog <https://karun.in/blog/expected-threat.html>`_. First, we
-# open the data. 
+# In this section we implement the Expected Threat model in
+# the same way described by
+#  `Karun Singh <https://karun.in/blog/expected-threat.html>`_.
+#  First, we open the data.
 
 df = pd.DataFrame()
 for i in range(13):
@@ -39,12 +40,16 @@ for i in range(13):
 ##############################################################################
 # Actions moving the ball 
 # ----------------------------
-# To calculate the Expected Threat we need actions that moved the ball. First we filter them 
-# from the database. Then, we remove dodgy passes, inaccurate ones that ended in [0,0] or [1,1].
-# To make our calculations easier we create new columns with coordinates, one for each coordinate.
+# To calculate the Expected Threat we need actions that move the ball. First we filter them
+# from the database. Then, we remove passes that were inaccurately recorded:
+# ones that ended in [0,0] or [1,1].
+# To make our calculations easier we create new columns with coordinates,
+# one for each coordinate.
 # Then, we plot the location of actions moving the ball on 2D histogram.
-# Note that dribblings are also actions that move the ball. However, Wyscout does not store them in 
-# the v2 version that we are using in the course and not all ground attacking duels are dribblings.
+# Note that dribbling is also an action that moves the ball.
+# However, Wyscout does not store them in
+# the v2 version that we are using in the course and
+# not all ground attacking duels are dribblings.
 # In the end we store number of actions in each bin in a *move_count* array to calculate later
 # move probability.
 next_event = df.shift(-1, fill_value=0)
@@ -82,9 +87,9 @@ move_count = move["statistic"]
 ##############################################################################
 # Shots
 # ----------------------------
-# To calculate the Expected Threat we need also shots. First we filter them 
+# To calculate the Expected Threat we also need shots. First we filter them
 # from the database. We also create new columns with the coordinates and plot their location.
-# We store the number of shot occurences in each bin in 2D array as well.
+# We store the number of shot occurences in each bin in a 2D array as well.
 
 #get shot df
 shot_df = df.loc[df['subEventName'] == "Shot"]
@@ -129,7 +134,7 @@ plt.show()
 ##############################################################################
 # Move probability
 # ----------------------------
-# We need to calculate the probability of moving action. To do so, we divie its number
+# We now need to calculate the probability of each moving action. To do so, we divide its number
 # in each bin by the sum of moving actions and shots in that bin. Then, we plot it. 
 
 move_probability = move_count/(move_count+shot_count)
@@ -147,8 +152,8 @@ plt.show()
 ##############################################################################
 # Move probability
 # ----------------------------
-# We need to calculate the probability of a shot in each area. To do so, we divie its number
-# in each bin by the sum of moving actions and shots in that bin. Then, we plot it. 
+# We also need to calculate the probability of a shot in each area. Again, we divide its number
+# in each bin by the sum of moving actions and shots in that bin. Then plot it.
 
 shot_probability = shot_count/(move_count+shot_count)
 #plotting it
@@ -165,8 +170,9 @@ plt.show()
 ##############################################################################
 # Goal probability
 # ----------------------------
-# The next thing needed to calculate the xT is the goal probability. It's calculated in a 
-# naive way - number of goals in this area divided by number of shots there.  
+# The next thing needed is the goal probability. It's calculated here in a
+# rather naive way - number of goals in this area divided by number of shots there.
+# This is a simplified expected goals model.
 
 goal_probability = goal_count/shot_count
 goal_probability[np.isnan(goal_probability)] = 0
@@ -185,13 +191,14 @@ plt.show()
 # Transition matirices
 # ----------------------------
 # For each of 192 sectors we need to calculate a transition matrix - a matrix of probabilities
-# going from one zone to another one given that the ball was moved. First, we create another columns in the *move_df* 
+# going from one zone to another one given that the ball was moved. First, we create
+# another columns in the *move_df*
 # with the bin on the histogram that the event started and ended in. Then, we group the data
-# by starting sector and count starts from each of them. As the next step, for each of the sector
+# by starting sector and count starts from each of them. As the next step, for each of the sectors
 # we calculate the probability of transfering the ball from it to all 192 sectors on the pitch. 
-# given that the ball was moved. We do it as the division of events that went to end sector 
+# given that the ball was moved. We do it as the division of events that went to the end sector
 # by all events that started in the starting sector. As the last step, we vizualize the 
-# transition matrix for the sector in the left down corner of the pitch. 
+# transition matrix for the sector in the bottom left corner of the pitch.
 
 #move start index - using the same function as mplsoccer, it should work
 move_df["start_sector"] = move_df.apply(lambda row: tuple([i[0] for i in binned_statistic_2d(np.ravel(row.x), np.ravel(row.y), 
@@ -227,24 +234,26 @@ for i, row in df_count_starts.iterrows():
 #let's plot it for the zone [1,1] - left down corner
 fig, ax = pitch.grid(grid_height=0.9, title_height=0.06, axis=False,
                      endnote_height=0.04, title_space=0, endnote_space=0)
+
+#Change the index here to change the zone.
 goal["statistic"] = transition_matrices[0]
 pcm  = pitch.heatmap(goal, cmap='Reds', edgecolor='grey', ax=ax['pitch'])
 #legend to our plot
 ax_cbar = fig.add_axes((1, 0.093, 0.03, 0.786))
 cbar = plt.colorbar(pcm, cax=ax_cbar)
-fig.suptitle('Transition probability for the most left down zone', fontsize = 30)
+fig.suptitle('Transition probability for the most bottom left zone', fontsize = 30)
 plt.show()
 
 ##############################################################################
 # Calculating Expected Threat matrix
 # ----------------------------
-# As the next step we implement the Expected Threat. We do it calculating 
-#.. math::
-#    \\texttt{xT}_{x,y} = (s_{x,y} \\times g_{x,y}) + (m_{x,y} \\times \\sum_{z=1}^{16} \\sum_{w=1}^{12} T_{(x,y)\\rightarrow(z,w)}\\texttt{xT}_{z,w})
-# 
-# In other words, the xT value of zone (x, y) is the shot expected payoff - goal probability times shot probability in this zone plus
-# the move probability - the move probability times summed over all zones transition probability from (x, y) to a zone times xT value in this zone
-# Then, we make a plot of those values.   
+# We are now ready to calculate the Expected Threat. We do it by first calculating
+# (probability of a shot)*(probability of a goal given a shot). This gives the probability of a
+# goal being scored right away. This is the shoot_expected_payoff. We then add this to
+# the move_expected_payoff, which is what the payoff (probability of a goal) will be
+# if the player passes the ball. It is this which is the xT
+#
+# By iterating this process 6 times, the xT gradually converges to its final value.
 
 transition_matrices_array = np.array(transition_matrices)
 xT = np.zeros((12, 16))
@@ -253,24 +262,25 @@ for i in range(6):
     move_expected_payoff = move_probability*(np.sum(np.sum(transition_matrices_array*xT, axis = 2), axis = 1).reshape(16,12).T)
     xT = shoot_expected_payoff + move_expected_payoff                                         
 
-#let's plot it!
-fig, ax = pitch.grid(grid_height=0.9, title_height=0.06, axis=False,
+    #let's plot it!
+    fig, ax = pitch.grid(grid_height=0.9, title_height=0.06, axis=False,
                      endnote_height=0.01, title_space=0, endnote_space=0)
-goal["statistic"] = xT
-pcm  = pitch.heatmap(goal, cmap='Oranges', edgecolor='grey', ax=ax['pitch'])
-labels = pitch.label_heatmap(goal, color='blue', fontsize=9,
+    goal["statistic"] = xT
+    pcm  = pitch.heatmap(goal, cmap='Oranges', edgecolor='grey', ax=ax['pitch'])
+    labels = pitch.label_heatmap(goal, color='blue', fontsize=9,
                              ax=ax['pitch'], ha='center', va='center', str_format="{0:,.2f}", zorder = 3)
-#legend to our plot
-ax_cbar = fig.add_axes((1, 0.093, 0.03, 0.786))
-cbar = plt.colorbar(pcm, cax=ax_cbar)
-fig.suptitle('Expected Threat matrix', fontsize = 30)
-plt.show()
+    #legend to our plot
+    ax_cbar = fig.add_axes((1, 0.093, 0.03, 0.786))
+    cbar = plt.colorbar(pcm, cax=ax_cbar)
+    txt= f'Expected Threat matrix after {i} moves'
+    fig.suptitle('Expected Threat matrix after %d moves', fontsize = 30)
+    plt.show()
 
 ##############################################################################
 # Applying xT value to moving actions
 # ----------------------------
-# As the next step we calculate for progressive and succesfull events the xT added.
-# From the matrix we get the xT value for starting and ending zone and substract the first one
+# As the next step we calculate for progressive and successful events the xT added.
+# From the matrix we get the xT value for starting and ending zone and subtract the first one
 # from the latter one. This is one way of doing that. The other would be to keep all moving the ball actions,
 # calculate xT for the successful ones and assign -xT value of the starting zone for the unsuccessful ones. 
 
@@ -289,7 +299,7 @@ value_adding_actions = successful_moves.loc[successful_moves["xT_added"] > 0]
 # scored the best in possesion-adjusted xT per 90. We repeat steps that you already know 
 # from `Radar Plots <https://soccermatics.readthedocs.io/en/latest/gallery/lesson3/plot_RadarPlot.html>`_.
 # We group them by player, sum, assign merge it with players database to keep players name,
-# adjust per possesion and per 90. Only the last step differs, since we stored *percentage_df*
+# adjust team possesion and per 90. Only the last step differs, since we stored *percentage_df*
 # in a .json file that can be found `here <https://github.com/soccermatics/Soccermatics/tree/main/course/lessons/minutes_played>`_.
 
 
