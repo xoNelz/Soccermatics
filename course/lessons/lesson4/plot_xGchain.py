@@ -172,6 +172,17 @@ for i in range(no_chains+1):
             df.loc[df["possesion_chain"] == i, "shot_end"] = 1
             xG = possesion_chain_df.iloc[-1]["xG"]
             df.loc[df["possesion_chain"] == i, "xG"] = xG
+            k = i-1
+            if k > 0:
+                try:
+                    prev = df.loc[df["possesion_chain"] == k]             
+                    while prev.iloc[-1]["eventName"] == "Foul":
+                        df.loc[df["possesion_chain"] == k, "xG"] = xG
+                        k = k-1
+                        prev = df.loc[df["possesion_chain"] == k]
+                except:
+                    k = k-1
+                   
         team_indicies = possesion_chain_df.loc[possesion_chain_df["teamId"] == possesion_chain_df.teamId.mode().iloc[0]].index.values.tolist()
         indicies.extend(team_indicies)    
 
