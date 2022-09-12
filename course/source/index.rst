@@ -251,12 +251,13 @@ Contents
 
 .. toctree::
    :maxdepth: 1
-   :caption: 6, Measuring Space:
+   :caption: 6, Pitch control :
 
    lesson6/PitchControl.md
+   lesson6/TheCross.md
 
 .. toctree::
    :maxdepth: 1
-   :caption: 7, Valuing Movement:
+   :caption: 7, Positioning and Movement:
 
    lesson7/ValuingOffBall.md
