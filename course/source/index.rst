@@ -233,6 +233,7 @@ Contents
    :caption: 4, Valuing actions:
 
    lesson4/EvaluatingActions.md
+   gallery/lesson4/plot_MarkovChain
    lesson4/xTPos.md
    gallery/lesson4/plot_ExpectedThreat
    lesson4/xTAction.md
