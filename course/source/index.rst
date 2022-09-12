@@ -256,9 +256,14 @@ Contents
 
    lesson6/PitchControl.md
    lesson6/TheCross.md
+   lesson6/PassProbability.md
 
 .. toctree::
    :maxdepth: 1
    :caption: 7, Positioning and Movement:
 
    lesson7/ValuingOffBall.md
+   lesson7/OffBallRuns.md
+   lesson7/OffBallRadars.md
+   lesson7/ImprovingPassingModels.md
+

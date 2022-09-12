@@ -1,7 +1,6 @@
-#!/usr/bin/env python3
 """
 Markov chains
-=============
+====================
 
 Here we look at how to formulate expected threat in terms of a Markov chain.
 First watch the video
@@ -11,7 +10,14 @@ First watch the video
    :width: 640
    :height: 349
 
-Then work through the code which solves 
+in which we work through the derivation of equations for *xT*
+
+.. image:: ../../../source/images/lesson4/DeriveMarkov1.png
+
+Here I outline how we write this in matrix form:
+
+.. image:: ../../../source/images/lesson4/DeriveMarkov2.png
+
 """
 
 import numpy as np
@@ -20,7 +26,7 @@ import numpy as np
 ########################
 # Setting up the matrix
 # ---------------------
-# We first set up the pass mtrix *A* and the goal vector *g*.
+# We first set up the pass matrix *A* and the goal vector *g*.
 
 #Pass matrix
 A = np.matrix([[0.25, 0.20, 0.1], [0.1, 0.25, 0.2],[0.1, 0.1, 0.25]])
@@ -30,8 +36,8 @@ g = np.transpose(np.matrix([0.05, 0.15, 0.05]))
 
 
 ########################
-# Equation method
-# ---------------
+# Linear algebra method
+# ------------------------
 #
 # Here we solve *(I-A)xT = g*
 
@@ -45,7 +51,7 @@ print(np.transpose(xT1))
 
 ########################
 # Iterative method
-# ---------------
+# ------------------------
 #
 # Here we iterate xT' = A xT + g
 # to update through each move of the ball
@@ -63,7 +69,7 @@ print(np.transpose(xT2))
 
 ########################
 # Simulation method
-# ---------------
+# ---------------------------
 #
 # Here we simulate *num_sim* possessions, starting from each of the three areas.
 

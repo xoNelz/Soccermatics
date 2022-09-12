@@ -1,5 +1,5 @@
-Pitch control
-=============
+Controlling Space
+================
 
 > “What do you do during 87 minutes when you do not have the ball? That is what determines whether 
 you’re a good player or not” - Johan Cruyff
@@ -38,4 +38,15 @@ But by drawing a Voronoi diagram, below, we start to see just how good these pos
 
 The Voronoi diagram divides up the pitch based on which positions are closest to the players. What is stirking 
 here is that 
+
+### Pitch Control 
+
+JAVIER HERE
+
+### Pitch Control in Pressing
+
+Here, David explains an application of pitch control in pressing to get the ball back.
+
+<iframe width="640" height="480" src="https://www.youtube.com/embed/s6bpn3Uox7M" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 
