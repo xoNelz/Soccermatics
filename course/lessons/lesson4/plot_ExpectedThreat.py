@@ -236,12 +236,12 @@ fig, ax = pitch.grid(grid_height=0.9, title_height=0.06, axis=False,
                      endnote_height=0.04, title_space=0, endnote_space=0)
 
 #Change the index here to change the zone.
-goal["statistic"] = transition_matrices[0]
+goal["statistic"] = transition_matrices[90]
 pcm  = pitch.heatmap(goal, cmap='Reds', edgecolor='grey', ax=ax['pitch'])
 #legend to our plot
 ax_cbar = fig.add_axes((1, 0.093, 0.03, 0.786))
 cbar = plt.colorbar(pcm, cax=ax_cbar)
-fig.suptitle('Transition probability for the most bottom left zone', fontsize = 30)
+fig.suptitle('Transition probability for one of the middle zones', fontsize = 30)
 plt.show()
 
 ##############################################################################
