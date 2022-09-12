@@ -294,14 +294,14 @@ df.loc[df["eventName"] == "Shot", "y1"] = 34
 # ----------------------------
 #
 # Now we can plot possesion chains. Here is a one that ended with a shot. Note that actions that were not passes and not
-# shots are marked wth a grey dotted line. In this case, these are duels. 
+# shots are marked wth a grey dotted line. In this case, these are duels and a free kick. 
 
 #plot possesion chain that ended with shot
 chain = df.loc[df["possesion_chain"] == 4]
 #get passes
-passes = chain.loc[chain["eventName"].isin(["Pass", "Free Kick"])]
+passes = chain.loc[chain["eventName"].isin(["Pass"])]
 #get events different than pass
-not_pass = chain.loc[(chain["eventName"] != "Pass") & (chain["eventName"] != "Free Kick")].iloc[:-1]
+not_pass = chain.loc[chain["eventName"] != "Pass"].iloc[:-1]
 #shot is the last event of the chain (or should be)
 shot = chain.iloc[-1]
 #plot 
