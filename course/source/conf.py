@@ -12,7 +12,7 @@ from sphinx_gallery.sorting import ExampleTitleSortKey
 
 project = 'Soccermatics'
 copyright = '2022, David Sumpter'
-author = 'David Sumpter'
+author = 'David Sumpter (code,text), Aleksander Andrzejewski (code)'
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration

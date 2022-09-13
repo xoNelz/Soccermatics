@@ -237,6 +237,9 @@ Contents
    lesson4/xTPos.md
    gallery/lesson4/plot_ExpectedThreat
    lesson4/xTAction.md
+   gallery/lesson4/plot_PossessionChain
+   gallery/lesson4/plot_xGchain
+
 
 .. toctree::
    :maxdepth: 1
