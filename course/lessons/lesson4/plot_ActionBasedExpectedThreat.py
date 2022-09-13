@@ -5,7 +5,6 @@ Action Based Expected Threat
 Calculate action based Expected Threat
 """
 import pandas as pd
-import numpy as np
 import json
 # plotting
 import os
@@ -15,8 +14,11 @@ from joblib import load
 from mplsoccer import Pitch
 from itertools import combinations_with_replacement
 from sklearn.linear_model import LinearRegression
+import matplotlib.pyplot as plt
+import numpy as np
 pd.options.mode.chained_assignment = None
 warnings.filterwarnings('ignore')
+
 ##############################################################################
 # Opening the dataset
 # ----------------------------
@@ -46,28 +48,55 @@ var = ["x0", "x1", "c0", "c1"]
 
 #combinations
 inputs = []
+#one variable combinations
 inputs.extend(combinations_with_replacement(var, 1))
+#2 variable combinations
 inputs.extend(combinations_with_replacement(var, 2))
+#3 variable combinations 
 inputs.extend(combinations_with_replacement(var, 3))
 
 #make new columns
 for i in inputs:
+    #columns length 1 already exist 
     if len(i) > 1:
+        #column name 
         column = ''
         x = 1
         for c in i:
+            #add column name to be x0x1c0 for example
             column += c
+            #multiply values in column
             x = x*df[c]
+        #create a new column in df
         df[column] = x
+        #add column to model variables
         var.append(column)
+#investigate 3 columns
+df[var[-3:]].head(3)
 
 ##############################################################################
 # Calculating action-based Expected Threat values for passes
 # ----------------------------
 #
-# To predict the outcome of a shot, we trained a model (XGB classifier) on Bundesliga dataset. Using it we predict
+# To predict the outcome of a shot, we trained a model (XGB classifier) on Bundesliga dataset. In the code we use
+# model saved in the file. Training steps are provided commented out. Using it we predict
 # probability of a chain ending with a shot. Then, on chains that ended with a shot, we fit a linear regression 
 # to calculate the probability that a shot ended with a goal. Product of these 2 values is our xGchain statistic.
+
+### TRAINING, it's not perfect ML procedure, but results in AUC 0.2 higher than Logistic Regression ###
+#passes = df.loc[ df["eventName"].isin(["Pass"])]
+#X = passes[var].values
+#y = passes["shot_end"].values
+#X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.1, random_state = 123, stratify = y)
+#xgb = XGBRegressor(n_estimators = 100, ccp_alpha=0, max_depth=4, min_samples_leaf=10,
+#                       random_state=123)
+#from sklearn.model_selection import cross_val_score
+#scores = cross_val_score(estimator = xgb, X = X_train, y = y_train, cv = 10, n_jobs = -1)
+#print(np.mean(scores), np.std(scores))
+#xgb.fit(X_train, y_train)
+#print(xgb.score(X_train, y_train))
+#y_pred = xgb.predict(X_test)
+#print(xgb.score(X_test, y_test))
 
 #predict if ended with shot
 passes = df.loc[df["eventName"].isin(["Pass"])]
@@ -91,6 +120,49 @@ shot_ended["xG_pred"] = y_pred
 #calculate xGchain
 shot_ended["xT"] = shot_ended["xG_pred"]*shot_ended["shot_prob"]
 
+shot_ended[["xG_pred", "shot_prob", "xT"]].head(5)
+
+##############################################################################
+# Making a plot of pass values
+# ----------------------------
+#
+# Now we can make the plot of the pass. This is the same plot as we have seen in 
+# `previous chapter <https://soccermatics.readthedocs.io/en/latest/gallery/lesson4/plot_PossesionChain.html, but this time
+# the value is assigned to passes and line width is proportional to its value
+
+chain = df.loc[df["possesion_chain"] == 4]
+#get passes
+passes_in = shot_ended.loc[df["possesion_chain"] == 4]
+max_value = passes_in["xT"].max()
+#get events different than pass
+not_pass = chain.loc[chain["eventName"] != "Pass"].iloc[:-1]
+#shot is the last event of the chain (or should be)
+shot = chain.iloc[-1]
+#plot 
+pitch = Pitch(line_color='black',pitch_type='custom', pitch_length=105, pitch_width=68, line_zorder = 2)
+fig, ax = pitch.grid(grid_height=0.9, title_height=0.06, axis=False,
+                     endnote_height=0.04, title_space=0, endnote_space=0)
+#add size adjusted arrows
+for i, row in passes_in.iterrows():
+    value = row["xT"]
+    #adjust the line width so that the more passes, the wider the line
+    line_width = (value / max_value * 10)
+    #get angle
+    angle = np.arctan((row.y1-row.y0)/(row.x1-row.x0))*180/np.pi
+    print(angle)    #plot lines on the pitch
+    pitch.arrows(row.x0, row.y0, row.x1, row.y1,
+                        alpha=0.6, width=line_width, zorder=2, color="blue", ax = ax["pitch"])
+    #annotate text
+    ax["pitch"].text((row.x0+row.x1-8)/2, (row.y0+row.y1-4)/2, str(value)[:5], fontweight = "bold", color = "blue", zorder = 4, fontsize = 20, rotation = int(angle))
+
+#shot
+pitch.arrows(shot.x0, shot.y0,
+            shot.x1, shot.y1, width=line_width, color = "red", ax=ax['pitch'], zorder =  3)
+#other passes like arrows
+pitch.lines(not_pass.x0, not_pass.y0, not_pass.x1, not_pass.y1, color = "grey", lw = 1.5, ls = 'dotted', ax=ax['pitch'])
+ax['title'].text(0.5, 0.5, 'Passes leading to a shot', ha='center', va='center', fontsize=30)
+plt.show()
+
 ##############################################################################
 # Finding out players with highest action-based Expected Threat
 # ----------------------------
@@ -102,7 +174,7 @@ shot_ended["xT"] = shot_ended["xG_pred"]*shot_ended["shot_prob"]
 # in a .json file that can be found `here <https://github.com/soccermatics/Soccermatics/tree/main/course/lessons/minutes_played>`_.
 
 summary = shot_ended[["playerId", "xT"]].groupby(["playerId"]).sum().reset_index()
-
+#add player name
 path = os.path.join(str(pathlib.Path().resolve().parents[0]),"data", 'Wyscout', 'players.json')
 player_df = pd.read_json(path, encoding='unicode-escape')
 player_df.rename(columns = {'wyId':'playerId'}, inplace=True)
@@ -111,7 +183,7 @@ to_merge = player_df[['playerId', 'shortName', 'role']]
 
 summary = summary.merge(to_merge, how = "left", on = ["playerId"])
 
-
+#get minutes
 path = os.path.join(str(pathlib.Path().resolve().parents[0]),"minutes_played", 'minutes_played_per_game_England.json')
 with open(path) as f:
     minutes_per_game = json.load(f)
@@ -124,9 +196,6 @@ summary = summary.loc[summary["minutesPlayed"] > 400]
 #calculating per 90
 summary["xT_p90"] = summary["xT"]*90/summary["minutesPlayed"]
 
-
-
-
 #adjusting for possesion
 path = os.path.join(str(pathlib.Path().resolve().parents[0]),"minutes_played", 'player_possesion_England.json')
 with open(path) as f:
@@ -134,7 +203,7 @@ with open(path) as f:
 percentage_df = pd.DataFrame(percentage_df)
 #merge it
 summary = summary.merge(percentage_df, how = "left", on = ["playerId"])
-
+#adjust per possesion
 summary["xT_adjusted_per_90"] = (summary["xT"]/summary["possesion"])*90/summary["minutesPlayed"]
 summary[['shortName', 'xT_adjusted_per_90']].sort_values(by='xT_adjusted_per_90', ascending=False).head(5)
 

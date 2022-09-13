@@ -133,8 +133,10 @@ def isolateChains(df):
             stop_criterion = 0
             chain_team = row['nextTeamId']
     return df
-df = isolateChains(df)
 
+df = isolateChains(df)
+#investigate a chain
+df.loc[df["possesion_chain"] == 4][["eventName", "possesion_chain"]]
 
 ##############################################################################
 # Calculating xG value 
@@ -204,7 +206,8 @@ def calulatexG(df):
     return df
 
 df = calulatexG(df)
-
+#investigate a chain
+df.loc[df["possesion_chain"].isin([3,4])][["eventName", "possesion_chain", "xG"]]
 ##############################################################################
 # Finding chains that ended with shot
 # ----------------------------
@@ -264,6 +267,7 @@ def prepareChains(df):
     return df 
     
 df = prepareChains(df)  
+df.loc[df["possesion_chain"].isin([3,4])][["eventName", "possesion_chain", "xG"]]
 
 ##############################################################################
 # Preparing data for modelling

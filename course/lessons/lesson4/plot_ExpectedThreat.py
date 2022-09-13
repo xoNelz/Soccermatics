@@ -256,7 +256,7 @@ plt.show()
 
 transition_matrices_array = np.array(transition_matrices)
 xT = np.zeros((12, 16))
-for i in range(6):
+for i in range(5):
     shoot_expected_payoff = goal_probability*shot_probability
     move_expected_payoff = move_probability*(np.sum(np.sum(transition_matrices_array*xT, axis = 2), axis = 1).reshape(16,12).T)
     xT = shoot_expected_payoff + move_expected_payoff                                         
@@ -271,7 +271,7 @@ for i in range(6):
     #legend to our plot
     ax_cbar = fig.add_axes((1, 0.093, 0.03, 0.786))
     cbar = plt.colorbar(pcm, cax=ax_cbar)
-    txt = 'Expected Threat matrix after' +  str(i) + 'moves'
+    txt = 'Expected Threat matrix after ' +  str(i+1) + ' moves'
     fig.suptitle(txt, fontsize = 30)
     plt.show()
 
