@@ -85,7 +85,7 @@ df[var[-3:]].head(3)
 
 ### TRAINING, it's not perfect ML procedure, but results in AUC 0.2 higher than Logistic Regression ###
 #passes = df.loc[ df["eventName"].isin(["Pass"])]
-#X = passes[var].values
+#X = passes[var].values - note that this is different X, with data from BL
 #y = passes["shot_end"].values
 #X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.1, random_state = 123, stratify = y)
 #xgb = XGBRegressor(n_estimators = 100, ccp_alpha=0, max_depth=4, min_samples_leaf=10,
