@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 """
-xG chain
+Action Based Expected Threat
 ===========================
-Calculate xG chain
+Calculate action based Expected Threat
 """
 import pandas as pd
 import numpy as np
