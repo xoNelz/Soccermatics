@@ -1,15 +1,7 @@
 Controlling Space
 ================
 
-> “What do you do during 87 minutes when you do not have the ball? That is what determines whether 
-you’re a good player or not” - Johan Cruyff
 
-Since wingers and forwards can spend as little as 90 seconds on-ball during a game, 
-what they do when they have the ball accounts for about 1/40th of a player’s contribution 
-during the 60 minutes the ball is typocally in play. The biggest and most exciting 
-aspect of football analytics just now is understanding how player movements create space, 
-how we can help them improve that movement and (for scouting) measuring how individuals contribute 
-to the team when off the ball.
 
 That is what we are going to do in the next two lessons.
 
