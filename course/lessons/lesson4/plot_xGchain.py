@@ -11,10 +11,10 @@ import json
 import os
 import pathlib
 import warnings 
-import statsmodels.api as sm
-import statsmodels.formula.api as smf
+from joblib import load
 from mplsoccer import Pitch
-
+from itertools import combinations_with_replacement
+from sklearn.linear_model import LinearRegression
 ##############################################################################
 # Opening the dataset
 # ----------------------------
@@ -41,12 +41,10 @@ df = df.reset_index()
 # with replacement of these variables - to get their non-linear transfomations. As the next step,
 # we multiply the columns in the combination and create a model with them. 
 
-
 #model variables
 var = ["x0", "x1", "c0", "c1"]
 
 #combinations
-from itertools import combinations_with_replacement
 inputs = []
 inputs.extend(combinations_with_replacement(var, 1))
 inputs.extend(combinations_with_replacement(var, 2))
@@ -63,13 +61,6 @@ for i in inputs:
         df[column] = x
         var.append(column)
 
-#make model for smf library
-model = ''
-for v in var[:-1]:
-    model = model  + v + ' + '
-model = model + var[-1]
-
-
 ##############################################################################
 # Building models
 # ----------------------------
@@ -79,19 +70,23 @@ model = model + var[-1]
 # xG~model. 
 
 #logistic regression
-passes = df.loc[df["eventName"].isin(["Pass"])]
-passes["shot_end"] = passes["shot_end"].astype(object)
-shot_model = smf.glm(formula="shot_end ~ " + model, data=passes,
-                           family=sm.families.Binomial()).fit()
-print(shot_model.summary())
-b_log = shot_model.params
+passes = df.loc[ df["eventName"].isin(["Pass"])]
+X = passes[var].values
+y = passes["shot_end"].values
+path_model = os.path.join(str(pathlib.Path().resolve().parents[0]), 'possesion_chain', 'finalized_model.sav')
+model = load(path_model) 
+y_pred_proba = model.predict_proba(X)[::,1]
 
+passes["shot_prob"] = y_pred_proba
 #OLS
 shot_ended = passes.loc[passes["shot_end"] == 1]
-goal_model = smf.ols(formula='xG ~ ' + model, data=shot_ended).fit()
-print(goal_model.summary())
-b_lin = goal_model.params
-
+X2 = shot_ended[var].values
+y2 = shot_ended["xG"].values
+lr = LinearRegression()
+lr.fit(X2, y2)
+y_pred = lr.predict(X2)
+shot_ended["xG_pred"] = y_pred
+shot_ended["xGchain"] = shot_ended["xG_pred"]*shot_ended["shot_prob"]
 ##############################################################################
 # Calculating xGchain values for events
 # ----------------------------
@@ -99,20 +94,7 @@ b_lin = goal_model.params
 # As the next step we calculate the xGchain value for action son the pitch. To do so, we
 # multiply probability of the shot with goal probability. 
 
-def calculate_xGChain(sh):
-    bsum = b_log[0]
-    for i,v in enumerate(var):
-        bsum = bsum+b_log[i+1]*sh[v]
-    p_shot = 1/(1+np.exp(bsum))
-   
-    bsum=b_lin[0]
-    for i,v in enumerate(var):
-       bsum=bsum+b_lin[i+1]*sh[v]
-    p_goal = bsum
-    return p_shot*p_goal
 
-xGchain = shot_ended.apply(calculate_xGChain, axis=1)
-shot_ended = shot_ended.assign(xGchain=xGchain)
 
 ##############################################################################
 # Finding out players with highest xGchain
@@ -167,114 +149,3 @@ summary[['shortName', 'xGchain_adjusted_per_90']].sort_values(by='xGchain_adjust
 # 1. StatsBomb has recently released a dataset with Indian Superleague 2021/22 games. Calculate
 # xGchain values for these player. Note that the possesion chains are already isolated. Which player stood out the most? 
 
-
-
-
-#model eval
-from xgboost import XGBClassifier
-from sklearn.metrics import roc_curve, roc_auc_score
-from joblib import dump, load
-
-df = pd.DataFrame()
-for i in range(11):
-    file_name = 'possesion_chains_England' + str(i+1) + '.json'
-    path = os.path.join(str(pathlib.Path().resolve().parents[0]), 'possesion_chain', file_name)
-    with open(path) as f:
-        data = json.load(f)
-    df = pd.concat([df, pd.DataFrame(data)])
-df = df.reset_index()
-
-var = ["x0", "x1", "c0", "c1"]
-
-#combinations
-from itertools import combinations_with_replacement
-inputs = []
-inputs.extend(combinations_with_replacement(var, 1))
-inputs.extend(combinations_with_replacement(var, 2))
-inputs.extend(combinations_with_replacement(var, 3))
-
-#make new columns
-for i in inputs:
-    if len(i) > 1:
-        column = ''
-        x = 1
-        for c in i:
-            column += c
-            x = x*df[c]
-        df[column] = x
-        var.append(column)
-
-#make model for smf library
-model = ''
-for v in var[:-1]:
-    model = model  + v + ' + '
-model = model + var[-1]
-
-passes = df.loc[ df["eventName"].isin(["Pass"])]
-X = passes[var].values
-y = passes["shot_end"].values
-path_model = os.path.join(str(pathlib.Path().resolve().parents[0]), 'possesion_chain', 'finalized_model.sav')
-lr = load(path_model) 
-y_pred_proba = lr.predict_proba(X)[::,1]
-
-passes["shot_prob"] = y_pred_proba
-
-shot_ended = passes.loc[passes["shot_end"] == 1]
-goal_model = smf.ols(formula='xG ~ ' + model, data=shot_ended).fit()
-print(goal_model.summary())
-b_lin = goal_model.params
-
-##############################################################################
-# Calculating xGchain values for events
-# ----------------------------
-#
-# As the next step we calculate the xGchain value for action son the pitch. To do so, we
-# multiply probability of the shot with goal probability. 
-
-def calculate_xGChain(sh):
-    bsum=b_lin[0]
-    for i,v in enumerate(var):
-       bsum=bsum+b_lin[i+1]*sh[v]
-    p_goal = bsum
-    return p_goal
-
-xG_prob = shot_ended.apply(calculate_xGChain, axis=1)
-shot_ended = shot_ended.assign(xG_prob=xG_prob)
-shot_ended["xGchain"] = shot_ended["shot_prob"]*shot_ended["xG_prob"]
-
-summary = shot_ended[["playerId", "xGchain"]].groupby(["playerId"]).sum().reset_index()
-
-path = os.path.join(str(pathlib.Path().resolve().parents[0]),"data", 'Wyscout', 'players.json')
-player_df = pd.read_json(path, encoding='unicode-escape')
-player_df.rename(columns = {'wyId':'playerId'}, inplace=True)
-player_df["role"] = player_df.apply(lambda x: x.role["name"], axis = 1)
-to_merge = player_df[['playerId', 'shortName', 'role']]
-
-summary = summary.merge(to_merge, how = "left", on = ["playerId"])
-
-
-path = os.path.join(str(pathlib.Path().resolve().parents[0]),"minutes_played", 'minutes_played_per_game_England.json')
-with open(path) as f:
-    minutes_per_game = json.load(f)
-#filtering over 400 per game
-minutes_per_game = pd.DataFrame(minutes_per_game)
-minutes = minutes_per_game.groupby(["playerId"]).minutesPlayed.sum().reset_index()
-summary = minutes.merge(summary, how = "left", on = ["playerId"])
-summary = summary.fillna(0)
-summary = summary.loc[summary["minutesPlayed"] > 400]
-#calculating per 90
-summary["xGchain_p90"] = summary["xGchain"]*90/summary["minutesPlayed"]
-
-
-
-
-#adjusting for possesion
-path = os.path.join(str(pathlib.Path().resolve().parents[0]),"minutes_played", 'player_possesion_England.json')
-with open(path) as f:
-    percentage_df = json.load(f)
-percentage_df = pd.DataFrame(percentage_df)
-#merge it
-summary = summary.merge(percentage_df, how = "left", on = ["playerId"])
-
-summary["xGchain_adjusted_per_90"] = (summary["xGchain"]/summary["possesion"])*90/summary["minutesPlayed"]
-summary[['shortName', 'xGchain_adjusted_per_90']].sort_values(by='xGchain_adjusted_per_90', ascending=False).head(5)
