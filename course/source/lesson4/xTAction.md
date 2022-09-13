@@ -25,8 +25,6 @@ Thats the overall philosophy. We now look at how to build this approach.
 
 
 
-xG chain
-
 
 
 ### Evaluating actions in a chain
