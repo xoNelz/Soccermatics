@@ -15,11 +15,13 @@ from joblib import load
 from mplsoccer import Pitch
 from itertools import combinations_with_replacement
 from sklearn.linear_model import LinearRegression
+pd.options.mode.chained_assignment = None
+warnings.filterwarnings('ignore')
 ##############################################################################
 # Opening the dataset
 # ----------------------------
 #
-# First we open the data. It is the file created from Possesion Chain segment.
+# First we open the data. It is the file created in the Possesion Chain segment.
 
 df = pd.DataFrame()
 for i in range(11):
@@ -35,9 +37,7 @@ df = df.reset_index()
 # ----------------------------
 #
 # For our models we will use all non-linear combinations of the starting and ending
-# x coordinate and *c* - distance from the middle of the pitch. First, we filter ones
-# where only starting coordinate were saved, then we create separate columns for *x* and *c*
-# start and end. We assign value 105 to shot x_1 and 0 for c_1. Then, we create combinations
+# x coordinate and *c* - distance from the middle of the pitch. We create combinations
 # with replacement of these variables - to get their non-linear transfomations. As the next step,
 # we multiply the columns in the combination and create a model with them. 
 
@@ -62,19 +62,21 @@ for i in inputs:
         var.append(column)
 
 ##############################################################################
-# Building models
+# Calculating action-based Expected Threat values for passes
 # ----------------------------
 #
-# Now we can build models. First we create a logistic regression predicting if
-# there was a shot in the end of the chain. Then, we build a linear regression 
-# xG~model. 
+# To predict the outcome of a shot, we trained a model (XGB classifier) on Bundesliga dataset. Using it we predict
+# probability of a chain ending with a shot. Then, on chains that ended with a shot, we fit a linear regression 
+# to calculate the probability that a shot ended with a goal. Product of these 2 values is our xGchain statistic.
 
-#logistic regression
-passes = df.loc[ df["eventName"].isin(["Pass"])]
+#predict if ended with shot
+passes = df.loc[df["eventName"].isin(["Pass"])]
 X = passes[var].values
 y = passes["shot_end"].values
+#path to saved model
 path_model = os.path.join(str(pathlib.Path().resolve().parents[0]), 'possesion_chain', 'finalized_model.sav')
 model = load(path_model) 
+#predict probability of shot ended
 y_pred_proba = model.predict_proba(X)[::,1]
 
 passes["shot_prob"] = y_pred_proba
@@ -86,27 +88,20 @@ lr = LinearRegression()
 lr.fit(X2, y2)
 y_pred = lr.predict(X2)
 shot_ended["xG_pred"] = y_pred
-shot_ended["xGchain"] = shot_ended["xG_pred"]*shot_ended["shot_prob"]
-##############################################################################
-# Calculating xGchain values for events
-# ----------------------------
-#
-# As the next step we calculate the xGchain value for action son the pitch. To do so, we
-# multiply probability of the shot with goal probability. 
-
-
+#calculate xGchain
+shot_ended["xT"] = shot_ended["xG_pred"]*shot_ended["shot_prob"]
 
 ##############################################################################
-# Finding out players with highest xGchain
+# Finding out players with highest action-based Expected Threat
 # ----------------------------
 # As the last step we want to find out which players who played more than 400 minutes
-# scored the best in possesion-adjusted xGchain per 90. We repeat steps that you already know 
+# scored the best in possesion-adjusted action-based Expected Threat per 90. We repeat steps that you already know 
 # from `Radar Plots <https://soccermatics.readthedocs.io/en/latest/gallery/lesson3/plot_RadarPlot.html>`_.
 # We group them by player, sum, assign merge it with players database to keep players name,
 # adjust per possesion and per 90. Only the last step differs, since we stored *percentage_df*
 # in a .json file that can be found `here <https://github.com/soccermatics/Soccermatics/tree/main/course/lessons/minutes_played>`_.
 
-summary = shot_ended[["playerId", "xGchain"]].groupby(["playerId"]).sum().reset_index()
+summary = shot_ended[["playerId", "xT"]].groupby(["playerId"]).sum().reset_index()
 
 path = os.path.join(str(pathlib.Path().resolve().parents[0]),"data", 'Wyscout', 'players.json')
 player_df = pd.read_json(path, encoding='unicode-escape')
@@ -127,7 +122,7 @@ summary = minutes.merge(summary, how = "left", on = ["playerId"])
 summary = summary.fillna(0)
 summary = summary.loc[summary["minutesPlayed"] > 400]
 #calculating per 90
-summary["xGchain_p90"] = summary["xGchain"]*90/summary["minutesPlayed"]
+summary["xT_p90"] = summary["xT"]*90/summary["minutesPlayed"]
 
 
 
@@ -140,8 +135,8 @@ percentage_df = pd.DataFrame(percentage_df)
 #merge it
 summary = summary.merge(percentage_df, how = "left", on = ["playerId"])
 
-summary["xGchain_adjusted_per_90"] = (summary["xGchain"]/summary["possesion"])*90/summary["minutesPlayed"]
-summary[['shortName', 'xGchain_adjusted_per_90']].sort_values(by='xGchain_adjusted_per_90', ascending=False).head(5)
+summary["xT_adjusted_per_90"] = (summary["xT"]/summary["possesion"])*90/summary["minutesPlayed"]
+summary[['shortName', 'xT_adjusted_per_90']].sort_values(by='xT_adjusted_per_90', ascending=False).head(5)
 
 ##############################################################################
 # Challenge

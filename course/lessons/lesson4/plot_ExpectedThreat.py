@@ -25,9 +25,8 @@ warnings.filterwarnings('ignore')
 # Opening data 
 # ----------------------------
 # In this section we implement the Expected Threat model in
-# the same way described by
-#  `Karun Singh <https://karun.in/blog/expected-threat.html>`_.
-#  First, we open the data.
+# the same way described by `Karun Singh <https://karun.in/blog/expected-threat.html>`_.
+# First, we open the data.
 
 df = pd.DataFrame()
 for i in range(13):
@@ -272,8 +271,8 @@ for i in range(6):
     #legend to our plot
     ax_cbar = fig.add_axes((1, 0.093, 0.03, 0.786))
     cbar = plt.colorbar(pcm, cax=ax_cbar)
-    txt= f'Expected Threat matrix after {i} moves'
-    fig.suptitle('Expected Threat matrix after %d moves', fontsize = 30)
+    txt = 'Expected Threat matrix after' +  str(i) + 'moves'
+    fig.suptitle(txt, fontsize = 30)
     plt.show()
 
 ##############################################################################

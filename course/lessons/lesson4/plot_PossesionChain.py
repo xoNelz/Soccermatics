@@ -15,7 +15,7 @@ import warnings
 import statsmodels.api as sm
 import statsmodels.formula.api as smf
 from mplsoccer import Pitch
-
+import matplotlib.pyplot as plt
 
 pd.options.mode.chained_assignment = None
 warnings.filterwarnings('ignore')
@@ -317,7 +317,7 @@ pitch.arrows(shot.x0, shot.y0,
 #other passes like arrows
 pitch.lines(not_pass.x0, not_pass.y0, not_pass.x1, not_pass.y1, color = "grey", lw = 1.5, ls = 'dotted', ax=ax['pitch'])
 ax['title'].text(0.5, 0.5, 'Passes leading to a shot', ha='center', va='center', fontsize=30)
-
+plt.show()
 ##############################################################################
 # Possesion chain that did not end with a shot
 # ----------------------------
@@ -340,7 +340,7 @@ pitch.arrows(bad_pass.x0, bad_pass.y0,
 pitch.scatter(bad_pass.x1, bad_pass.y1, marker = 'x', color = "red", ax=ax['pitch'], zorder =  3, s= 200)
 pitch.lines(not_pass.x0, not_pass.y0, not_pass.x1, not_pass.y1, color = "grey", lw = 1.5, ls = 'dotted', ax=ax['pitch'])
 ax['title'].text(0.5, 0.5, 'Passes not ending in a shot', ha='center', va='center', fontsize=30)
-
+plt.show()
 
 
 
