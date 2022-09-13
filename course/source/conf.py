@@ -11,8 +11,8 @@ from sphinx_gallery.sorting import ExampleTitleSortKey
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
 project = 'Soccermatics'
-copyright = '2022, David Sumpter'
-author = 'David Sumpter (code,text), Aleksander Andrzejewski (code)'
+copyright = '2022, David Sumpter (code and text), Aleksander Andrzejewski (code)'
+author = 'David Sumpter and Aleksander Andrzejewski'
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
