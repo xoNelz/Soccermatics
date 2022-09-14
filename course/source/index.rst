@@ -238,7 +238,7 @@ Contents
    gallery/lesson4/plot_ExpectedThreat
    lesson4/xTAction.md
    gallery/lesson4/plot_PossesionChain
-   gallery/lesson4/plot_xGchain
+   gallery/lesson4/plot_ActionBasedExpectedThreat
 
 
 .. toctree::
