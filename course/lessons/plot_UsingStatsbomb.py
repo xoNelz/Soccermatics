@@ -74,7 +74,7 @@ df_event.info()
 # 360 data
 # ----------------------------
 # Statsbomb offers 360 data which track not only location of an event but also players' location. To open them we need
-# an id of freezed frame. In the *df_frame* we find information on players' position (but only if teammate, not all information)
+# an id of game. Later, we will also need id of the event. In the *df_frame* we find information on players' position (but only if teammate, not all information)
 # and in *df_visible* it is provided which part of the pitch was tracked during an event.
 
 df_frame, df_visible = parser.frame(3788741)
