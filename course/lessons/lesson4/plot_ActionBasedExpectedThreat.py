@@ -127,7 +127,7 @@ shot_ended[["xG_pred", "shot_prob", "xT"]].head(5)
 # ----------------------------
 #
 # Now we can make the plot of the pass. This is the same plot as we have seen in 
-# `previous chapter <https://soccermatics.readthedocs.io/en/latest/gallery/lesson4/plot_PossesionChain.html, but this time
+# `previous chapter <https://soccermatics.readthedocs.io/en/latest/gallery/lesson4/plot_PossesionChain.html>'_ but this time
 # the value is assigned to passes and line width is proportional to its value
 
 chain = df.loc[df["possesion_chain"] == 4]
