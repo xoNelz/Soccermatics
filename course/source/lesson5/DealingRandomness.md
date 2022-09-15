@@ -196,7 +196,7 @@ which is
 
 $$ \frac{(1-\frac{1}{n}) \cdot (1-\frac{2}{n}) \cdot \cdot (1-\frac{k-1}{n})}{k!} \cdot (2.7)^k \cdot (1-2.7/n)^{n} \cdot (1-2.7/n)^{-k}$$
 
-When we take the limit $n \rightarrow \infnty$ we get
+When we take the limit $n \rightarrow \infty$ we get
 
 $$ \frac{1}{k!} \cdot (2.7)^k \cdot \exp(-2.7) \cdot 1$$
 

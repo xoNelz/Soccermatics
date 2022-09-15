@@ -6,18 +6,9 @@ Here we look at how to formulate expected threat in terms of a Markov chain.
 First watch the video
 
 
-..  youtube:: VIDEO
+..  youtube:: 5ESij-MDKl4
    :width: 640
    :height: 349
-
-in which we work through the derivation of equations for *xT*
-
-.. image:: ../../../source/images/lesson4/DeriveMarkov1.png
-
-Here I outline how we write this in matrix form:
-
-.. image:: ../../../source/images/lesson4/DeriveMarkov2.png
-
 """
 
 import numpy as np
@@ -124,5 +115,11 @@ print('Central, Box, Wing')
 print(xT3)      
               
                     
-            
-        
+############################################################
+#Here I work through the derivation of equations for *xT*
+#
+#.. image:: ../../../source/images/lesson4/DeriveMarkov1.png
+#
+#Here I outline how we write this in matrix form:
+#
+#.. image:: ../../../source/images/lesson4/DeriveMarkov2.png
