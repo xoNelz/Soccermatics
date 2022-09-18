@@ -1,5 +1,5 @@
 """
-Calculating xT
+Calculating xT (position-based)
 ==============
 Calculating Expected Threat
 """

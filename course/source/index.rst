@@ -239,7 +239,7 @@ Contents
    lesson4/xTAction.md
    gallery/lesson4/plot_PossesionChain
    gallery/lesson4/plot_ActionBasedExpectedThreat
-
+   lesson4/ContextAndValue.md
 
 .. toctree::
    :maxdepth: 1
@@ -258,6 +258,7 @@ Contents
    :caption: 6, Pitch control :
 
    lesson6/PitchControl.md
+   gallery/lesson6/plot_VoronoiDiagrams
    lesson6/TheCross.md
    lesson6/PassProbability.md
 

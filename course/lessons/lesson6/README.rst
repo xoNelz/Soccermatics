@@ -2,4 +2,4 @@
 Lesson 6
 --------
 
-Tracking data
+Pitch control

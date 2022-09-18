@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 """
-Action Based Expected Threat
+Calculating xT (action-based)
 ===========================
-Calculate action based Expected Threat
+Calculate action based Expected Threat once you have
+found possession chains.
 """
 import pandas as pd
 import json
