@@ -14,6 +14,3 @@ In this video, I talk through the expected threat approach and look at Singh's b
 I recommend that you now work through [Karun Singh's post in detail](https://karun.in/blog/expected-threat.html) yourself.
 
 The work through the implementation on the [next page](../gallery/lesson4/plot_ExpectedThreat)
-
-
-

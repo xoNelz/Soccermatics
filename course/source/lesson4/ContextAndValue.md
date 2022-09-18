@@ -28,15 +28,7 @@ To get something out of these models, we need to work with the output of our mod
 using human insight and judgement.**We do need machine learning models to assign values to actions
 but context remains key to interpreting our results.** 
 
-The examples below highlight how we combine value and context when evaluating players at Welve football.
+In this video I give a few examples illustrating how an Expected Threat model can be used in scouting and 
+performance analysis.
 
-### Attacking play
-
-
-
-
-
-
-Below are just a few examples of this.
-
-
+<iframe width="640" height="360" src="https://www.youtube.com/embed/ybLfIIKV-sg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
