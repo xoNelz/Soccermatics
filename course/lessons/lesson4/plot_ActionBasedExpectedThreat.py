@@ -150,7 +150,7 @@ for i, row in passes_in.iterrows():
     line_width = (value / max_value * 10)
     #get angle
     angle = np.arctan((row.y1-row.y0)/(row.x1-row.x0))*180/np.pi
-    print(angle)    #plot lines on the pitch
+    #plot lines on the pitch
     pitch.arrows(row.x0, row.y0, row.x1, row.y1,
                         alpha=0.6, width=line_width, zorder=2, color="blue", ax = ax["pitch"])
     #annotate text
