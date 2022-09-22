@@ -24,12 +24,15 @@ warnings.filterwarnings('ignore')
 # Opening the dataset
 # ----------------------------
 #
-# First we open the data. It is the file created in the Possesion Chain segment.
+# First we open the data. It is the file created in the Possesion Chain segment. The files that we open are available here
+# `here <https://github.com/soccermatics/Soccermatics/tree/main/course/lessons/possession_chain>`_. There are prepared using the script
+# from the `previous section <https://soccermatics.readthedocs.io/en/latest/gallery/lesson4/plot_PossesionChain.html>`_.
+
 
 df = pd.DataFrame()
 for i in range(11):
-    file_name = 'possesion_chains_England' + str(i+1) + '.json'
-    path = os.path.join(str(pathlib.Path().resolve().parents[0]), 'possesion_chain', file_name)
+    file_name = 'possession_chains_England' + str(i+1) + '.json'
+    path = os.path.join(str(pathlib.Path().resolve().parents[0]), 'possession_chain', file_name)
     with open(path) as f:
         data = json.load(f)
     df = pd.concat([df, pd.DataFrame(data)])
@@ -80,9 +83,10 @@ df[var[-3:]].head(3)
 # ----------------------------
 #
 # To predict the outcome of a shot, we trained a model (XGB classifier) on Bundesliga dataset. In the code we use
-# model saved in the file. Training steps are provided commented out. Using it we predict
+# model saved in the file. It was trained using *xgboost* library version 1.6.2.
+# Training steps are provided commented out. Using it we predict
 # probability of a chain ending with a shot. Then, on chains that ended with a shot, we fit a linear regression 
-# to calculate the probability that a shot ended with a goal. Product of these 2 values is our xGchain statistic.
+# to calculate the probability that a shot ended with a goal. Product of these 2 values is our action-based Expected Threat statistic.
 
 ### TRAINING, it's not perfect ML procedure, but results in AUC 0.2 higher than Logistic Regression ###
 #passes = df.loc[ df["eventName"].isin(["Pass"])]
@@ -104,7 +108,7 @@ passes = df.loc[df["eventName"].isin(["Pass"])]
 X = passes[var].values
 y = passes["shot_end"].values
 #path to saved model
-path_model = os.path.join(str(pathlib.Path().resolve().parents[0]), 'possesion_chain', 'finalized_model.sav')
+path_model = os.path.join(str(pathlib.Path().resolve().parents[0]), 'possession_chain', 'finalized_model.sav')
 model = load(path_model) 
 #predict probability of shot ended
 y_pred_proba = model.predict_proba(X)[::,1]
@@ -128,8 +132,8 @@ shot_ended[["xG_pred", "shot_prob", "xT"]].head(5)
 # ----------------------------
 #
 # Now we can make the plot of the pass. This is the same plot as we have seen in 
-# `previous chapter <https://soccermatics.readthedocs.io/en/latest/gallery/lesson4/plot_PossesionChain.html>'_ but this time
-# the value is assigned to passes and line width is proportional to its value
+# `previous section <https://soccermatics.readthedocs.io/en/latest/gallery/lesson4/plot_PossesionChain.html>`_ but this time
+# the value is assigned to passes and line width is proportional to its value.
 
 chain = df.loc[df["possesion_chain"] == 4]
 #get passes

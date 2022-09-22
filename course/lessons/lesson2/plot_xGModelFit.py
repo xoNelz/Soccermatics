@@ -64,7 +64,7 @@ for i in range(13):
 # Exepcted goals model is build using only shots, so we keep only those actions which *subEventName* was *Shot*. Note that this way
 # penalties are excluded which wouldn't be a case if we used only *eventName*. Then, we store the coordinates of a shot transformed
 # to 105 x 68 pitch. Also, we treat the goal as x = 0. Created *C* is an auxillary variable to help us calculate distance and angle.
-# It is the distance from a point to the vertical line through the middle of the pitch. We calculate the distance to the goal as the
+# It is the distance from a point to the horizontal line through the middle of the pitch. We calculate the distance to the goal as the
 # distance on Euclidean plane (see `Distance in R2 <https://www.youtube.com/watch?v=Qkpr30zSpiE&t=297s&ab_channel=FriendsofTracking>`_).
 # and angle using the formula from `The Geometry of Shooting <https://soccermatics.medium.com/the-geometry-of-shooting-ae7a67fdf760>`_.
 # Moreover, we need an information if a goal was scored. It can be found in the *tags* column - if in this column exists {*id*: *101*}.
