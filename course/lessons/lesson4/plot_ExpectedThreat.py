@@ -40,8 +40,7 @@ for i in range(13):
 # Actions moving the ball 
 # ----------------------------
 # To calculate the Expected Threat we need actions that move the ball. First we filter them
-# from the database. Then, we remove passes that were inaccurately recorded:
-# ones that ended in [0,0] or [1,1].
+# from the database. Then, we remove passes that ended out of the pitch.
 # To make our calculations easier we create new columns with coordinates,
 # one for each coordinate.
 # Then, we plot the location of actions moving the ball on 2D histogram.
@@ -59,7 +58,6 @@ df["kickedOut"] = df.apply(lambda x: 1 if x.nextEvent == "Ball out of the field"
 move_df = df.loc[df['subEventName'].isin(['Simple pass', 'High pass', 'Head pass', 'Smart pass', 'Cross'])]
 #filtering out of the field
 delete_passes = move_df.loc[move_df["kickedOut"] == 1]
-#delete_passes = dodgy_passes.loc[dodgy_passes.apply(lambda x:{'id':1802} in x.tags, axis = 1)]
 move_df = move_df.drop(delete_passes.index)
 
 #extract coordinates
