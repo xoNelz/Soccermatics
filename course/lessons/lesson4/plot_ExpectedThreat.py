@@ -52,7 +52,7 @@ for i in range(13):
 # In the end we store number of actions in each bin in a *move_count* array to calculate later
 # move probability.
 next_event = df.shift(-1, fill_value=0)
-df["nextEvent"] = df["subEventName"]
+df["nextEvent"] = next_event["subEventName"]
 
 df["kickedOut"] = df.apply(lambda x: 1 if x.nextEvent == "Ball out of the field" else 0, axis = 1)
 #get move_df
