@@ -217,7 +217,7 @@ Contents
    gallery/lesson2/plot_xGModelFit
    lesson2/GeometryOfShooting.md
    lesson2/MoreonxG.md
-   gallery/lesson2/plot_PassCompare
+   
 
 .. toctree::
    :maxdepth: 1
@@ -248,10 +248,12 @@ Contents
    gallery/lesson5/plot_simulatematch
    lesson5/DealingRandomness.md
    gallery/lesson5/plot_SimulateMatches
+   lesson5/Prediction.md
+   gallery/lesson2/plot_PassCompare
    lesson5/TeamKPIs.md
    gallery/lesson5/plot_PointsMovingAverage
    lesson5/CaseHammarby.md
-   lesson5/Philosophy.md
+
 
 .. toctree::
    :maxdepth: 1

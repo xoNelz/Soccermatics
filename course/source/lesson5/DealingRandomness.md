@@ -79,7 +79,13 @@ are important and we would want to change our model assumptions. But for many
 applications, it is enough to be aware of them.
 
 
-### The Binomial Distributions
+### Overview of Binomial and Poisson distributions
+
+
+<iframe width="640" height="360" src="https://www.youtube.com/embed/qrk2979usdo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+
+### The Binomial Distribution
 
 Before we look at the Poisson distribution (which we will find is a good way of describing the 
 occurance of goals), lets look at a few probability calculations.
@@ -176,7 +182,7 @@ $$ \frac{95!}{(95-k)! k!} \cdot (2.7/95)^k \cdot (1-2.7/95)^{95-k} $$
 This is the binomial distribution. And gives the probability that there are $k$ goals assuming that only one goal
 can happen per minute and that goals occur at random times during the match.
 
-### The Poisson Distributions
+### The Poisson Distribution
 
 Dividing the match in to 90 minute blocks is somewhat arbitrary. Imagine instead that we broke it down in to $n$ 
 discrete time slots, withing each of which a goal can occur. Now the probability of $k$ goals in these $n$ slots

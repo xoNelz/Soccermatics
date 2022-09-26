@@ -23,7 +23,7 @@ warnings.filterwarnings('ignore')
 
 ##############################################################################
 # Opening data 
-# ----------------------------
+# ------------
 # In this section we implement the Expected Threat model in
 # the same way described by `Karun Singh <https://karun.in/blog/expected-threat.html>`_.
 # First, we open the data.
@@ -38,7 +38,7 @@ for i in range(13):
 
 ##############################################################################
 # Actions moving the ball 
-# ----------------------------
+# -----------------------
 # To calculate the Expected Threat we need actions that move the ball. First we filter them
 # from the database. Then, we remove passes that ended out of the pitch.
 # To make our calculations easier we create new columns with coordinates,
@@ -148,7 +148,7 @@ plt.show()
 
 ##############################################################################
 # Move probability
-# ----------------------------
+# ----------------
 # We also need to calculate the probability of a shot in each area. Again, we divide its number
 # in each bin by the sum of moving actions and shots in that bin. Then plot it.
 
@@ -166,7 +166,7 @@ plt.show()
 
 ##############################################################################
 # Goal probability
-# ----------------------------
+# ----------------
 # The next thing needed is the goal probability. It's calculated here in a
 # rather naive way - number of goals in this area divided by number of shots there.
 # This is a simplified expected goals model.
@@ -186,7 +186,7 @@ plt.show()
 
 ##############################################################################
 # Transition matirices
-# ----------------------------
+# --------------------
 # For each of 192 sectors we need to calculate a transition matrix - a matrix of probabilities
 # going from one zone to another one given that the ball was moved. First, we create
 # another columns in the *move_df*
@@ -275,7 +275,7 @@ for i in range(5):
 
 ##############################################################################
 # Applying xT value to moving actions
-# ----------------------------
+# -----------------------------------
 # As the next step we calculate for progressive and successful events the xT added.
 # From the matrix we get the xT value for starting and ending zone and subtract the first one
 # from the latter one. This is one way of doing that. The other would be to keep all moving the ball actions,
@@ -291,7 +291,7 @@ value_adding_actions = successful_moves.loc[successful_moves["xT_added"] > 0]
 
 ##############################################################################
 # Finding out players with highest xT
-# ----------------------------
+# -----------------------------------
 # As the last step we want to find out which players who played more than 400 minutes
 # scored the best in possesion-adjusted xT per 90. We repeat steps that you already know 
 # from `Radar Plots <https://soccermatics.readthedocs.io/en/latest/gallery/lesson3/plot_RadarPlot.html>`_.
