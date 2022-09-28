@@ -120,12 +120,12 @@ X2 = shot_ended[var].values
 y2 = shot_ended["xG"].values
 lr = LinearRegression()
 lr.fit(X2, y2)
-y_pred = lr.predict(X2)
-shot_ended["xG_pred"] = y_pred
+y_pred = lr.predict(X)
+passes["xG_pred"] = y_pred
 #calculate xGchain
-shot_ended["xT"] = shot_ended["xG_pred"]*shot_ended["shot_prob"]
+passes["xT"] = passes["xG_pred"]*passes["shot_prob"]
 
-shot_ended[["xG_pred", "shot_prob", "xT"]].head(5)
+passes[["xG_pred", "shot_prob", "xT"]].head(5)
 
 ##############################################################################
 # Making a plot of pass values
@@ -137,7 +137,7 @@ shot_ended[["xG_pred", "shot_prob", "xT"]].head(5)
 
 chain = df.loc[df["possesion_chain"] == 4]
 #get passes
-passes_in = shot_ended.loc[df["possesion_chain"] == 4]
+passes_in = passes.loc[df["possesion_chain"] == 4]
 max_value = passes_in["xT"].max()
 #get events different than pass
 not_pass = chain.loc[chain["eventName"] != "Pass"].iloc[:-1]
@@ -178,7 +178,7 @@ plt.show()
 # adjust per possesion and per 90. Only the last step differs, since we stored *percentage_df*
 # in a .json file that can be found `here <https://github.com/soccermatics/Soccermatics/tree/main/course/lessons/minutes_played>`_.
 
-summary = shot_ended[["playerId", "xT"]].groupby(["playerId"]).sum().reset_index()
+summary = passes[["playerId", "xT"]].groupby(["playerId"]).sum().reset_index()
 #add player name
 path = os.path.join(str(pathlib.Path().resolve().parents[0]),"data", 'Wyscout', 'players.json')
 player_df = pd.read_json(path, encoding='unicode-escape')
