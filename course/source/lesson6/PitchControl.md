@@ -1,11 +1,10 @@
 Controlling Space
 ================
 
+Watch the video first.
 
+<iframe width="640" height="360" src="https://www.youtube.com/embed/F-TSU-UKVA0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-That is what we are going to do in the next two lessons.
-
-VIDEO COMING 3rd OCTOBER
 
 ### Voronoi diagrams
 
@@ -33,7 +32,7 @@ here is that
 
 ### Pitch Control 
 
-JAVIER HERE
+COMING SOON
 
 ### Pitch Control in Pressing
 
