@@ -25,16 +25,3 @@ Physics-Based Modeling of Pass Probabilities in Soccer is [here](https://www.res
 
 Wide Open Spaces: A statistical technique for measuring space creation in professional soccer is [here](http://www.lukebornn.com/papers/fernandez_ssac_2018.pdf)
 
-### Implementing a pitch control model
-
-Laurie Shaw describes everything you need to create a pitch control model in Python.
-
-<iframe width="640" height="480" src="https://www.youtube.com/embed/5X1cSehLg6s" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
-
-Code for this tutorial can be found [here](https://github.com/Friends-of-Tracking-Data-FoTD/LaurieOnTracking)
-
-Data used in this tutorial can be found [here](https://github.com/metrica-sports/sample-data):
-
-
-

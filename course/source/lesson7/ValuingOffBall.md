@@ -1,8 +1,9 @@
 Valuing off-ball actions
 ========================
 
+Introduction to this area is here.
 
-VIDEO COMING 10th OCTOBER
+<iframe width="640" height="360" src="https://www.youtube.com/embed/SJTa_qdGC5A" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 
 ### Combining Pitch Control and Expected Threat
@@ -20,10 +21,12 @@ An interactive visualisation of the Expected Threat used by Laurie in this video
 
 ### References 
 
-<p><span class="style-scope yt-formatted-string">Beyond Expected Goals: </span><a class="yt-simple-endpoint style-scope yt-formatted-string" href="https://www.youtube.com/redirect?v=X9PrwPyolyU&amp;redir_token=QUFFLUhqbmJSTDhmRW5OX2d2T1lkb2g2aC1oS3l2clptZ3xBQ3Jtc0tuZEthZl9uWTJVS3VHQnoxM0xUaU1JUGRQeTFHc1JFMU9pbGJLX0VKaXFVcWFZV010MjhmUEpZUG16ZEx5d2ZOV2tPdlJCdjlBOExBNTlMRW9JSV9QZEpUckVhZ1hvM3dFcjl4ZV9sVGRLRHhROXI2dw%3D%3D&amp;event=video_description&amp;q=https%3A%2F%2Fresearchgate.net%2Fpublication%2F327139841_Beyond_Expected_Goals" target="_blank" rel="noopener">https://researchgate.net/publication/...</a></p>
-<p><span class="style-scope yt-formatted-string">Probabilistic movement models and zones of control: </span><a class="yt-simple-endpoint style-scope yt-formatted-string" href="https://www.youtube.com/redirect?v=X9PrwPyolyU&amp;redir_token=QUFFLUhqbTF2REh5a0p1QUEybk5XNlZxMF9LVTJRbkh5Z3xBQ3Jtc0ttRjdQYTR1U2NxNktSc0Y3bjNReXdDb0lDdDZKZ3g2SW1MV1NBem9oT0puV29WdXhid0oyd3VFWnhOZkxjOGdPMmgwZEZYR09lRTNWdXJ2T3B6UEszeE52SFY4V25KbkktNUVNOGx4d2VjeVR3eUs0SQ%3D%3D&amp;event=video_description&amp;q=https%3A%2F%2Fresearchgate.net%2Fpublication%2F326076300_Probabilistic_movement_models_and_zones_of_control" target="_blank" rel="noopener">https://researchgate.net/publication/...</a></p>
-<p><span class="style-scope yt-formatted-string">Decomposing the Immeasurable Sport: A deep learning expected possession value framework for soccer: </span><a class="yt-simple-endpoint style-scope yt-formatted-string" href="https://www.youtube.com/redirect?v=X9PrwPyolyU&amp;redir_token=QUFFLUhqbEtsWVFWbmhGX21adDVfZ056LTZCZTNtbng3d3xBQ3Jtc0ttT09mQmVaUUtZSDRmUU9pVlRBYTNTb3RKc2tZOUJqNEZveF90M2p4V0YtVVRfRVh2SUNrejRHaTdHdU9kb09VUWo5UzBkeXNEWlg1aWdSdVFibkFGSFlEeWs0TUZDVTBRYmE4WWpWUDhKMlM4RkNRQQ%3D%3D&amp;event=video_description&amp;q=http%3A%2F%2Fsloansportsconference.com%2Fwp-content%2Fuploads%2F2019%2F02%2FDecomposing-the-Immeasurable-Sport.pdf" target="_blank" rel="noopener">http://sloansportsconference.com/wp-c...</a></p>
-<p><span class="style-scope yt-formatted-string">Seeing in to the future: using self-propelled particle models to aid player decision-making in soccer: </span><a class="yt-simple-endpoint style-scope yt-formatted-string" href="https://www.youtube.com/redirect?v=X9PrwPyolyU&amp;redir_token=QUFFLUhqa21ySDYybEV2amgwVkpWdi1ubFFETmdGczJlUXxBQ3Jtc0ttMlRhb29HU21xZ1BFLUx4NkFZeDlVZnpjeWJUaGpxMFF3WXI4NnVzQml5X2dUb2xUeXpLUWVSRUR0UHRQbnBQSnJuZDM0alBScjVEQ3VJYW1vZk16VHdMVUJiaC1iREh4MGZISHVjc1M0TVdneTlkQQ%3D%3D&amp;event=video_description&amp;q=http%3A%2F%2Fsloansportsconference.com%2Fwp-content%2Fuploads%2F2020%2F02%2FSLOAN-Peralta-Final-submission.pdf" target="_blank" rel="noopener">http://sloansportsconference.com/wp-c...</a></p>
-<p><span class="style-scope yt-formatted-string">The right place at the right time: Advanced off-ball metrics for exploiting an opponent&rsquo;s spatial weaknesses in soccer: </span><a class="yt-simple-endpoint style-scope yt-formatted-string" href="https://www.youtube.com/redirect?v=X9PrwPyolyU&amp;redir_token=QUFFLUhqbV9fRld0Y3VRaDl4eFBwcVFwYm9Xb1VLMjFvUXxBQ3Jtc0ttdHJocUZQVkk4eWw5d0cyendrY043bHd4SldLVmMtU1d5ZTRiekZtVTBxQVpSNGNENGtUa1Z6S2xGblVNUFVEWnhTOWdLRExUMGlaZEFXclhBRkRCOWZDdTNud1dZUjl0OVpsMHMyYlhsalRZUFUwVQ%3D%3D&amp;event=video_description&amp;q=http%3A%2F%2Fsloansportsconference.com%2Fwp-content%2Fuploads%2F2020%2F02%2FLlana_The-right-place-at-the-right-time.pdf" target="_blank" rel="noopener">http://sloansportsconference.com/wp-c...</a></p>
+Decomposing the Immeasurable Sport: A deep learning expected possession value framework for soccer is [here](http://www.lukebornn.com/papers/fernandez_sloan_2019.pdf)
+
+Beyond Expected Goals can be downloaded [here](https://www.researchgate.net/profile/William-Spearman/publication/327139841_Beyond_Expected_Goals/links/5b7c3023a6fdcc5f8b5932f7/Beyond-Expected-Goals.pdf)
+
+Probabilistic movement models and zones of control is [here](https://link.springer.com/article/10.1007/s10994-018-5725-1)
+
+The right place at the right time: Advanced off-ball metrics for exploiting an opponent&rsquo;s spatial weaknesses in soccer is [here](https://www.sloansportsconference.com/research-papers/the-right-place-at-the-right-time-advanced-off-ball-metrics-for-exploiting-an-opponents-spatial-weakenesses-in-soccer)
 
 

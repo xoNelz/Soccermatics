@@ -30,9 +30,16 @@ But by drawing a Voronoi diagram, below, we start to see just how good these pos
 The Voronoi diagram divides up the pitch based on which positions are closest to the players. What is stirking 
 here is that 
 
-### Pitch Control 
 
-COMING SOON
+### Implementing a pitch control model
+
+Laurie Shaw describes everything you need to create a pitch control model in Python.
+
+<iframe width="640" height="480" src="https://www.youtube.com/embed/5X1cSehLg6s" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+Code for this tutorial can be found [here](https://github.com/Friends-of-Tracking-Data-FoTD/LaurieOnTracking)
+
+Data used in this tutorial can be found [here](https://github.com/metrica-sports/sample-data)
 
 ### Pitch Control in Pressing
 
