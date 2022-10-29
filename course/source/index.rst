@@ -272,5 +272,5 @@ Contents
    lesson7/ValuingOffBall.md
    lesson7/OffBallRuns.md
    lesson7/OffBallRadars.md
-   lesson7/ImprovingPassingModels.md
+   gallery/lesson7/plot_xG_tracking
 

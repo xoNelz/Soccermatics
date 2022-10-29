@@ -20,6 +20,7 @@ dependencies:
   - linkify-it-py
   - pip
   - xgboost
+  - tensorflow
   - pip:
       - adjustText
       - highlight-text

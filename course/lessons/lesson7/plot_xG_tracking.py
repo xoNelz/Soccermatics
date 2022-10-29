@@ -1,6 +1,6 @@
 """
-Expected Goals with player position
-=====================
+Expected Goals including player positions
+=========================================
 
 In this lesson, we go step-by-step through the process of making expected goals model
 with additional information concerning opposition player location. This tutorial
@@ -85,8 +85,8 @@ shot_df = shot_df.loc[shot_df["id"].isin(gks_tracked)]
 ##############################################################################
 # Feature engineering
 # ----------------------------
-# In this section we will create features as described before. They will be stored in *model_vars* dataframe. We suggest reading the code comments
-# to understand this part of tutorial better.
+# In this section we will create features as described before. They will be stored in *model_vars* dataframe. 
+# We suggest reading the code comments to understand this part of tutorial better.
 
 #take important variables from shot dataframe
 model_vars = shot_df[["id", "index", "x", "y"]]
@@ -211,7 +211,7 @@ X = model_vars[["x0", "is_closer", "angle", "distance", "gk_distance", "gk_dista
 ##############################################################################
 # Training neural network 
 # ----------------------------
-# Having the features created we can now train a neural network. We split the data 60% training, 20% validation and 20% test. Then, we scale inputs. 
+# With the features created we can now train a neural network. We split the data 60% training, 20% validation and 20% test. Then, we scale inputs. 
 # As the next step, we create a neural network model. It follows similar design choices as Javier Fernandez's one. 2 dense layers sized 10 followed 
 # by a ReLU activation and a final layer size 1 with sigmoid activation to compute the probabilities. Our model optimizes the Brier score using Adam
 # optimizer with learning rate 0.001 default betas. We use as suggested early stopping with minimum delta 1e-5 and batch size 16. However, we also use patience
