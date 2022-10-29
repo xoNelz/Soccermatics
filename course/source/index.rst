@@ -51,47 +51,48 @@ getting kicked by horses, we can quickly get a feeling
 for the theory. **Abstract ideas become more concrete
 with applications.**
 
-Formal Course
-=============
+Three ways to do this course
+============================
 
 **Students:** This is 5 credit course at `Uppsala University
 <https://www.uu.se/en/admissions/freestanding-courses/course/?kKod=1RT001&typ=1>`_
 and is taught as an online course in late-August to end of October each year.
 It is free for all EU citizens and available as a
-paid course for everyone else. The university includes
+paid course for those outside the EU. The university includes
 tutorials with me and a teaching assistant,
-individual hand-ins and group work.
+individual hand-ins and group work. **Application to participate in the course opens in Feb/March each year**
+ (i.e. half a year before the course start).
 
 **Professionals:** If you are a part of a footballing
 organisation, then it is possible to take this course as part of
 further education. The professional course has less
 formal requirements for entry, allowing
-your organisitaion to benefit from it. Each time the course is run
-a separate "professionals"
-tutorial session is run, with tutorials with David.
-We encourage participants
-to work with their own data. In 2022, we have a group of
+your organisitaion to benefit from it. We help participants
+to work with their own data on the assignments. In 2022, we have a group of
 participants from the English FA
-on the course. Please email David (david.sumpter@it.uu.se)
-for information about fees.
+on the course. The cost is €1250 per person. Please email `Twelve football
+<mailto:course@it.uu.se>`_ for information.
 
 **Non-enrolled students:** Several students
 (some of whom are now working for football clubs)
 have completed this course through online study groups.
 To do this, you need to find a group, since all final projects
 are in groups. If you would like to do this, please go in to the
-[Slack channel]
-(https://mathematicalm-fhj6138.slack.com/archives/C0183122E81)
-and find some like-minded people to work with.
+`Slack channel
+<https://join.slack.com/t/mathematicalm-fhj6138/shared_invite/zt-1ib8l2gbb-LVCU4V0anGk7SBY2fmLKGg>`_ 
+and find some like-minded people to work with. 
 
 If you complete all three assignments for the course message
 David Sumpter in the Slack channel, send him your assignments,
 and if they are complete then he can send you a certificate
-saying you have completed the course.
-
-Unfortunately, I am not able to provide feedback for non-enrolled
-students along the way. But often by working together in the Slack group,
+saying you have completed the course. Unfortunately, I am not able to provide feedback for non-enrolled
+students along the way. But often by working together in the Slack group, dedicated
 students find a way of learning together.
+
+**If you pass the Uppsala course, the professional course,
+or are issued with a certificate from the non-enrolled course, it is because you have shown the skills 
+needed to be a football data scientist. This means that clubs can rely **
+
 
 Required Background
 ===================
