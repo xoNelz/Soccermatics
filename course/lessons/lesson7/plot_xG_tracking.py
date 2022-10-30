@@ -254,22 +254,22 @@ callback = EarlyStopping(min_delta=1e-5, patience = 50, mode = "min", monitor = 
 #fit the model 
 history = model.fit(X_train, y_train, validation_data=(X_val, y_val), epochs=1000, verbose=1, batch_size=16, callbacks = [callback])    
 
+fig, axs = plt.subplots(2, figsize=(10,12))
 #plot training history - accuracy
-plt.plot(history.history['accuracy'], label='train')   
-plt.plot(history.history['val_accuracy'], label='validation')
-plt.title("Accuracy at each epoch")
-plt.xlabel("Epoch")
-plt.ylabel("Accuracy")
-plt.legend()
-plt.show()
+axs[0].plot(history.history['accuracy'], label='train')   
+axs[0].plot(history.history['val_accuracy'], label='validation')
+axs[0].set_title("Accuracy at each epoch")
+axs[0].set_xlabel("Epoch")
+axs[0].set_ylabel("Accuracy")
+axs[0].legend()
 
 #plot training history - loss function
-plt.plot(history.history['loss'], label='train')   
-plt.plot(history.history['val_loss'], label='validation')
-plt.legend()
-plt.title("Loss at each epoch")
-plt.xlabel("Epoch")
-plt.ylabel("MSE")
+axs[1].plot(history.history['loss'], label='train')   
+axs[1].plot(history.history['val_loss'], label='validation')
+axs[1].legend()
+axs[1].set_title("Loss at each epoch")
+axs[1].set_xlabel("Epoch")
+axs[1].set_ylabel("MSE")
 plt.show()
 
 ##############################################################################
@@ -281,25 +281,25 @@ plt.show()
 
 #ROC CURVE
 from sklearn.metrics import roc_curve, roc_auc_score, brier_score_loss
+fig, axs = plt.subplots(2, figsize=(10,12))
 y_pred = model.predict(X_cal)
 fpr, tpr, _ = roc_curve(y_cal,  y_pred)
 auc = roc_auc_score(y_cal, y_pred)
-plt.plot(fpr,tpr,label= "AUC = " + str(auc)[:4])
-plt.plot([0, 1], [0, 1], color='black', ls = '--')
-plt.legend()
-plt.ylabel('True Positive Rate')
-plt.xlabel('False Positive Rate')
-plt.title('ROC curve')
-plt.show()
+axs[0].plot(fpr,tpr,label= "AUC = " + str(auc)[:4])
+axs[0].plot([0, 1], [0, 1], color='black', ls = '--')
+axs[0].legend()
+axs[0].set_ylabel('True Positive Rate')
+axs[0].set_xlabel('False Positive Rate')
+axs[0].set_title('ROC curve')
 
 #CALIBRATION CURVE
 from sklearn.calibration import calibration_curve
 prob_true, prob_pred = calibration_curve(y_cal, y_pred, n_bins=10)
-plt.plot(prob_true, prob_pred)
-plt.plot([0, 1], [0, 1], color='black', ls = '--')
-plt.ylabel('Empirical Probability')
-plt.xlabel('Predicted Probability')
-plt.title("Calibration curve")
+axs[1].plot(prob_true, prob_pred)
+axs[1].plot([0, 1], [0, 1], color='black', ls = '--')
+axs[1].set_ylabel('Empirical Probability')
+axs[1].set_xlabel('Predicted Probability')
+axs[1].set_title("Calibration curve")
 plt.show()
 #Brier score
 print("Brier score", brier_score_loss(y_cal, y_pred))
