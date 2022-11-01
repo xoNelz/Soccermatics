@@ -13,7 +13,21 @@ freeze-frame data of every action, such that event data is supplemented with tra
 data from Skillcorner showing the position and direction of all players near to that action 
 (i.e. in the frame of the TV broadcast footage). 
 
-Once the freeze frame data of a pass is created, the key to evaluating a player is looking at the pass alternatives available at that point. To determine this, we first calculate the pitch control 
+Once the freeze frame data of a pass is created, the key to evaluating a player is looking at the pass alternatives available at that point. 
+
+
+This is a run by Firmino against Everton. He is running out to the edge of the box, 
+dragging a defender with him.
+
+![](../images/lesson7/Firmino.png)
+
+There is nothing exceptional about this particular run. 
+It is just a nice example of something Firmino does non-stop. 
+He is always looking for and finding ways to open up space around the box. 
+Sometimes he gets the ball, sometimes he doesn’t, but either way the movement is there 
+and the defence is disrupted.
+
+To study this run, we first calculate the pitch control 
 (probability of receiving a pass) as illustrated below.
 
 ![](../images/lesson7/FirminoPC.png)
@@ -29,7 +43,7 @@ This essentially gives the probability a team will score if the pass is made. Th
 
 Notice that this again gives a natural way in which to measure actions. It is the probability that a goal
 will be scored if the pass succeeds. In this case, the more central pass to Mane was 
-roughly the same value as the space Firmino opened up with his run.
+roughly the same value as the space Firmino (marked with a star) opened up with his run.
 
 ### Implementing off-ball xT
 

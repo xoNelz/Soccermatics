@@ -70,8 +70,9 @@ formal requirements for entry, allowing
 your organisitaion to benefit from it. We help participants
 to work with their own data on the assignments. In 2022, we have a group of
 participants from the English FA
-on the course. The cost is €1250 per person. Please email `Twelve football
-<mailto:course@it.uu.se>`_ for information.
+on the course. The course will run for professionals in January 2023 and the cost is €1250 per person. 
+Please email `course@twelve.football
+<mailto:course@twelve.football>`_ for information.
 
 **Non-enrolled students:** Several students
 (some of whom are now working for football clubs)
@@ -91,7 +92,7 @@ students find a way of learning together.
 
 **If you pass the Uppsala course, the professional course,
 or are issued with a certificate from the non-enrolled course, it is because you have shown the skills 
-needed to be a football data scientist. This means that clubs can rely **
+needed to be a football data scientist. This means that clubs can rely on the certificate when hiring data scientists **
 
 
 Required Background
@@ -170,16 +171,27 @@ those experiences to the course.
 
 .. image:: images/Me.png
 
+Buy one of David's books
+========================
+
+The best way to support David's time devoted to creating this course is to buy one
+of his books, either for yourself or for a friend. 
+
+.. image:: images/MyBooks.png
+
+These are available from `Your Local Bookshop <https://uk.bookshop.org/lists/buy-my-books-here-and-support-your-local-bookshop>`_
+or from `Amazon <https://www.amazon.com/s?k=David+sumpter&crid=1VYMI1MOPS642&sprefix=david+sumpte%2Caps%2C147&ref=nb_sb_noss_2>`_
+
+
 Buy the T-shirt!
 ================
 
-If you are studying the course and reading the book, you might as well buy the t-shirt!
+If you are studying the course and already have the books, you might as well buy the t-shirt!
 Or get a mug, a water bottle or another Soccermatics themed item.
 
 .. image:: images/BuyMerch.png
 
 These are exclusively available from `Beautiful Equations <https://www.beautifulequation.com/pages/soccermatics>`_
-
 
 
 Contents
