@@ -60,8 +60,8 @@ and is taught as an online course in late-August to end of October each year.
 It is free for all EU citizens and available as a
 paid course for those outside the EU. The university includes
 tutorials with me and a teaching assistant,
-individual hand-ins and group work. **Application to participate in the course opens in Feb/March each year**
- (i.e. half a year before the course start).
+individual hand-ins and group work. 
+**Application to participate in the course opens in Feb/March each year** (i.e. half a year before the course start).
 
 **Professionals:** If you are a part of a footballing
 organisation, then it is possible to take this course as part of
@@ -92,8 +92,7 @@ students find a way of learning together.
 
 **If you pass the Uppsala course, the professional course,
 or are issued with a certificate from the non-enrolled course, it is because you have shown the skills 
-needed to be a football data scientist. This means that clubs can rely on the certificate when hiring data scientists **
-
+needed to be a football data scientist. This means that clubs can rely on the certificate when hiring data scientists.**
 
 Required Background
 ===================
@@ -109,6 +108,10 @@ In short, to do this course
 you should have studied mathematics and programming at
 University level.
 You should also, of course, have an interest in football.
+
+For the professional version of the course you should work
+as data scientist, match analyst or data analyst, with the ambition 
+and drive to learn to analyse football with data. 
 
 It is possible to grasp the concepts without
 the technical background, especially if you love football! So,
@@ -175,7 +178,7 @@ Buy one of David's books
 ========================
 
 The best way to support David's time devoted to creating this course is to buy one
-of his books, either for yourself or for a friend. 
+of his books, either for yourself or for a friend or family member. 
 
 .. image:: images/MyBooks.png
 
