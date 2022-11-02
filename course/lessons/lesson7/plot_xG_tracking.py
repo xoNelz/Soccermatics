@@ -6,7 +6,9 @@ In this lesson, we go step-by-step through the process of making expected goals 
 with additional information concerning opposition player location. This tutorial
 follows similar design choices as Javier Fernandez's expected goals model in 
 `A framework for the fine-grained evaluation of the instantaneous expected value of soccer possessions <https://link.springer.com/article/10.1007/s10994-021-05989-6>`_.
+
 We will train a shallow neural network with following features
+
 - ball location (x)
 - binary variable signifying if ball was closer to the goal than the opponent's goalkeeper
 - angle between the ball and the goal
