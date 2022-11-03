@@ -1,8 +1,15 @@
 """
 Calculate distance-based metrics for player fitness
 =========================================
-In this tutorial we will calculate distance-based metrics for player fitness. The code bases on Sudarshan "Suds" Gopaladesikan's 
+In this tutorial we will calculate distance-based metrics for player fitness. 
+The code is based on Sudarshan "Suds" Gopaladesikan's 
 `code <https://github.com/slbenfica1079/sportsdatascience>`_
+
+
+Using tracking data in sport science
+
+Suds goes in to details of how to use tracking data to do sports science.
+
 provided for `Friends of Tracking <https://www.youtube.com/channel/UCUBFJYcag8j2rm_9HkrrA7w>`_. 
 """ 
 #importing necessary libraries 
@@ -22,10 +29,11 @@ pd.options.mode.chained_assignment = None
 ##############################################################################
 # Opening data
 # ----------------------------
-# For this task we will use Metrica data. We open it using Laurie Shaw's codes. We make separate dataframes for home and away teams as well as for events.
+# For this task we will use Metrica data. We open it using Laurie Shaw's codes. 
+# We make separate dataframes for home and away teams as well as for events.
 # Then we adjust the direction so the teams attack the same direction for both halves.
 
-#change data directory #add to description where you can find data
+#Change data directory #add to description where you can put the Metrica data
 DATADIR = '../data/Metrica'
 game_id = 2  # let's look at sample match 2
 
@@ -50,8 +58,10 @@ home_attack_direction = mio.find_playing_direction(tracking_home,'Home') # 1 if 
 ##############################################################################
 # Calculating player velocities
 # ----------------------------
-# Here we calculate Home player 5 velocities both unsmoothed and smoothed. As the next step we plot both of them to show advantages of smoothing the velocity
-# if we calculate the speed of a player from the camera. Also it is assumed that a football player should not run faster than 12 m/s.
+# Here we calculate Home player 5 velocities both unsmoothed and smoothed. 
+# As the next step we plot both of them to show advantages of smoothing the velocity.
+# if we calculate the speed of a player from the camera. Also it is assumed that a 
+# football player should not run faster than 12 m/s.
 
 # Calculate the Player Velocities 
 player_ids = np.unique(list(c[:-2] for c in tracking_home.columns if c[:4] in ['Home', 'Away']))
@@ -91,7 +101,8 @@ plt.show()
 ##############################################################################
 # Calculating total distance covered by team players
 # ----------------------------
-# To calculate distance covered by each player we calculate the sum of distances covered between one frame and the following one. We also check which players didn't play
+# To calculate distance covered by each player we calculate the sum of distances covered between one 
+# frame and the following one. We also check which players didn't play
 # the entire game. Then we make a plot. Star means that the player was either subbed in or subbed off during the game
 
 # get home players
@@ -290,7 +301,8 @@ plt.show()
 ##############################################################################
 # Calculating metabolic power
 # ----------------------------
-# To calculate metabolic power, we use formulas provided `here <https://jeb.biologists.org/content/221/15/jeb182303>`_. Then, we make a plot how it has changed
+# To calculate metabolic power, we use formulas provided 
+# `here <https://jeb.biologists.org/content/221/15/jeb182303>`_. Then, we make a plot how it has changed
 # for Home Player 6.
 
 def split_at(s, c, n):
@@ -343,7 +355,9 @@ plt.show()
 ##############################################################################
 # Multiple changing points
 # ----------------------------
-# To see how player pacing strategy or identify moments in the game that are slower we can use PELT - lineary penalized segmentation
+# To see how player pacing strategy or identify moments in the game that are slower we can use PELT - 
+# lineary penalized segmentation
+
 signal = np.array(test_mp[7500:len(test_mp)]).reshape((len(test_mp[7500:len(test_mp)]),1))
 algo = rpt.Pelt(model="l2",min_size=7500).fit(signal)
 result = algo.predict(pen=np.log(len(signal))*1*np.std(signal)**2) 

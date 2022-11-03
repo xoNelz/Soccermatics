@@ -289,3 +289,12 @@ Contents
    lesson7/OffBallRadars.md
    gallery/lesson7/plot_xG_tracking
 
+.. toctree::
+   :maxdepth: 1
+   :caption: 8, Physical Data:
+
+   lesson8/PhysicalData.md
+   gallery/lesson8/plot_AccDecRatio.md
+   gallery/lesson8/plot_EPV_ExternalLoad.md
+
+
